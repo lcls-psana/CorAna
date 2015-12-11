@@ -208,7 +208,7 @@ def print_subproc_attributes(proc):
 
 #def submit_jobs_for_cor_proc_interactive() :
 #    cmd_base = cp.cmd_proc # 'corana'
-#    print '-cmd_base:\n', cmd_base + ' -f <fname_data> [-t <fname_tau>] [-l <logfile>]'
+#    print '-cmd_base:\n', cmd_base + ' -f fname_data [-t fname_tau] [-l logfile]'
 #
 #    for f in range (cp.nfiles_out) :
 #        fname = cp.fname_com + '-b%04d'%(f) + '.bin'
@@ -216,7 +216,7 @@ def print_subproc_attributes(proc):
 #        if cp.fname_tau is not None : cmd += ' -t ' + cp.fname_tau
 #        print cmd
 #        print '  Wait untill processing of this file is compleated...\n',
-#        status, log =0, 'DEFAULT LOGFILE FOR CORRELATION PROCESSING - THIS IS A TEST MODE !!!\nTHE getstatusoutput(cmd) IS COMMENTED OUT !!!'
+#        status, log =0, 'DEFAULT LOGFILE FOR CORRELATION PROCESSING - THIS IS A TEST MODE\nTHE getstatusoutput(cmd) IS COMMENTED OUT'
 #        #=====
 #        status, log = commands.getstatusoutput(cmd)
 #        #=====
@@ -233,9 +233,9 @@ def print_subproc_attributes(proc):
 #    #bcmd = "bsub -q psfehq -o ~/LCLS/PSANA-V01/log.txt 'corana -f img-xcs-r0015-b0001.bin'"
 #    #print 'command should be like that:\n', bcmd
 #
-#    print 'Command stub:', cmd_base + ' -f <fname_data> [-t <fname_tau>] [-l <logfile>]'
+#    print 'Command stub:', cmd_base + ' -f fname_data [-t fname_tau] [-l logfile]'
 #
-#    d_jobs = {} # Dict. structure {<int-index-of-the-file>:[<job-id>,<status>]}
+#    d_jobs = {} # Dict. structure {int-index-of-the-file:[job-id,status]}
 #
 #    for f in range (cp.nfiles_out) :
 #        logfn = cp.fname_com + '-b%04d'%(f) + '-result-log.txt'
@@ -286,16 +286,14 @@ def print_subproc_attributes(proc):
 #    command = cmd_base + ' -c ' + cp.fname_cfg + ' ' + cp.fname_xtc
 #    print 'run command:\n', command
 #    print '  Wait untill splitting is compleated...\n',
-#
-#    status, log =0, 'DEFAULT LOGFILE FOR SPLITTER - THIS IS A TEST MODE !!!\nTHE getstatusoutput(command) IS COMMENTED OUT !!!'
+#    status, log =0, 'DEFAULT LOGFILE FOR SPLITTER - THIS IS A TEST MODE \nTHE getstatusoutput(command) IS COMMENTED OUT'
 #    #=====
 #    status, log = commands.getstatusoutput(command)
 #    #=====
 #    print 'Log:\n', log
-#
 #    if status != 0 : 
-#       print 'Splitter job status:', status
-#       sys.exit('Job for splitter is completed with non-zero status... Job is terminated.')
+#        print 'Splitter job status:', status
+#        sys.exit('Job for splitter is completed with non-zero status... Job is terminated.')
 #    
 #--------------------
 
@@ -306,7 +304,6 @@ def print_subproc_attributes(proc):
 #    #cmd += 'sit_setup; '
 #    cmd += '. /reg/g/psdm/etc/ana_env.sh; '
 #    cmd += cmd_base + ' -c ' + cp.fname_cfg + ' ' + cp.fname_xtc
-#
 #    one_batch_job_submit_and_wait(['bsub', '-q', cp.batch_queue, '-o', logfn, cmd])
 #    print 'Splitter job is completed.'
 
@@ -314,31 +311,30 @@ def print_subproc_attributes(proc):
 
 #def submit_job_for_merging_interactive() :
 #    cmd_base = cp.cmd_merge # 'corana_merge'
-#    print 'cmd_base:\n', cmd_base + ' -f <fname_data> [-t <fname_tau>]'
+#    print 'cmd_base:\n', cmd_base + ' -f fname_data [-t fname_tau]'
 #    fname = cp.fname_com + '-b0000-result.bin'
 #    cmd = cmd_base + ' -f ' + fname
 #    if cp.fname_tau is not None : cmd += ' -t ' + cp.fname_tau
 #    print cmd
 #    print '  Wait untill merging is compleated...\n',
-#    status, log =0, 'DEFAULT LOGFILE FOR MERGING - THIS IS A TEST MODE !!!\nTHE getstatusoutput(cmd) IS COMMENTED OUT !!!'
+#    status, log =0, 'DEFAULT LOGFILE FOR MERGING - THIS IS A TEST MODE \nTHE getstatusoutput(cmd) IS COMMENTED OUT'
 #    #=====
 #    status, log = commands.getstatusoutput(cmd)
 #    #=====
 #    if status != 0 : 
-#       print 'Merging job status: ', status
-#       sys.exit('Job for merging is completed with non-zero status... Job is terminated.')
+#        print 'Merging job status: ', status
+#        sys.exit('Job for merging is completed with non-zero status... Job is terminated.')
 #
 ##--------------------
 
 #def submit_job_for_merging() :
 #    cmd_base = cp.cmd_merge # 'corana_merge'
-#    #print 'cmd_base:\n', cmd_base + ' -f <fname_data> [-t <fname_tau>]'
+#    #print 'cmd_base:\n', cmd_base + ' -f fname_data [-t fname_tau]'
 #    logfn = cp.fname_com + '-image-result-log.txt'
 #    fname = cp.fname_com + '-b0000-result.bin'
 #    cmd  = 'cd ' + cp.pwdir + '; '
 #    cmd += cmd_base + ' -f ' + fname
 #    if cp.fname_tau is not None : cmd += ' -t ' + cp.fname_tau
-#
 #    one_batch_job_submit_and_wait(['bsub', '-q', cp.batch_queue, '-o', logfn, cmd])
 #    print 'Merging is completed.'
 #
@@ -346,25 +342,25 @@ def print_subproc_attributes(proc):
 #
 #def submit_job_for_proc_results_interactive() :
 #    cmd_base = cp.cmd_procres # 'corana_procres'
-#    print 'cmd_base:\n', cmd_base + ' -f <fname_data> [-t <fname_tau>]'
+#    print 'cmd_base:\n', cmd_base + ' -f fname_data [-t fname_tau]'
 #    fname = cp.fname_com + '-b0000-result.bin'
 #    cmd = cmd_base + ' -f ' + fname
 #    if cp.fname_tau is not None : cmd += ' -t ' + cp.fname_tau
 #    print cmd
 #    print '  Wait untill test processing of results is compleated...\n',
-#    status, log =0, 'DEFAULT LOGFILE FOR TEST PROCESSING OF RESULTS - THIS IS A TEST MODE !!!\nTHE getstatusoutput(cmd) IS COMMENTED OUT !!!'
+#    status, log =0, 'DEFAULT LOGFILE FOR TEST PROCESSING OF RESULTS - THIS IS A TEST MODE \n THE getstatusoutput(cmd) IS COMMENTED OUT'
 #    #=====
 #    status, log = commands.getstatusoutput(cmd)
 #    #=====
 #    if status != 0 : 
-#       print 'Test processing of results job status: ', status
-#       sys.exit('Job test processing of results  is completed with non-zero status... Job is terminated.')
+#        print 'Test processing of results job status: ', status
+#        sys.exit('Job test processing of results  is completed with non-zero status... Job is terminated.')
 #
 ##--------------------
 #
 #def submit_job_for_proc_results() :
 #    cmd_base = cp.cmd_procres # 'corana_procres'
-#    #print 'cmd_base:\n', cmd_base + ' -f <fname_data> [-t <fname_tau>]'
+#    #print 'cmd_base:\n', cmd_base + ' -f fname_data [-t fname_tau]'
 #    logfn = cp.fname_com + '-proc-results-log.txt'
 #    fname = cp.fname_com + '-b0000-result.bin'
 #    cmd  = 'cd ' + cp.pwdir + '; '

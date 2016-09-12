@@ -41,7 +41,6 @@ import subprocess # for subprocess.Popen
 
 from Logger import logger
 from PyQt4 import QtGui, QtCore
-from LogBook import message_poster
 
 import PyCSPadImage.CSPAD2x2ImageUtils as cspad2x2img
 import PyCSPadImage.CSPADImageUtils    as cspadimg
@@ -104,18 +103,23 @@ def subproc(command_seq, env=None) : # for example, command_seq=['bsub', '-q', c
 
 #----------------------------------
 
-def send_msg_with_att_to_elog(inst='AMO', expt='amodaq09', run='825', tag='TAG1',
-                              msg='EMPTY MESSAGE', fname_text=None, fname_att=None, resp=None) :
+# 2016-09-12 M.D.: this method is excluded from CorAna by davidsch request 
+#            in order to get rid of LogBook dependency which does not work with Conda.
 
-    poster = message_poster.message_poster_self ( inst, experiment=expt )
-
-    if resp == 'None' : msg_id = poster.post ( msg, attachments=[fname_att], run_num=run, tags=tag )
-    else              : msg_id = poster.post ( msg, attachments=[fname_att], parent_message_id = int(resp) )    
-
-    msg_in_log = 'Message with id: %d is submitted to ELog' % (msg_id)
-
-    logger.info(msg_in_log, __name__)
-    return msg_id
+#def send_msg_with_att_to_elog(inst='AMO', expt='amodaq09', run='825', tag='TAG1',
+#                              msg='EMPTY MESSAGE', fname_text=None, fname_att=None, resp=None) :
+#
+#    from LogBook import message_poster
+#
+#    poster = message_poster.message_poster_self ( inst, experiment=expt )
+#
+#    if resp == 'None' : msg_id = poster.post ( msg, attachments=[fname_att], run_num=run, tags=tag )
+#    else              : msg_id = poster.post ( msg, attachments=[fname_att], parent_message_id = int(resp) )    
+#
+#    msg_in_log = 'Message with id: %d is submitted to ELog' % (msg_id)
+#
+#    logger.info(msg_in_log, __name__)
+#    return msg_id
     
 
 #----------------------------------

@@ -42,7 +42,8 @@ class GUIELogPostingDialog(QtGui.QDialog) :
         #self.setGeometry(20, 40, 500, 200)
         self.setWindowTitle('Send message to ELog')
         self.setFrame()
- 
+        cp.setIcons()
+
         #self.setModal(True)
         self.widg_pars = GUIELogPostingFields(parent=self,att_fname=fname)
         self.cbx_cntl  = QtGui.QCheckBox('&Lock control') 
@@ -141,8 +142,9 @@ class GUIELogPostingDialog(QtGui.QDialog) :
         att = self.widg_pars.att.value()
         #msg = '"' + msg + '"'
 
-        msg_id = gu.send_msg_with_att_to_elog(ins, exp, run, tag, msg, fname_att=att, resp=res)
-        logger.info('Sending post to ELog, msg_id: \n' + str(msg_id), __name__)  
+        #msg_id = gu.send_msg_with_att_to_elog(ins, exp, run, tag, msg, fname_att=att, resp=res)
+        logger.warning('Sorry, but sending post to ELog is unavailable in this app', __name__)  
+        #logger.info('Sending post to ELog, msg_id: \n' + str(msg_id), __name__)  
 
         self.accept()
         #self.close()

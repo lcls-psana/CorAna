@@ -4,7 +4,6 @@
 #
 # Description:
 #  Module PlotImgSpeWidget...
-#
 #------------------------------------------------------------------------
 
 """Plots image and spectrum for 2d numpy array.
@@ -12,40 +11,36 @@
 This software was developed for the SIT project.  If you use all or 
 part of it, please give an appropriate acknowledgment.
 
-@see RelatedModule
-
-@version $Id: 
+@version $Id$ 
 
 @author Mikhail S. Dubrovin
 """
 
-#------------------------------
-#  Module's version from CVS --
-#------------------------------
+#--------------------------------
 __version__ = "$Revision$"
-# $Source$
+#--------------------------------
 
-#--------------------------------
-#  Imports of standard modules --
-#--------------------------------
 import sys
 import os
 import random
 import numpy as np
 from math import log10
+import math
 
 # For self-run debugging:
 if __name__ == "__main__" :
     import matplotlib
-    matplotlib.use('Qt4Agg') # forse Agg rendering to a Qt4 canvas (backend)
+    matplotlib.use('Qt5Agg') # forse Agg rendering to a Qt5 canvas (backend)
 
-#from   matplotlib.figure import Figure
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from   matplotlib.ticker import MaxNLocator, NullFormatter
-#from   matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
+
+#from ConfigParametersForApp import cp
 
 #---------------------
 
@@ -58,16 +53,85 @@ def arr_rot_n90(arr, rot_ang_n90=0) :
 
 #---------------------
 
-class PlotImgSpeWidget (QtGui.QWidget) :
+def add_stat_text(axhi, weights, bins) :
+    #mean, rms, err_mean, err_rms, neff = proc_stat(weights,bins)
+    mean, rms, err_mean, err_rms, neff, skew, kurt, err_err, sum_w = proc_stat(weights,bins)
+    pm = r'$\pm$' 
+    txt  = 'Entries=%d\nMean=%.2f%s%.2f\nRMS=%.2f%s%.2f\n' % (sum_w, mean, pm, err_mean, rms, pm, err_rms)
+    txt += r'$\gamma1$=%.3f  $\gamma2$=%.3f' % (skew, kurt)
+    #txt += '\nErr of err=%8.2f' % (err_err)
+    xb,xe = axhi.get_xlim()     
+    yb,ye = axhi.get_ylim()     
+    #x = xb + (xe-xb)*0.84
+    #y = yb + (ye-yb)*0.66
+    #axhi.text(x, y, txt, fontsize=10, color='k', ha='center', rotation=0)
+    x = xb + (xe-xb)*0.98
+    y = yb + (ye-yb)*0.95
+
+    if axhi.get_yscale() is 'log' :
+        #print 'axhi.get_yscale():', axhi.get_yscale()
+        log_yb, log_ye = log10(yb), log10(ye)
+        log_y = log_yb + (log_ye-log_yb)*0.95
+        y = 10**log_y
+
+    axhi.text(x, y, txt, fontsize=10, color='k',
+              horizontalalignment='right',
+              verticalalignment='top',
+              rotation=0)
+
+#--------------------
+
+def proc_stat(weights, bins) :
+    center = np.array([0.5*(bins[i] + bins[i+1]) for i,w in enumerate(weights)])
+
+    sum_w  = weights.sum()
+    if sum_w <= 0 : return  0, 0, 0, 0, 0, 0, 0, 0, 0
+    
+    sum_w2 = (weights*weights).sum()
+    neff   = sum_w*sum_w/sum_w2 if sum_w2>0 else 0
+    sum_1  = (weights*center).sum()
+    mean = sum_1/sum_w
+    d      = center - mean
+    d2     = d * d
+    wd2    = weights*d2
+    m2     = (wd2)   .sum() / sum_w
+    m3     = (wd2*d) .sum() / sum_w
+    m4     = (wd2*d2).sum() / sum_w
+
+    #sum_2  = (weights*center*center).sum()
+    #err2 = sum_2/sum_w - mean*mean
+    #err  = math.sqrt(err2)
+
+    rms  = math.sqrt(m2) if m2>0 else 0
+    rms2 = m2
+    
+    err_mean = rms/math.sqrt(neff)
+    err_rms  = err_mean/math.sqrt(2)    
+
+    skew, kurt, var_4 = 0, 0, 0
+
+    if rms>0 and rms2>0 :
+        skew  = m3/(rms2 * rms) 
+        kurt  = m4/(rms2 * rms2) - 3
+        var_4 = (m4 - rms2*rms2*(neff-3)/(neff-1))/neff if neff>1 else 0
+    err_err = math.sqrt(math.sqrt(var_4)) if var_4>0 else 0 
+    #print  'mean:%f, rms:%f, err_mean:%f, err_rms:%f, neff:%f' % (mean, rms, err_mean, err_rms, neff)
+    #print  'skew:%f, kurt:%f, err_err:%f' % (skew, kurt, err_err)
+    return mean, rms, err_mean, err_rms, neff, skew, kurt, err_err, sum_w
+
+#--------------------
+
+class PlotImgSpeWidget (QtWidgets.QWidget) :
     """Plots image and spectrum for 2d numpy array."""
 
     def __init__(self, parent=None, arr=None, rot_ang_n90=0, y_is_flip=False):
-        QtGui.QWidget.__init__(self, parent)
+               
+        self.fig = plt.figure(figsize=(5,10), dpi=100, facecolor='w', edgecolor='w', frameon=True)
+        QtWidgets.QWidget.__init__(self, self.fig)
         self.setWindowTitle('Matplotlib image embadded in Qt widget')
         self.y_is_flip = y_is_flip
         self.rot_ang_n90 = int(rot_ang_n90)
-        self.arr = arr_rot_n90(arr, self.rot_ang_n90)       
-        self.fig = plt.figure(figsize=(5,10), dpi=100, facecolor='w', edgecolor='w', frameon=True)
+        self.arr = arr_rot_n90(arr, self.rot_ang_n90)
         #self.fig = Figure(    figsize=(5,10), dpi=100, facecolor='w', edgecolor='w', frameon=True)
         #print 'fig.number =', self.fig.number
 
@@ -87,7 +151,6 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         self.cid_digi_motion  = self.canvas.mpl_connect('motion_notify_event',  self.onMouseMotion)
 
         self.initParameters()
-        self.setFrame()
 
         self.fig.clear()        
 
@@ -96,6 +159,7 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         self.axcb = self.fig.add_axes([0.15, 0.03, 0.78, 0.028])
   
         if self.arr is not None : self.on_draw()
+        #self.setContentsMargins(-9,-9,-9,-9)
 
 
     def connectZoomMode(self):
@@ -119,7 +183,8 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         self.fig.myZmax      = None
         self.fig.myNBins     = 100
         self.fig.myGridIsOn  = False
-        self.fig.myLogIsOn   = False
+        self.fig.myLogXIsOn  = False
+        self.fig.myLogYIsOn  = False
         self.fig.myZoomIsOn  = False
         self.fig.ntbZoomIsOn = False
         self.fig.my_xyc      = None
@@ -130,39 +195,33 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         self.ypressabs = 0
 
 
-    def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
-        self.frame.setLineWidth(0)
-        self.frame.setMidLineWidth(1)
-        self.frame.setGeometry(self.rect())
-        #self.frame.setVisible(False)
-
-
     def getCanvas(self):
         return self.canvas
+
 
     def get_axim(self):
         return self.axim
 
+
     def get_imsh(self):
         return self.imsh
+
 
     def get_xy_img_center(self):
         xmin,xmax,ymin,ymax = self.imsh.get_extent()
         return abs(ymin-ymax)/2, abs(xmax-xmin)/2  # return in terms of row, column ????
 
+
     def get_img_shape(self):
         return self.arr.shape
 
-    def resizeEvent(self, e):
-        #print 'resizeEvent' 
-        self.frame.setGeometry(self.rect())
+
+    #def resizeEvent(self, e):
+    #    #print 'resizeEvent' 
 
 
     def closeEvent(self, event): # is called for self.close() or when click on "x"
         #print 'PlotImgSpeWidget: closeEvent'
-        pass
         plt.close(self.fig.number)
 
 
@@ -175,6 +234,12 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         self.y_is_flip = y_is_flip
         self.rot_ang_n90 = int(rot_ang_n90)
         self.arr = arr_rot_n90(arr, self.rot_ang_n90)
+        self.on_draw()
+
+
+    def subtract_from_image_array(self, arr_sub):
+        arr_sub_rot = arr_rot_n90(arr_sub, self.rot_ang_n90)
+        self.arr -= arr_sub_rot
         self.on_draw()
 
 
@@ -211,8 +276,16 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         zmin = self.floatOrNone(zmin)
         zmax = self.floatOrNone(zmax)
 
+        #--------------------------- New option to set persistent zmin, zmax from GUIRangeIntensity
+        par_min = cp.plot_intens_min
+        par_max = cp.plot_intens_max
+
+        zmin = zmin if par_min.value() == par_min.value_def() else float(par_min.value())
+        zmax = zmax if par_max.value() == par_max.value_def() else float(par_max.value())
+        #---------------------------
+
         if zmin is None and zmax is None : self.range_his = None
-        else                         : self.range_his = (zmin,zmax)
+        else                             : self.range_his = (zmin,zmax)
 
         #print 'self.range_his = ', self.range_his
         #print 'self.arrwin = ', self.arrwin
@@ -224,9 +297,12 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         #self.axim.clear()
         #self.axcb.clear()
 
-        #if self.fig.myLogIsOn : self.plots_in_log10_scale_for_img_and_xhist()
-        if self.fig.myLogIsOn : self.plots_in_log10_scale_for_img_and_yhist()
-        else :                  self.plots_in_linear_scale()
+        #   self.plots_in_log10_scale_for_img_and_xhist()
+        if self.fig.myLogXIsOn :
+            self.plots_in_log10_scale_for_img_and_yhist()
+
+        else :
+            self.plots_in_linear_scale()
 
         self.axhi.grid(self.fig.myGridIsOn)
         self.axim.grid(self.fig.myGridIsOn)
@@ -236,8 +312,9 @@ class PlotImgSpeWidget (QtGui.QWidget) :
 
 
     def plots_in_log10_scale_for_img_and_yhist(self) :
+
         self.arr2d = np.log10(self.arrwin)
-        #self.arr2d = self.arrwin
+        # self.arr2d = self.arrwin
 
         if self.range_his is None : 
             vmin, vmax = np.min(self.arrwin), np.max(self.arrwin)
@@ -257,11 +334,17 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         #self.axhi = self.fig.add_axes([0.15, 0.75, 0.78, 0.23])
         #self.axim = self.fig.add_axes([0.10, 0.04, 0.85, 0.65])
 
+        if self.fig.myLogYIsOn :
+            self.axhi.yaxis.set_major_locator(MaxNLocator(4))
+
         self.axhi.xaxis.set_major_locator(MaxNLocator(5))
-        self.axhi.yaxis.set_major_locator(MaxNLocator(4))
         self.axhi.xaxis.set_major_formatter(NullFormatter())
 
-        self.axhi.hist(self.arrwin.flatten(), bins=self.nbins, range=self.range_his, log=True)
+        weights, bins, patches = self.axhi.hist(self.arrwin.flatten(), bins=self.nbins, range=self.range_his, log=self.fig.myLogYIsOn)
+        add_stat_text(self.axhi, weights, bins)
+        
+        if not self.fig.myLogYIsOn :
+            self.set_hist_yticks()
 
         self.imsh = self.axim.imshow(self.arr2d, origin='upper', \
                                           interpolation='nearest', \
@@ -348,8 +431,18 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         #self.axim = self.fig.add_axes([0.15, 0.32, 0.78, 0.67])
         #self.axcb = self.fig.add_axes([0.15, 0.03, 0.78, 0.028])
 
-        self.axhi.hist(self.arrwin.flatten(), bins=self.nbins, range=self.range_his)
-        self.set_hist_yticks()
+        #msg = 'self.nbins: %s  self.range_his: %s' % (self.nbins, self.range_his)
+        #print 'plots_in_linear_scale: ' + msg
+
+        if self.fig.myLogYIsOn :
+            self.axhi.yaxis.set_major_locator(MaxNLocator(4))
+
+        weights, bins, patches = self.axhi.hist(self.arrwin.flatten(), bins=self.nbins, range=self.range_his, log=self.fig.myLogYIsOn)
+        add_stat_text(self.axhi, weights, bins)
+
+        if not self.fig.myLogYIsOn :
+            self.set_hist_yticks()
+
         self.axhi.xaxis.set_major_formatter(NullFormatter())
 
         xticks = self.axhi.get_xticks()
@@ -397,8 +490,10 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         axes = event.inaxes
         #xmin, xmax = axes.get_xlim()
         #ymin, ymax = axes.get_ylim()
-        x, y = event.xdata, event.ydata
-        s = '%d, %d' % (event.xdata, event.ydata)
+        x, y = int(event.xdata), int(event.ydata)
+        #print 'self.arr.shape', self.arr.shape
+        v = self.arr[y,x]
+        s = '%d, %d\nv=%d' % (x, y, v)
         try : self.curstext.remove()
         except : pass
         self.curstext = axes.text(x, y, s, fontsize=10) #, ha='center')
@@ -464,7 +559,6 @@ class PlotImgSpeWidget (QtGui.QWidget) :
             QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
 
 
-
     def processAxesLeaveEvent(self, event) :
         #print 'AxesLeaveEvent'
         try : self.curstext.remove()
@@ -478,7 +572,6 @@ class PlotImgSpeWidget (QtGui.QWidget) :
 
 
     def onMouseMotion(self, event) :
-
         if event.inaxes == self.axhi :
             self.drawXCoordinateOfCoursor(event)
             self.drawVerticalLineThroughCoursor(event)
@@ -538,6 +631,7 @@ class PlotImgSpeWidget (QtGui.QWidget) :
             self.fig.myZoomIsOn = True
             QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeAllCursor))
 
+
     def mousePressOnHistogram(self, event) :
         #print 'PressOnHistogram'
         lims = self.axhi.get_xlim()
@@ -547,7 +641,7 @@ class PlotImgSpeWidget (QtGui.QWidget) :
     def mousePressOnColorBar(self, event) :
         #print 'PressOnColorBar'
 
-        if self.fig.myLogIsOn : return
+        if self.fig.myLogYIsOn : return
 
         lims = self.imsh.get_clim()
         colmin = lims[0]
@@ -652,30 +746,22 @@ class PlotImgSpeWidget (QtGui.QWidget) :
 
 def get_array2d_for_test() :
     mu, sigma = 200, 25
-    #arr = mu + sigma*np.random.standard_normal(size=2400)
-    arr = 100*np.random.standard_exponential(size=2400)
+    arr = mu + sigma*np.random.standard_normal(size=2400)
+    #arr = 100*np.random.standard_exponential(size=2400)
     #arr = np.arange(2400)
     arr.shape = (40,60)
     return arr
 
 #-----------------------------
 
-def main():
-
+if __name__ == "__main__" :
     app = QtGui.QApplication(sys.argv)
-
     w = PlotImgSpeWidget(None, get_array2d_for_test())
     #w = PlotImgSpeWidget(None)
     #w.set_image_array( get_array2d_for_test() )
     w.move(QtCore.QPoint(50,50))
     w.show()    
-
     app.exec_()
-        
-#-----------------------------
-#  In case someone decides to run this module
-#
-if __name__ == "__main__" :
-    main()
 
 #-----------------------------
+

@@ -112,7 +112,7 @@ if __name__ == "__main__" :
         print('opts:\n', opts)
         print('args:\n', args)
 
-    print_bits = 0377 if opts.verb else 0
+    print_bits = 0o377 if opts.verb else 0
     afe = ArrFileExchange(opts.ofname, opts.rblen, print_bits)
 
     for i in range(opts.nimg) :

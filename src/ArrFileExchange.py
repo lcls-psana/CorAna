@@ -213,7 +213,7 @@ if __name__ == "__main__" :
 
     #print 'sys.argv: ', sys.argv
     path = './roi-img' if len(sys.argv) < 2 else sys.argv[1]
-    afe = ArrFileExchange(prefix=path, print_bits=0377)
+    afe = ArrFileExchange(prefix=path, print_bits=0o377)
 
     for i in range(10) :
         print(10*'='+'\nTest #%d' % i)

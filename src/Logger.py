@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -211,8 +212,8 @@ if __name__ == "__main__" :
     #logger.saveLogInFile()
     #logger.saveLogTotalInFile()
 
-    print 'getLogContent():\n',      logger.getLogContent()
-    print 'getLogContentTotal():\n', logger.getLogContentTotal()
+    print('getLogContent():\n',      logger.getLogContent())
+    print('getLogContentTotal():\n', logger.getLogContentTotal())
 
     sys.exit ( 'End of test for Logger' )
 

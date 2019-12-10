@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -76,7 +77,7 @@ class RecordsFromFiles :
         msg = 'time records: ind_ev, t, dt, ind_t:\n'
         for rec in self.time_arr : msg += str(rec) + '\n'
         logger.info(msg, __name__) 
-        print msg
+        print(msg)
 
 #-----------------------------
 
@@ -114,7 +115,7 @@ class RecordsFromFiles :
             msg += '%10.3f  %10.3f  %10.3f  %10.3f ...\n' % \
                    (rec[0], rec[1], rec[2], rec[3])
         logger.info(msg, __name__) 
-        print msg
+        print(msg)
 
 
     def get_intens_stat_q_bins(self) :
@@ -130,7 +131,7 @@ class RecordsFromFiles :
         msg = '<I>(q-static) averaged over %d events:\n' % nevts 
         msg += str(self.intens_stat_q_bins_aver ) + '\n' 
         logger.info(msg, __name__) 
-        print msg
+        print(msg)
 
 #-----------------------------
 
@@ -160,7 +161,7 @@ class RecordsFromFiles :
         msg = 'Parameters from imon config file: ' + self.fname_imon_cfg + '\n'
         for rec in self.get_imon_cfg_pars() : msg += str(rec) + '\n' 
         logger.info(msg, __name__) 
-        print msg
+        print(msg)
 
 
     def listMaskForIMonChannels(self,imon):
@@ -176,7 +177,7 @@ class RecordsFromFiles :
     def printMaskForIMonChannels(self,imon):
         msg = 'Mask for imon %d channels: ' % (imon) + str(self.nparrMaskForIMonChannels(imon))
         logger.info(msg, __name__) 
-        print msg
+        print(msg)
 
 #-----------------------------
 
@@ -216,7 +217,7 @@ class RecordsFromFiles :
     def printIMonArray(self,imon):    
         msg = 'Sum of intensity monitor channels for imon %d '%(imon) +'\n'
         msg += str(self.getIMonArray(imon))
-        print msg
+        print(msg)
 
 #-----------------------------
 

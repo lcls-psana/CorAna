@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 @version $Id: 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -94,7 +95,7 @@ class MaskEditorButtons (QtGui.QWidget) :
             if xyc is not None : self.fig.my_xyc = xyc
             else               : self.fig.my_xyc = self.widgimage.get_xy_img_center()
 
-            if self.verb : print 'Image center: ', self.fig.my_xyc
+            if self.verb : print('Image center: ', self.fig.my_xyc)
 
             self.set_lines      = DragObjectSet(self.fig, self.axes, DragLine,      useKeyboard=False, lw=lw, col=col, picker=picker)
             self.set_wedges     = DragObjectSet(self.fig, self.axes, DragWedge,     useKeyboard=False, lw=lw, col=col, picker=picker, use_xyc=True)
@@ -393,7 +394,7 @@ class MaskEditorButtons (QtGui.QWidget) :
         but_text = str(but.text())
         msg = but_text + ', default file name: ' + str(fname) 
         logger.debug(msg, __name__ )
-        if self.verb : print msg
+        if self.verb : print(msg)
 
         if fname is None : path0 = '.'
         else             : path0 = fname
@@ -423,7 +424,7 @@ class MaskEditorButtons (QtGui.QWidget) :
                 return
             msg='Load shaping-objects for mask from file: ' + path 
             logger.debug(msg, __name__ )
-            if self.verb : print msg
+            if self.verb : print(msg)
             #text = gu.get_text_file_content(path)
             self.setStatus(2,'WAIT\nLoad forms')
             f=open(path,'r')
@@ -447,7 +448,7 @@ class MaskEditorButtons (QtGui.QWidget) :
             f=open(path,'w')
             for obj in self.get_list_of_objs_for_mask() :
                 str_of_pars = obj.get_str_of_pars()
-                if self.verb : print str_of_pars
+                if self.verb : print(str_of_pars)
                 f.write(str_of_pars + '\n')
             f.close() 
             self.setStatus(0, 'Forms\nsaved')
@@ -455,7 +456,7 @@ class MaskEditorButtons (QtGui.QWidget) :
 
         if but_text == self.list_of_io_tits[3] : # 'Save Mask'
             if self.list_of_objs_for_mask_is_empty() :
-                print 'WARNING: Empty mask is NOT saved!'
+                print('WARNING: Empty mask is NOT saved!')
                 self.setStatus(2, 'Empty mask\nNOT saved!')
                 return
             self.setStatus(2, 'WAIT!\nMask is\nprocessing')
@@ -482,7 +483,7 @@ class MaskEditorButtons (QtGui.QWidget) :
 
         if but_text == self.list_of_io_tits[4] : # 'Save Inv-Mask'
             if self.list_of_objs_for_mask_is_empty() : 
-                print 'WARNING: Empty mask is NOT saved!'
+                print('WARNING: Empty mask is NOT saved!')
                 self.setStatus(2, 'Empty mask\nNOT saved!')
                 return
             self.setStatus(2, 'Wait!\nInv-mask is\nprocessing')
@@ -510,12 +511,12 @@ class MaskEditorButtons (QtGui.QWidget) :
             #self.parent.set_image_array_new( get_array2d_for_test(), title='New array' )
 
             msg = '\nForm parameters for composition of the mask'
-            if self.verb : print msg
+            if self.verb : print(msg)
             logger.info(msg, __name__ )
 
             for obj in self.get_list_of_objs_for_mask() :
                 str_of_pars = obj.get_str_of_pars()
-                if self.verb : print str_of_pars
+                if self.verb : print(str_of_pars)
                 logger.info(str_of_pars)
 
 
@@ -548,7 +549,7 @@ class MaskEditorButtons (QtGui.QWidget) :
 
     def get_mask_total(self):       
         shape = self.widgimage.get_img_shape()
-        if self.verb : print 'get_img_shape():', shape
+        if self.verb : print('get_img_shape():', shape)
 
         self.mask_total = None
         for i, obj in enumerate(self.get_list_of_objs_for_mask()) :

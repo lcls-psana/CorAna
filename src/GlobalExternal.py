@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Marcin Sikorski
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -198,7 +199,7 @@ def get_q_map_transition() :
     sense           = [1,1]
     t_start_sec = time()
     q_map = map_image(s,beam0, pixel_size, sample_detector, energy, det_pos, sense)
-    print 'Time (sec) to produce q-map: ', time() - t_start_sec
+    print('Time (sec) to produce q-map: ', time() - t_start_sec)
     return q_map
 
 #def map_image(s,beam0, pixel_size, sample_detector,energy,det_pos,sense):
@@ -226,7 +227,7 @@ def get_q_map_reflection() :
     sense           = [1,1]
     t_start_sec = time()
     q_map = map_image_refl(s, alpha, beam0, beam_s, pixel_size, sample_detector, energy, det_pos, sense)
-    print 'Time (sec) to produce q-map: ', time() - t_start_sec
+    print('Time (sec) to produce q-map: ', time() - t_start_sec)
     return q_map
 
 #def map_image_refl(s, alpha, beam0, beam_s, pixel_size, sample_detector, energy, det_pos, sense = [1,1]):

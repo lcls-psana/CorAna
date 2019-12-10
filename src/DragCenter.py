@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #----------------------------------
 
+from __future__ import print_function
 import sys
 import numpy as np
 import matplotlib.pyplot  as plt
@@ -28,7 +29,7 @@ class DragCenter( Drag, lines.Line2D ) : # lines.Line2D ) :
             xarr, yarr = self.get_xy_arrays_for_center_sign(xc,yc,xerr,yerr)
             lines.Line2D.__init__(self, xarr, yarr, linewidth=linewidth, color=color, picker=picker)
             self.isInitialized = False
-            print "DragCenter initialization w/o parameters."
+            print("DragCenter initialization w/o parameters.")
 
         else :
             #xc, yc = x, y
@@ -104,7 +105,7 @@ class DragCenter( Drag, lines.Line2D ) : # lines.Line2D ) :
 
     def print_pars(self) :
         xc,yc,xerr,yerr,lw,col,s,t,r = self.get_list_of_pars()
-        print 't,xc,yc,xerr,yerr,lw,col,s,t,r =', self.get_str_of_pars()
+        print('t,xc,yc,xerr,yerr,lw,col,s,t,r =', self.get_str_of_pars())
 
 
     def obj_contains_cursor(self, event): # Overrides method in Drag
@@ -133,7 +134,7 @@ class DragCenter( Drag, lines.Line2D ) : # lines.Line2D ) :
         else :
             self.inVerBox = False
 
-        print 'self.inHorBox =',self.inHorBox ,'  self.inVerBox =', self.inVerBox
+        print('self.inHorBox =',self.inHorBox ,'  self.inVerBox =', self.inVerBox)
 
         if self.inHorBox or self.inVerBox:
             return True
@@ -170,7 +171,7 @@ class DragCenter( Drag, lines.Line2D ) : # lines.Line2D ) :
                     vertindex = ind #vertex
                     self.dist_min = dist
 
-            print 'vertindex=', vertindex
+            print('vertindex=', vertindex)
 
             self.press = xc,yc,xerr,yerr, clickxy, vertindex
 
@@ -265,7 +266,7 @@ def generate_list_of_objects(img_extent) :
     4. Returns the list of created objects.
     """
     xmin,xmax,ymin,ymax = img_extent 
-    print 'xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax
+    print('xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax)
 
     nobj = 5
     x = xmin+(xmax-xmin)*np.random.rand(nobj)

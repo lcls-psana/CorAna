@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -77,24 +78,24 @@ class EventTimeRecords :
         #logger.debug('Array shape: ' + str(self.arr.shape), __name__)
 
         for rec in self.list_vals_all :
-            print rec
+            print(rec)
 
 
     def print_records_for_plot(self):
         #logger.debug('Array shape: ' + str(self.arr.shape), __name__)
 
         for rec in self.list_vals_for_plot :
-            print rec
+            print(rec)
 
 
     def print_arr_for_plot(self):
         #logger.debug('Array shape: ' + str(self.arr_for_plot.shape), __name__)
-        print 'self.arr_for_plot.shape:', self.arr_for_plot.shape
+        print('self.arr_for_plot.shape:', self.arr_for_plot.shape)
         #print 'self.arr_for_plot:\n',  self.arr_for_plot
-        print 'ind_ev:\n', self.arr_for_plot[:,0]
-        print 't:\n',      self.arr_for_plot[:,1]
-        print 'dt:\n',     self.arr_for_plot[:,2]
-        print 'ind_t:\n',  self.arr_for_plot[:,3]
+        print('ind_ev:\n', self.arr_for_plot[:,0])
+        print('t:\n',      self.arr_for_plot[:,1])
+        print('dt:\n',     self.arr_for_plot[:,2])
+        print('ind_t:\n',  self.arr_for_plot[:,3])
         #print 'Equivalent without numpy but with loop in the list of comperhensive...: t=\n', \
         #[v[1] for v in list_vals_for_plot]
 
@@ -111,7 +112,7 @@ if __name__ == "__main__" :
     #etr = EventTimeRecords ('work/cora-xcsi0112-r0015-data-scan-tstamp-list.txt')
     etr = EventTimeRecords ('/reg/neh/home1/dubrovin/LCLS/PSANA-V01/work-1/t1-xcsi0112-r0015-data-scan-tstamp-list.txt')
     arr = etr.get_arr_for_plot()
-    print 'Array for plot of shape; ', arr.shape, '\n', arr
+    print('Array for plot of shape; ', arr.shape, '\n', arr)
 
     sys.exit ( 'End of test for EventTimeRecords' )
 

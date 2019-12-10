@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #----------------------------------
+from __future__ import print_function
 import sys
 
 import numpy as np
@@ -78,7 +79,7 @@ class DragPolygon( Drag, lines.Line2D ) :
 
 
     def print_pars(self) :
-        print 't,lw,col,s,r,nvtx1,xarr,yarr =', self.get_str_of_pars()
+        print('t,lw,col,s,r,nvtx1,xarr,yarr =', self.get_str_of_pars())
 
 
     def on_press(self, event):
@@ -233,7 +234,7 @@ def generate_list_of_objects(img_extent) :
     """Produce the list of initial random objects for test purpose.
     """
     xmin,xmax,ymin,ymax = img_extent 
-    print 'xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax
+    print('xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax)
 
     nobj = 10
     x = (xmin,xmax)

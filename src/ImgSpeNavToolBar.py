@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -62,7 +63,7 @@ class ImgSpeNavToolBar ( NavigationToolbar ) :
 
 
     def home(self, *args) :
-        print 'Home is clicked'
+        print('Home is clicked')
         fig = self.canvas.figure
         fig.myXmin = None
         fig.myXmax = None
@@ -73,7 +74,7 @@ class ImgSpeNavToolBar ( NavigationToolbar ) :
 
 
     def zoom(self, *args) :
-        print 'Zoom is clicked'
+        print('Zoom is clicked')
         NavigationToolbar.zoom(self)
         fig = self.canvas.figure
         if fig.ntbZoomIsOn : fig.ntbZoomIsOn = False
@@ -82,32 +83,32 @@ class ImgSpeNavToolBar ( NavigationToolbar ) :
         #print 'ntbZoomIsOn: ', fig.ntbZoomIsOn
 
     def back(self, *args) :
-        print 'Back is clicked'
+        print('Back is clicked')
         NavigationToolbar.back(self)
 
 
     def forward(self, *args):
-        print 'Forward is clicked'
+        print('Forward is clicked')
         NavigationToolbar.forward(self)
 
 
     def pan(self,*args):
-        print 'Pan is clicked'
+        print('Pan is clicked')
         NavigationToolbar.pan(self)
 
 
     def edit_parameters(self):
-        print 'Edit parameters'
+        print('Edit parameters')
         NavigationToolbar.edit_parameters(self)
 
 
     def configure_subplots(self):
-        print 'Configure subplots'
+        print('Configure subplots')
         NavigationToolbar.configure_subplots(self)
 
 
     def save_figure(self, *args):
-        print 'Save is clicked'
+        print('Save is clicked')
         NavigationToolbar.save_figure(self)
 
 

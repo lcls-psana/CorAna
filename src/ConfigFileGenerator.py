@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -322,7 +323,7 @@ class ConfigFileGenerator :
         #self.fname_rms  = fnm.path_pedestals_rms()
         #self.fname_mask = fnm.path_hotpix_mask()
 
-        if self.do_test_print : print '\nDetector selected: %10s' % (det_name)
+        if self.do_test_print : print('\nDetector selected: %10s' % (det_name))
         #print 'Input params:', self.source, self.fname_ave, self.fname_rms, self.fname_mask
 
         # list_of_dets   = ['CSPAD', 'CSPAD2x2', 'Princeton', 'pnCCD', 'Tm6740', 'Opal2000', 'Opal4000'] 
@@ -536,7 +537,7 @@ class ConfigFileGenerator :
             msg += '\n%s : %s' % (k.ljust(16), v.ljust(32))
             logger.debug(msg)
         logger.debug(msg,__name__)
-        if self.do_test_print : print msg
+        if self.do_test_print : print(msg)
 
 #-----------------------------
 
@@ -591,7 +592,7 @@ class ConfigFileGenerator :
     def save_cfg_file (self, text, path) :
         msg = '\nSave configuration file: %s' % path
         logger.info(msg,__name__)
-        if self.do_test_print : print msg
+        if self.do_test_print : print(msg)
         gu.save_textfile(text, path)
 
 #-----------------------------

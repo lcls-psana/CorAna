@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgement.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -49,7 +50,7 @@ class TimeCorrelationDataProcessingEnvironment:
 
         self.input_parameters()
 
-	print "Start the main GUI"
+	print("Start the main GUI")
         app = QtGui.QApplication(sys.argv)
         gui = GUIMainTB(None,app)
         gui.show()

@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 
 #------------------------------
@@ -76,20 +77,20 @@ def get_list_of_files_in_dir(dirname) :
 
 
 def print_all_files_in_dir(dirname) :
-    print 'List of files in the dir.', dirname
+    print('List of files in the dir.', dirname)
     for fname in get_list_of_files_in_dir(dirname) :
-        print fname
-    print '\n'
+        print(fname)
+    print('\n')
 
 
 def print_list_of_files_in_dir(dirname, path_or_fname) :
     dname, fname = os.path.split(path_or_fname)     # i.e. ('work_corana', 'img-xcs-r0015-b0000.bin')
-    print 'print_list_of_files_in_dir():  directory:' + dirname + '  fname:' + fname
+    print('print_list_of_files_in_dir():  directory:' + dirname + '  fname:' + fname)
 
     for fname_in_dir in get_list_of_files_in_dir(dirname) :
         if fname in fname_in_dir :
-            print fname_in_dir    
-    print '\n'
+            print(fname_in_dir)    
+    print('\n')
 
 #----------------------------------
 
@@ -286,8 +287,8 @@ def parse_xtc_path(path='.') :
         run_str = bname.split('-')[1]               # i.e. r0015
         run_num = int(run_str[1:])                  # i.e. 15
     except :
-        print 'Unexpected xtc file name:', bname 
-        print 'Use default instrument, experiment, run_str, run_num: ', instrument, experiment, run_str, run_num
+        print('Unexpected xtc file name:', bname) 
+        print('Use default instrument, experiment, run_str, run_num: ', instrument, experiment, run_str, run_num)
         return instrument, experiment, run_str, run_num
         pass
 
@@ -345,15 +346,15 @@ def xtc_fname_for_all_chunks(path='e167-r0015-s00-c00.xtc') :
 #----------------------------------
 
 def print_parsed_path(path) :                       # Output for path:
-    print 'print_parsed_path(path): path:',         # path/reg/d/psdm/XCS/xcsi0112/xtc/e167-r0015-s00-c00.xtc
-    print 'exists(path)  =', os.path.exists(path)   # True 
-    print 'splitext(path)=', os.path.splitext(path) # ('/reg/d/psdm/XCS/xcsi0112/xtc/e167-r0015-s00-c00', '.xtc')
-    print 'basename(path)=', os.path.basename(path) # e167-r0015-s00-c00.xtc
-    print 'dirname(path) =', os.path.dirname(path)  # /reg/d/psdm/XCS/xcsi0112/xtc
-    print 'lexists(path) =', os.path.lexists(path)  # True  
-    print 'isfile(path)  =', os.path.isfile(path)   # True  
-    print 'isdir(path)   =', os.path.isdir(path)    # False 
-    print 'split(path)   =', os.path.split(path)    # ('/reg/d/psdm/XCS/xcsi0112/xtc', 'e167-r0015-s00-c00.xtc') 
+    print('print_parsed_path(path): path:', end=' ')         # path/reg/d/psdm/XCS/xcsi0112/xtc/e167-r0015-s00-c00.xtc
+    print('exists(path)  =', os.path.exists(path))   # True 
+    print('splitext(path)=', os.path.splitext(path)) # ('/reg/d/psdm/XCS/xcsi0112/xtc/e167-r0015-s00-c00', '.xtc')
+    print('basename(path)=', os.path.basename(path)) # e167-r0015-s00-c00.xtc
+    print('dirname(path) =', os.path.dirname(path))  # /reg/d/psdm/XCS/xcsi0112/xtc
+    print('lexists(path) =', os.path.lexists(path))  # True  
+    print('isfile(path)  =', os.path.isfile(path))   # True  
+    print('isdir(path)   =', os.path.isdir(path))    # False 
+    print('split(path)   =', os.path.split(path))    # ('/reg/d/psdm/XCS/xcsi0112/xtc', 'e167-r0015-s00-c00.xtc') 
 
 #----------------------------------
 
@@ -660,16 +661,16 @@ def arr_rot_n90(arr, rot_ang_n90=0) :
 #
 if __name__ == "__main__" :
 
-    print 'Time (sec) :', int( get_time_sec() )
+    print('Time (sec) :', int( get_time_sec() ))
 
-    print 'Time local :', get_current_local_time_tuple()
-    print 'Time (GMT) :', get_current_gm_time_tuple()
+    print('Time local :', get_current_local_time_tuple())
+    print('Time (GMT) :', get_current_gm_time_tuple())
 
-    print 'Time local :', get_current_local_time_stamp()
-    print 'Time (GMT) :', get_current_gm_time_stamp()
+    print('Time local :', get_current_local_time_stamp())
+    print('Time (GMT) :', get_current_gm_time_stamp())
 
     pwd = get_pwd()
-    print 'pwd =', pwd
+    print('pwd =', pwd)
     #print_all_files_in_dir(pwd)
 
     #command = 'ls -l'
@@ -693,8 +694,8 @@ if __name__ == "__main__" :
 
     #send_msg_with_att_to_elog(fname_att='../../work/cora-xcsi0112-r0015-data-time-plot.png')
 
-    print 'xtc_fname_for_all_chunks(...): ', xtc_fname_for_all_chunks('e168-r0016-s00-c00.xtc')
-    print 'xtc_fname_for_all_chunks(...): ', xtc_fname_for_all_chunks('/reg/d/psdm/XCS/xcsi0112/xtc/e167-r0015-s00-c00.xtc')
+    print('xtc_fname_for_all_chunks(...): ', xtc_fname_for_all_chunks('e168-r0016-s00-c00.xtc'))
+    print('xtc_fname_for_all_chunks(...): ', xtc_fname_for_all_chunks('/reg/d/psdm/XCS/xcsi0112/xtc/e167-r0015-s00-c00.xtc'))
 
     sys.exit ( "End of test" )
 

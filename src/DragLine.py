@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #----------------------------------
+from __future__ import print_function
 import sys
 
 import numpy as np
@@ -68,7 +69,7 @@ class DragLine( Drag, lines.Line2D ) :
 
 
     def print_pars(self) :
-        print 't,x1,x2,y1,y2,lw,col,s,r =', self.get_str_of_pars()
+        print('t,x1,x2,y1,y2,lw,col,s,r =', self.get_str_of_pars())
 
 
     #def obj_contains_cursor(self, event):
@@ -222,7 +223,7 @@ def generate_list_of_objects(img_extent) :
     """Produce the list of initial random objects for test purpose.
     """
     xmin,xmax,ymin,ymax = img_extent 
-    print 'xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax
+    print('xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax)
 
     nobj = 10
     x = (xmin,xmax)

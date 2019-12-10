@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #-----------------------------
+from __future__ import print_function
 from Drag import * # for access to global methods like add_obj_to_axes(...)
 
 from PyQt4 import QtGui, QtCore # For ability to override cursor...
@@ -61,7 +62,7 @@ class DragObjectSet :
         obj_type = str_of_pars.split(' ',1)[0]
         #print 'Add object with pars:', str_of_pars
         if self.is_single_obj and len(self.list_of_objs) > 0 :
-            print 'WARNING ! This is a singleton. One object is already in the list. Request to add more object(s) is ignored.'
+            print('WARNING ! This is a singleton. One object is already in the list. Request to add more object(s) is ignored.')
             return
         # Creates the draggable object with 1st vertex in xy
         # else Creates the draggable object with 1st vertex in xy
@@ -74,7 +75,7 @@ class DragObjectSet :
     def set_list_of_objs(self, list) :
         for obj in list :
             if self.is_single_obj and len(self.list_of_objs) > 0 :
-                print 'WARNING ! This is a singleton. One object is already in the list. Request to add more object(s) is ignored.'
+                print('WARNING ! This is a singleton. One object is already in the list. Request to add more object(s) is ignored.')
                 return
                 add_obj_to_axes(obj, self.axes, self.list_of_objs)
 
@@ -83,7 +84,7 @@ class DragObjectSet :
     def print_mode_keys(self) :
         """Prints the hint for mode selection using keyboard
         """
-        print '\n\nUse keyboard to select the mode: \nA=ADD, \nM=MARK, \nD=REMOVE SELECTED, \nR=REMOVE, \nN=NONE, \nW=PRINT list'
+        print('\n\nUse keyboard to select the mode: \nA=ADD, \nM=MARK, \nD=REMOVE SELECTED, \nR=REMOVE, \nN=NONE, \nW=PRINT list')
 
 
 
@@ -108,7 +109,7 @@ class DragObjectSet :
         elif event.key == 'w': self.print_list_of_objs()
         elif event.key == 'd': self.remove_selected_objs_from_img_by_call()
         else                 : self.print_mode_keys()
-        print '\nCurrent mode:', self.fig.my_mode
+        print('\nCurrent mode:', self.fig.my_mode)
 
 
     def on_mouse_motion(self, event) :
@@ -147,7 +148,7 @@ class DragObjectSet :
             if event.button != 1 : return # if other than Left mouse button
             #print 'mode=', self.fig.my_mode
             if self.is_single_obj and len(self.list_of_objs) > 0 :
-                print 'WARNING ! This is a singleton. One object is already in the list. Request to add more object(s) is ignored.'
+                print('WARNING ! This is a singleton. One object is already in the list. Request to add more object(s) is ignored.')
                 return
             if self.use_xyc : self.new_obj = self.ObjectType(linewidth=self.lw, color=self.col, picker=self.picker, xy=self.fig.my_xyc) # Creates the draggable object with 1st vertex in xy
             else            : self.new_obj = self.ObjectType(linewidth=self.lw, color=self.col, picker=self.picker) # Creates the draggable object with default pars, which will be set dynamically
@@ -204,9 +205,9 @@ class DragObjectSet :
     def print_list_of_objs(self) :
         """Prints the list of objects with its parameters.
         """
-        print 'Print list of', len(self.list_of_objs), 'objects'
+        print('Print list of', len(self.list_of_objs), 'objects')
         for obj in self.list_of_objs :
-            print 'ind=', self.list_of_objs.index(obj),':',
+            print('ind=', self.list_of_objs.index(obj),':', end=' ')
             obj.print_pars()
 
 #-----------------------------

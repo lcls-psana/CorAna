@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """Send message to ELog"""
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -157,9 +158,9 @@ if __name__ == "__main__" :
     w = GUIELogPostingDialog ()
     #w.show()
     resp=w.exec_()
-    print 'resp=',resp
-    print 'QtGui.QDialog.Rejected: ', QtGui.QDialog.Rejected
-    print 'QtGui.QDialog.Accepted: ', QtGui.QDialog.Accepted
+    print('resp=',resp)
+    print('QtGui.QDialog.Rejected: ', QtGui.QDialog.Rejected)
+    print('QtGui.QDialog.Accepted: ', QtGui.QDialog.Accepted)
 
     #app.exec_()
 

@@ -16,6 +16,7 @@ If you use all or part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -699,7 +700,7 @@ class ViewResults :
         sp.q_average_dyna = np.select([counts_dyna_prot<0], [0], default=sum_q_dyna/counts_dyna_prot)
         msg = 'get_q_average_for_dyna_bins():\n' + str(sp.q_average_dyna)
         #logger.info(msg, __name__)
-        print msg
+        print(msg)
         #print 'sp.npart_dyna, sp.q_average_dyna.shape=', sp.npart_dyna, sp.q_average_dyna.shape
         return sp.q_average_dyna
 
@@ -836,10 +837,10 @@ class ViewResults :
         #sp.g2_map = np.select([sp.g2_map_norm>6], [0], default=sp.g2_map_norm)
         #================================
 
-        print '='*64
+        print('='*64)
         #print 'sp.g2_map.shape =',sp.g2_map.shape # = (1300, 1340)
-        print 'Direct g2 calc. for entire map: np.average(sp.g2_map)', np.average(sp.g2_map)
-        print 'Direct g2 calc. for entire map: np.mean   (sp.g2_map)', np.mean   (sp.g2_map)
+        print('Direct g2 calc. for entire map: np.average(sp.g2_map)', np.average(sp.g2_map))
+        print('Direct g2 calc. for entire map: np.mean   (sp.g2_map)', np.mean   (sp.g2_map))
         return sp.g2_map
 
 
@@ -852,17 +853,17 @@ class ViewResults :
         counts_prot    = np.select([counts==0], [-1], default=counts) 
         sp.g2_for_dyna_bins = np.select([counts_prot<0], [0], default=intens_dyna/counts_prot)
 
-        print '.'*64
-        print 'get_g2_for_dyna_bins_itau:'
+        print('.'*64)
+        print('get_g2_for_dyna_bins_itau:')
         #print 'sp.npart_dyna', sp.npart_dyna
         #print 'q_phi_map_dyna:\n', q_phi_map_dyna        
-        print 'q_phi_map_dyna.shape', q_phi_map_dyna.shape        
+        print('q_phi_map_dyna.shape', q_phi_map_dyna.shape)        
         #print 'g2_map:\n', g2_map     
-        print 'g2_map.shape', g2_map.shape     
-        print 'intens_dyna    = ', intens_dyna
-        print 'counts = ', counts
+        print('g2_map.shape', g2_map.shape)     
+        print('intens_dyna    = ', intens_dyna)
+        print('counts = ', counts)
         msg = 'g2_for_dyna_bins:' + str(sp.g2_for_dyna_bins)
-        print msg
+        print(msg)
         logger.info(msg, __name__)
         return sp.g2_for_dyna_bins
 
@@ -970,8 +971,8 @@ class ViewResults :
         Ip_map_for_itau_data = cor_array[itau, 0,...]
         Ip_map_for_itau = np.select([Ip_map_for_itau_data < sp.notzero], [sp.notzero], default=Ip_map_for_itau_data) 
         #Ip_map_for_itau = np.select([Ip_map_for_itau_data < sp.notzero], [0], default=Ip_map_for_itau_data) 
-        print 'Ip_map_for_itau.shape =', Ip_map_for_itau.shape
-        print 'Direct Ip map average: np.mean(Ip_map_for_itau)=', np.mean(Ip_map_for_itau)
+        print('Ip_map_for_itau.shape =', Ip_map_for_itau.shape)
+        print('Direct Ip map average: np.mean(Ip_map_for_itau)=', np.mean(Ip_map_for_itau))
         return Ip_map_for_itau
 
 #-----------------------------
@@ -981,7 +982,7 @@ class ViewResults :
         If_map_for_itau_data = cor_array[itau, 1,...]
         If_map_for_itau = np.select([If_map_for_itau_data < sp.notzero], [sp.notzero], default=If_map_for_itau_data) 
         #If_map_for_itau = np.select([If_map_for_itau_data < sp.notzero], [0], default=If_map_for_itau_data) 
-        print 'Direct If map average: np.mean(If_map_for_itau)=', np.mean(If_map_for_itau)
+        print('Direct If map average: np.mean(If_map_for_itau)=', np.mean(If_map_for_itau))
         return If_map_for_itau
 
 #-----------------------------
@@ -991,7 +992,7 @@ class ViewResults :
         I2_map_for_itau_data = cor_array[itau, 2,...]
         I2_map_for_itau = np.select([I2_map_for_itau_data < sp.notzero], [sp.notzero], default=I2_map_for_itau_data) 
         #I2_map_for_itau = np.select([I2_map_for_itau_data < sp.notzero], [0], default=I2_map_for_itau_data) 
-        print 'Direct Ip*If map average: np.mean(I2_map_for_itau)=', np.mean(I2_map_for_itau)
+        print('Direct Ip*If map average: np.mean(I2_map_for_itau)=', np.mean(I2_map_for_itau))
         return I2_map_for_itau
 
 #-----------------------------
@@ -1003,7 +1004,7 @@ class ViewResults :
         If = cor_arr[itau, 1,...] 
         I2 = cor_arr[itau, 2,...] 
         sp.g2_raw_for_itau = divideZeroProteced(I2, Ip*If, val_subst_zero=0)
-        print 'Direct g2 raw map average: np.mean(sp.g2_raw_for_itau)=', np.mean(sp.g2_raw_for_itau)
+        print('Direct g2 raw map average: np.mean(sp.g2_raw_for_itau)=', np.mean(sp.g2_raw_for_itau))
         return sp.g2_raw_for_itau
 
 #-----------------------------

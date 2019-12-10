@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #----------------------------------
+from __future__ import print_function
 import sys
 import numpy as np
 import matplotlib.pyplot  as plt
@@ -72,7 +73,7 @@ class DragWedge( Drag, lines.Line2D ) :  #patches.CirclePolygon
 
     def print_test_theta_sheet_number(self) :
         for t in range(-900,901,30) :
-            print 'theta=',t,'   sheet=', self.get_theta_sheet_number(t),'   offset=', self.get_theta_offset(t)
+            print('theta=',t,'   sheet=', self.get_theta_sheet_number(t),'   offset=', self.get_theta_offset(t))
 
 
     def bring_theta_in_range(self, theta, range=(-180, 180) ) :
@@ -217,7 +218,7 @@ class DragWedge( Drag, lines.Line2D ) :  #patches.CirclePolygon
 
 
     def print_pars(self) :
-        print 't,x,y,r,w,t1,t2,lw,col,s,rem =', self.get_str_of_pars()
+        print('t,x,y,r,w,t1,t2,lw,col,s,rem =', self.get_str_of_pars())
 
 
     def my_contains(self, click_r, click_theta, theta1, theta2, dtpick):
@@ -404,7 +405,7 @@ class DragWedge( Drag, lines.Line2D ) :  #patches.CirclePolygon
         dt += self.dt_offset
 
         if   vertindex == 0 : #side
-            print 'WORNING, NON-POSSIBLE vertindex =', vertindex
+            print('WORNING, NON-POSSIBLE vertindex =', vertindex)
 
         elif vertindex == 1 :
             self.theta1 = theta1 + dt
@@ -479,7 +480,7 @@ def generate_list_of_objects(img_extent) :
     4. Returns the list of created objects.
     """
     xmin,xmax,ymin,ymax = img_extent 
-    print 'xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax
+    print('xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax)
 
     nobj = 5
     x = xmin+(xmax-xmin)*np.random.rand(nobj)

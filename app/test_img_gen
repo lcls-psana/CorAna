@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgement.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 #------------------------------
 
 import sys
@@ -74,7 +75,7 @@ def getCartesianArray1Ring(shape=(1300, 1340)) :
     
     #random = np.random.standard_normal(2)
     random = np.random.random(2)
-    print 'random =', random
+    print('random =', random)
 
     a1  = 100
     r1  = 0.5*npx*random[0]
@@ -99,7 +100,7 @@ def get_random_image(shape=(1300, 1340), verb=True) :
     mu, sigma = 200, 25
     arr = mu + sigma*np.random.standard_normal(size=shape)
     #arr = 100*np.random.standard_exponential(size=shape)
-    if verb : print 'Created arr.shape=', arr.shape
+    if verb : print('Created arr.shape=', arr.shape)
     return arr
 
 #------------------------------
@@ -108,14 +109,14 @@ if __name__ == "__main__" :
 
     (opts, args) = input_options_parser()
     if opts.verb :
-        print 'opts:\n', opts
-        print 'args:\n', args
+        print('opts:\n', opts)
+        print('args:\n', args)
 
     print_bits = 0377 if opts.verb else 0
     afe = ArrFileExchange(opts.ofname, opts.rblen, print_bits)
 
     for i in range(opts.nimg) :
-	if opts.verb : print 10*'='+'\nImage %3d' % i 
+	if opts.verb : print(10*'='+'\nImage %3d' % i) 
         #img = get_random_image((opts.rows,opts.cols), opts.verb)
         img = getCartesianArray1Ring()
 

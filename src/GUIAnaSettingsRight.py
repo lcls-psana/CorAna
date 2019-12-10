@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI sets parameters for analysis (right pannel)"""
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -349,8 +350,8 @@ class GUIAnaSettingsRight ( QtGui.QWidget ) :
 
         x, y = xy
 
-        print 'Image rows, cols:', rows, cols
-        print 'Beam center Lab x, y =', x, y 
+        print('Image rows, cols:', rows, cols)
+        print('Beam center Lab x, y =', x, y) 
 
         if   ccd_orient == '0'   : return (x, rows-y)
         elif ccd_orient == '90'  : return (x, y)

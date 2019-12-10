@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #----------------------------------
+from __future__ import print_function
 import numpy as np
 #import numpy.ma as ma
 #import copy
@@ -351,7 +352,7 @@ def main_test_global_mask():
     poly_verts = [(1,1), (5,1), (5,9), (3,2), (1,1)] 
     mask = get_mask(shape, poly_verts)
 
-    print 'mask:\n', mask
+    print('mask:\n', mask)
 
 #-----------------------------
 import sys

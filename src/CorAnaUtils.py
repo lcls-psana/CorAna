@@ -20,6 +20,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -46,7 +47,7 @@ import time
 #--------------------
 
 def get_array_from_file(fname) :
-    print 'get_array_from_file:', fname
+    print('get_array_from_file:', fname)
     return np.loadtxt(fname, dtype=np.float32)
 
 #--------------------
@@ -68,7 +69,7 @@ def get_xtc_fname_from_cfg_file(cfgname) :
         pos = line.find('files')
         if line[pos:pos+5] != 'files' : continue
         fname_xtc = line[line.find('/reg/d/psdm/'):line.find('.xtc')+4]
-        print 'The 1st xtc file name: ' + fname_xtc
+        print('The 1st xtc file name: ' + fname_xtc)
         return fname_xtc
 
     return None
@@ -176,11 +177,11 @@ def get_parameter_from_cfg_file_line(line, parname) :
 def print_subproc_attributes(proc):
     """ Use it after command like: proc = subprocess.Popen(bcmd, stdout=subprocess.PIPE)"""
     pid_str = str(proc.pid)
-    print 'pid           :', proc.pid
-    print 'stdin         :', proc.stdin     # shouuld be treated as open file
-    print 'stderr        :', proc.stderr    # shouuld be treated as open file
-    print 'stdout        :', proc.stdout    # shouuld be treated as open file
-    print 'returncode    :', proc.returncode
+    print('pid           :', proc.pid)
+    print('stdin         :', proc.stdin)     # shouuld be treated as open file
+    print('stderr        :', proc.stderr)    # shouuld be treated as open file
+    print('stdout        :', proc.stdout)    # shouuld be treated as open file
+    print('returncode    :', proc.returncode)
     
 #--------------------
 
@@ -376,16 +377,16 @@ def do_test() :
 
     pwd = get_pwd()
 
-    print 'pwd =', pwd
+    print('pwd =', pwd)
     #print 'list_of_files =', get_list_of_files_in_dir(pwd)
     print_all_files_in_dir(pwd)
 
     command = 'ls -l'
     job_id  = batch_job_submit(command, 'psnehq', 'log-ls.txt') 
-    print 'job_id =', job_id
+    print('job_id =', job_id)
 
     out = os_command(['df','-k','.'])
-    print out
+    print(out)
 
 #--------------------
 

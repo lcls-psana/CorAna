@@ -9,6 +9,7 @@
 #------------------------------------------------------------------------
 
 """GUI works with dark run"""
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -48,7 +49,7 @@ class ThreadWorker (QtCore.QThread) :
 
 
     def testConnection(self, text) :
-        print 'ThreadWorker: Signal is recieved ' + str(text)
+        print('ThreadWorker: Signal is recieved ' + str(text))
 
 
     def run( self ) :

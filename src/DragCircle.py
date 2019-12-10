@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #----------------------------------
+from __future__ import print_function
 import sys
 
 import numpy as np
@@ -74,7 +75,7 @@ class DragCircle( Drag, patches.Circle ) :  #patches.CirclePolygon
 
 
     def print_pars(self) :
-        print 't,x,y,r0,lw,col,s,r =', self.get_str_of_pars()
+        print('t,x,y,r0,lw,col,s,r =', self.get_str_of_pars())
 
 
     def obj_contains_cursor(self, event): # Overrides method in Drag
@@ -212,7 +213,7 @@ def generate_list_of_objects(img_extent) :
     4. Returns the list of created objects.
     """
     xmin,xmax,ymin,ymax = img_extent 
-    print 'xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax
+    print('xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax)
 
     nobj = 10
     x = xmin+(xmax-xmin)*np.random.rand(nobj)

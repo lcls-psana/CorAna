@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI sets the instrument, experiment, and run number for signal and dark data"""
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -172,65 +173,65 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
 #        cp.posGUIMain = (self.pos().x(),self.pos().y())
 
     def processEdiRun(self):
-        print 'WARNING! Non-editable field.'
+        print('WARNING! Non-editable field.')
 
     def processEdiExp(self):
-        print 'WARNING! Non-editable field.'
+        print('WARNING! Non-editable field.')
 
     def processEdiRunDark(self):
-        print 'WARNING! Non-editable field.'
+        print('WARNING! Non-editable field.')
 
 
     def processInstr(self):
-        print 'processInstr'
+        print('processInstr')
         action_selected = self.popupMenuInstr.exec_(QtGui.QCursor.pos())
         if action_selected is None : return
         self.instr_name = action_selected.text()
         cp.instr_name.setValue( self.instr_name )
         self.butInstr.setText( self.instr_name + self.char_expand )
-        print ' ---> selected instrument:', self.instr_name
+        print(' ---> selected instrument:', self.instr_name)
 
 
     def processButExp(self):
-        print 'processButExp'
+        print('processButExp')
         dir  = self.instr_dir + '/' + self.instr_name
         #path = QtGui.QFileDialog.getOpenFileName(self,'Select experiment',dir)
         path = str( QtGui.QFileDialog.getExistingDirectory(self,'Select experiment',dir) )
         path1, name = os.path.split(path)
 
         if path1==self.instr_dir and name==self.instr_name :
-            print 'The experiment is unchanged: ' + self.exp_name
+            print('The experiment is unchanged: ' + self.exp_name)
             return
 
         if path1 != dir :
-            print 'WARNING! Wrong directory: ' + path1
-            print 'Select the experiment being in the directory: ' + dir
+            print('WARNING! Wrong directory: ' + path1)
+            print('Select the experiment being in the directory: ' + dir)
             return
 
-        print 'Set experiment: ' + name
+        print('Set experiment: ' + name)
         self.exp_name = name
         cp.exp_name.setValue(name)
         self.ediExp.setText(name)        
 
 
     def processButRun(self):
-        print 'processButRun'
+        print('processButRun')
 
         dir  = self.instr_dir + '/' + self.instr_name + '/' + self.exp_name + '/xtc'
         path = str( QtGui.QFileDialog.getOpenFileName(self,'Select experiment',dir) )
         path1, fname = os.path.split(path) # where fname looks like: e170-r0003-s00-c00.xtc
-        print 'Returned path and fname =', path1, fname
+        print('Returned path and fname =', path1, fname)
 
         if path1=='' and fname=='' :
-            print 'The run number is unchanged: ' + self.run_number
+            print('The run number is unchanged: ' + self.run_number)
             return
 
         if path1 != dir :
-            print 'WARNING! Wrong directory: ' + path1
-            print 'Select the run being in the directory: ' + dir
+            print('WARNING! Wrong directory: ' + path1)
+            print('Select the run being in the directory: ' + dir)
             return
 
-        print 'Set run from file name: ' + fname
+        print('Set run from file name: ' + fname)
         self.parse_xtc_file_name(fname) # Parse: e170-r0003-s00-c00.xtc
         self.run_number = self._runnum
         cp.str_run_number.setValue(self.run_number)
@@ -238,23 +239,23 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
 
 
     def processButRunDark(self):
-        print 'processButRunDark'
+        print('processButRunDark')
 
         dir  = self.instr_dir + '/' + self.instr_name + '/' + self.exp_name + '/xtc'
         path = str( QtGui.QFileDialog.getOpenFileName(self,'Select experiment',dir) )
         path1, fname = os.path.split(path) # where fname looks like: e170-r0003-s00-c00.xtc
-        print 'Returned path and fname =', path1, fname
+        print('Returned path and fname =', path1, fname)
 
         if path1=='' and fname=='' :
-            print 'The run number is unchanged: ' + self.run_number_dark
+            print('The run number is unchanged: ' + self.run_number_dark)
             return
 
         if path1 != dir :
-            print 'WARNING! Wrong directory: ' + path1
-            print 'Select the run being in the directory: ' + dir
+            print('WARNING! Wrong directory: ' + path1)
+            print('Select the run being in the directory: ' + dir)
             return
 
-        print 'Set run from file name: ' + fname
+        print('Set run from file name: ' + fname)
         self.parse_xtc_file_name(fname) # Parse: e170-r0003-s00-c00.xtc
         self.run_number_dark = self._runnum
         cp.str_run_number.setValue(self.run_number_dark)
@@ -279,7 +280,7 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
             self._stream = parts[2]
             self._chunk  = parts[3]
 
-        print 'e,r,s,c,ext:', self._expnum, self._runnum, self._stream, self._chunk, self._ext
+        print('e,r,s,c,ext:', self._expnum, self._runnum, self._stream, self._chunk, self._ext)
 
 #-----------------------------
 

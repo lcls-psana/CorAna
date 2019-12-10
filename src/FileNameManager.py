@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -517,41 +518,41 @@ fnm = FileNameManager ()
 
 if __name__ == "__main__" :
 
-    print 'path_pedestals_xtc()       : ', fnm.path_dark_xtc()
-    print 'path_peds_aver_psana_cfg() : ', fnm.path_peds_aver_psana_cfg()
-    print 'path_pedestals_ave()       : ', fnm.path_pedestals_ave()
-    print 'path_pedestals_rms()       : ', fnm.path_pedestals_rms()
-    print 'path_peds_aver_batch_log() : ', fnm.path_peds_aver_batch_log()
-    print 'path_peds_scan_psana_cfg() : ', fnm.path_peds_scan_psana_cfg()
-    print 'path_peds_scan_batch_log() : ', fnm.path_peds_scan_batch_log()
-    print '\n',
-    print '\n',
-    print 'str_exp_run_dark()   : ', fnm.str_exp_run_dark()
+    print('path_pedestals_xtc()       : ', fnm.path_dark_xtc())
+    print('path_peds_aver_psana_cfg() : ', fnm.path_peds_aver_psana_cfg())
+    print('path_pedestals_ave()       : ', fnm.path_pedestals_ave())
+    print('path_pedestals_rms()       : ', fnm.path_pedestals_rms())
+    print('path_peds_aver_batch_log() : ', fnm.path_peds_aver_batch_log())
+    print('path_peds_scan_psana_cfg() : ', fnm.path_peds_scan_psana_cfg())
+    print('path_peds_scan_batch_log() : ', fnm.path_peds_scan_batch_log())
+    print('\n', end=' ')
+    print('\n', end=' ')
+    print('str_exp_run_dark()   : ', fnm.str_exp_run_dark())
     #print 'str_exp_run_flat()   : ', fnm.str_exp_run_flat()
-    print 'str_exp_run_data()   : ', fnm.str_exp_run_data()
+    print('str_exp_run_data()   : ', fnm.str_exp_run_data())
 
-    print 'path_data_xtc_all_chunks() : ', fnm.path_data_xtc_all_chunks()
-    print 'path_dark_xtc_all_chunks() : ', fnm.path_dark_xtc_all_chunks()
+    print('path_data_xtc_all_chunks() : ', fnm.path_data_xtc_all_chunks())
+    print('path_dark_xtc_all_chunks() : ', fnm.path_dark_xtc_all_chunks())
 
     #list = fnm.get_list_of_files_cora_split_work()
-    print '\nfnm.get_list_of_files_cora_split_work():'    
+    print('\nfnm.get_list_of_files_cora_split_work():')    
     list =   fnm.get_list_of_files_cora_split_work()
-    for fname in list : print fname
+    for fname in list : print(fname)
 
-    print '\nfnm.get_list_of_files_cora_proc_all():'    
+    print('\nfnm.get_list_of_files_cora_proc_all():')    
     list =   fnm.get_list_of_files_cora_proc_all()
-    for fname in list : print fname
+    for fname in list : print(fname)
 
-    print '\nfnm.get_list_of_files_cora_merge():'    
+    print('\nfnm.get_list_of_files_cora_merge():')    
     list =   fnm.get_list_of_files_cora_merge()
-    for fname in list : print fname
+    for fname in list : print(fname)
 
-    print '\nfnm.get_list_of_files_cora_proc_check():' 
+    print('\nfnm.get_list_of_files_cora_proc_check():') 
     list =   fnm.get_list_of_files_cora_proc_check()
-    for fname in list : print fname
+    for fname in list : print(fname)
 
-    print 'fnm.path_hotpix_mask() : ', fnm.path_hotpix_mask()
-    print 'fnm.path_satpix_mask() : ', fnm.path_satpix_mask()
+    print('fnm.path_hotpix_mask() : ', fnm.path_hotpix_mask())
+    print('fnm.path_satpix_mask() : ', fnm.path_satpix_mask())
     
     sys.exit ( 'End of test for FileNameManager' )
 

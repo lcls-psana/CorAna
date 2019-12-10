@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from CVS --
@@ -137,8 +138,8 @@ def get_arrays_for_test() :
     #return arrsy[0,:], arr_x, None    # ONE-graphic
 
 def print_array(arr, msg='') :
-    print '\n' + msg + ':\n', arr
-    print 'shape:', arr.shape
+    print('\n' + msg + ':\n', arr)
+    print('shape:', arr.shape)
 
 def main():
     app = QtGui.QApplication(sys.argv)

@@ -56,6 +56,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import print_function
 
 #------------------------------
 #  Module's version from SVN 
@@ -93,7 +94,7 @@ class ArrFileExchange ( object ) :
     def print_input_pars(self) :
         msg = 40*'='+'\nArrFileExchange.print_input_pars():' \
             + '\n  prefix=%s\n  rblen=%d\n  print_bits=%d' % (self.prefix, self.rblen, self.print_bits)
-        print msg
+        print(msg)
 
 #------------------------------
 # Methods for writer/producer
@@ -121,17 +122,17 @@ class ArrFileExchange ( object ) :
         dir = os.path.dirname(fname_tmp)
         if dir == '' : dir = './'
         if not os.path.exists(dir) :
-            print 'WARNING: Directory "%s" does NOT exist! File is NOT saved!' % dir
+            print('WARNING: Directory "%s" does NOT exist! File is NOT saved!' % dir)
             return
 
         cmd = 'mv %s %s' % (fname_tmp, fname_next)
         t0_sec = time()
         np.save(fname_tmp, arr)
-        if self.print_bits & 8 : print 'Time consumed to save file  : %f(sec)' % (time()-t0_sec)
+        if self.print_bits & 8 : print('Time consumed to save file  : %f(sec)' % (time()-t0_sec))
         t0_sec = time()
         os.system(cmd)
-        if self.print_bits & 8 : print 'Time consumed to rename file: %f(sec)' % (time()-t0_sec)
-        if self.print_bits & 1 : print 'Numpy array is saved in file %s' % fname_next
+        if self.print_bits & 8 : print('Time consumed to rename file: %f(sec)' % (time()-t0_sec))
+        if self.print_bits & 1 : print('Numpy array is saved in file %s' % fname_next)
 
 #------------------------------
 # Methods for reader/consumer
@@ -152,7 +153,7 @@ class ArrFileExchange ( object ) :
         if dir == '' : dir = './'
         #print 'dir = ', dir
         if not os.path.exists(dir) :
-            print 'WARNING: Directory "%s" does NOT exist!' % dir
+            print('WARNING: Directory "%s" does NOT exist!' % dir)
             return fname_latest, t_latest
         
         list_of_files = os.listdir(dir)
@@ -163,12 +164,12 @@ class ArrFileExchange ( object ) :
         for fname in list_for_pattern :
             path = os.path.join(dir,fname)
             ctime = self.get_file_ctime(path)
-            if self.print_bits & 4 : print 'File %s creation time %d(s)' % (fname, ctime)
+            if self.print_bits & 4 : print('File %s creation time %d(s)' % (fname, ctime))
             if ctime > t_latest :
                 t_latest = ctime
                 fname_latest = path
 
-        if self.print_bits & 32 : print 'Found latest file %s created at %d' % (fname_latest, t_latest)
+        if self.print_bits & 32 : print('Found latest file %s created at %d' % (fname_latest, t_latest))
         return fname_latest, t_latest
 
 
@@ -193,15 +194,15 @@ class ArrFileExchange ( object ) :
         """
         if self.is_new_arr_available() :
             if os.path.exists(self.fname_old) :
-                if self.print_bits & 2 : print 'Get np.array from latest file: %s' % self.fname_old
+                if self.print_bits & 2 : print('Get np.array from latest file: %s' % self.fname_old)
                 t0_sec = time()
                 self.arr_old = np.load(self.fname_old)
-                if self.print_bits & 8 : print 'Time consumed to read file : %f(sec)' % (time()-t0_sec)
+                if self.print_bits & 8 : print('Time consumed to read file : %f(sec)' % (time()-t0_sec))
                 self.is_loaded = True
             else :
-                if self.print_bits & 2 : print 'File "%s" is NOT available!' % self.fname_old
+                if self.print_bits & 2 : print('File "%s" is NOT available!' % self.fname_old)
         else :
-            if self.print_bits & 2 : print 'New array is not available, return old or None'
+            if self.print_bits & 2 : print('New array is not available, return old or None')
 
         return self.arr_old 
 
@@ -215,7 +216,7 @@ if __name__ == "__main__" :
     afe = ArrFileExchange(prefix=path, print_bits=0377)
 
     for i in range(10) :
-        print 10*'='+'\nTest #%d' % i
+        print(10*'='+'\nTest #%d' % i)
         arr = afe.get_arr_latest()
         sleep(5)
 

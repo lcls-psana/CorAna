@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #----------------------------------
 
+from __future__ import print_function
 import sys
 import numpy as np
 import matplotlib.pyplot  as plt
@@ -77,7 +78,7 @@ class DragRectangle( Drag, patches.Rectangle ) :
 
 
     def print_pars(self) :
-        print 't,x,y,w,h,lw,col,s,r =', self.get_str_of_pars()
+        print('t,x,y,w,h,lw,col,s,r =', self.get_str_of_pars())
 
 
     def obj_contains_cursor(self, event): # Overrides method in Drag
@@ -290,7 +291,7 @@ def generate_list_of_objects(img_extent) :
     """
 
     xmin,xmax,ymin,ymax = img_extent 
-    print 'xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax
+    print('xmin,xmax,ymin,ymax = ', xmin,xmax,ymin,ymax)
 
     nobj = 10
     x = xmin+(xmax-xmin)*np.random.rand(nobj)

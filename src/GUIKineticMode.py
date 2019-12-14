@@ -12,6 +12,7 @@
 #------------------------------
 #  Module's version from CVS --
 #------------------------------
+from builtins import str
 __version__ = "$Revision$"
 # $Source$
 

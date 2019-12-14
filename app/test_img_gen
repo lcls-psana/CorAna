@@ -17,6 +17,7 @@ part of it, please give an appropriate acknowledgement.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import division
 #------------------------------
 
 import sys
@@ -70,8 +71,8 @@ def getCartesianArray1Ring(shape=(1300, 1340)) :
     """Generates the cortesian 2D array with ring-distributed intensity"""
 
     npy,npx = shape
-    xc  = npx/2
-    yc  = npy/2
+    xc  = npx//2
+    yc  = npy//2
     
     #random = np.random.standard_normal(2)
     random = np.random.random(2)

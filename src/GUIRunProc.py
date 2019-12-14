@@ -168,7 +168,7 @@ class GUIRunProc ( QtGui.QWidget ) :
         self.makeTableAdd()
 
         self.list_of_items = []
-        self.list_of_work_files = zip(fnm.get_list_of_files_cora_proc_work(), fnm.get_list_of_files_cora_proc_work_log())
+        self.list_of_work_files = list(zip(fnm.get_list_of_files_cora_proc_work(), fnm.get_list_of_files_cora_proc_work_log()))
 
         for i, (fname,lname) in enumerate(self.list_of_work_files) :
 

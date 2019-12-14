@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 #-----------------------------
 from __future__ import print_function
+from builtins import object
 from Drag import * # for access to global methods like add_obj_to_axes(...)
 
 from PyQt4 import QtGui, QtCore # For ability to override cursor...
 
-class DragObjectSet : 
+class DragObjectSet(object) : 
 
     def __init__(self, fig, axes=None, ObjectType=None, useKeyboard=False, is_single_obj=False, use_xyc=False, lw=1, col='b', picker=8) :
 

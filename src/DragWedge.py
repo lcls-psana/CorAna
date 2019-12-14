@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #----------------------------------
 from __future__ import print_function
+from __future__ import division
 import sys
 import numpy as np
 import matplotlib.pyplot  as plt
@@ -66,7 +67,7 @@ class DragWedge( Drag, lines.Line2D ) :  #patches.CirclePolygon
         [-180, 180) : sheet = 0
         [ 180, 540) : sheet = 1 ...
         """
-        n_sheet = int( int(theta + 180) / 360 )
+        n_sheet = int( int(theta + 180) // 360 )
         #print 'theta, n_sheet=', theta, n_sheet
         return n_sheet
         
@@ -456,7 +457,7 @@ class DragWedge( Drag, lines.Line2D ) :  #patches.CirclePolygon
         """Creates a set of (closed) poly vertices for mask"""
         #xarr, yarr = self.get_xy_arrays_for_current_wedge()
         xarr, yarr = self.get_data()
-        return zip(xarr, yarr)
+        return list(zip(xarr, yarr))
 
 
 #-----------------------------

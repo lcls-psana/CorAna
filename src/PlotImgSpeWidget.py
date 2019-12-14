@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --
@@ -150,7 +151,7 @@ class PlotImgSpeWidget (QtGui.QWidget) :
 
     def get_xy_img_center(self):
         xmin,xmax,ymin,ymax = self.imsh.get_extent()
-        return abs(ymin-ymax)/2, abs(xmax-xmin)/2  # return in terms of row, column ????
+        return abs(ymin-ymax)//2, abs(xmax-xmin)//2  # return in terms of row, column ????
 
     def get_img_shape(self):
         return self.arr.shape
@@ -376,7 +377,7 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         Nmin, Nmax = self.axhi.get_ylim() 
         #print 'Nmin, Nmax =', Nmin, Nmax
         if (Nmax-Nmin)<4 : yticks = np.arange(Nmin,Nmin+4)
-        else             : yticks = np.arange(Nmin, Nmax, int((Nmax-Nmin)/4))
+        else             : yticks = np.arange(Nmin, Nmax, int((Nmax-Nmin)//4))
         self.axhi.set_yticks( yticks )
         self.axhi.set_ylabel('N pixels')
 

@@ -25,6 +25,8 @@ from __future__ import print_function
 #------------------------------
 #  Module's version from CVS --
 #------------------------------
+from future import standard_library
+standard_library.install_aliases()
 __version__ = "$Revision$"
 # $Source$
 
@@ -36,7 +38,7 @@ import numpy as np
 import sys
 import os
 
-import commands
+import subprocess
 import subprocess # for subprocess.Popen
 import time
 

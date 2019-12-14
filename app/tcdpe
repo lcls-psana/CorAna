@@ -43,7 +43,7 @@ from CorAna.GUIMainTB import GUIMainTB
 #  Application class definition --
 #---------------------------------
 
-class TimeCorrelationDataProcessingEnvironment:
+class TimeCorrelationDataProcessingEnvironment(object):
 
     def __init__ ( self ) :
         """Constructor : This is a regular stuff for PyQt4"""

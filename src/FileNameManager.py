@@ -36,7 +36,7 @@ import GlobalUtils          as     gu
 
 #-----------------------------
 
-class FileNameManager :
+class FileNameManager(object) :
     """Dynamically generates the file names from the confoguration parameters.
     """
 

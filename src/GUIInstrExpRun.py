@@ -272,7 +272,7 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
         self._stream = None
         self._chunk  = None
 
-        parts = map( xtc_fname_parser_helper, parts, ['e', 'r', 's', 'c'] )
+        parts = list(map( xtc_fname_parser_helper, parts, ['e', 'r', 's', 'c'] ))
 
         if None not in parts :
             self._expnum = parts[0]

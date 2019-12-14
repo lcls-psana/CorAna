@@ -35,7 +35,7 @@ from FileNameManager        import fnm
 
 #-----------------------------
 
-class BatchLogParser :
+class BatchLogParser(object) :
     """Extracts required information from batch log files
     """
 
@@ -113,7 +113,7 @@ class BatchLogParser :
 
     def print_dict (self) :
         logger.debug('Parser search dictionary:',__name__)
-        for k,v in self.dict.iteritems() :
+        for k,v in self.dict.items() :
             msg = '%s : %s' % (k.ljust(32), str(v.value()))
             logger.debug(msg)
 
@@ -122,7 +122,7 @@ class BatchLogParser :
     def parse_log_file (self) :
 
         logger.debug('Log file to parse: ' + self.path)
-        self.keys   = self.dict.keys()
+        self.keys   = list(self.dict.keys())
 
         if not os.path.lexists(self.path) :
             logger.debug('The requested file: ' + self.path + ' is not available.', __name__)         

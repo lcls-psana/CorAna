@@ -33,7 +33,7 @@ from time import localtime, strftime
 
 #-----------------------------
 
-class Logger :
+class Logger(object) :
     """Is intended as a log-book for this project.
     """
 

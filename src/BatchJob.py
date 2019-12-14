@@ -37,7 +37,7 @@ import GlobalUtils            as     gu
 
 #-----------------------------
 
-class BatchJob :
+class BatchJob(object) :
     """Base class with common methods for batch jobs.
     """
 

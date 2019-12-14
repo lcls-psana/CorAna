@@ -2,6 +2,7 @@
 #----------------------------------
 
 from __future__ import print_function
+from __future__ import division
 import sys
 import numpy as np
 import matplotlib.pyplot  as plt
@@ -136,8 +137,8 @@ class DragRectangle( Drag, patches.Rectangle ) :
             y0  = self.get_y()
             w0  = self.get_width()
             h0  = self.get_height()
-            w2  = w0/2
-            h2  = h0/2
+            w2  = w0//2
+            h2  = h0//2
 
             self.list_of_verts = [(x0,y0),    (x0+w0,y0),    (x0,y0+h0), (x0+w0,y0+h0), 
                                   (x0,y0+h2), (x0+w0,y0+h2), (x0+w2,y0), (x0+w2,y0+h0)]

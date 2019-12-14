@@ -39,7 +39,7 @@ from FileNameManager        import fnm
 #---------------------
 #  Class definition --
 #---------------------
-class LocalParameter () :
+class LocalParameter(object) :
     _val=None
 
     def __init__ ( self, val=None ) :

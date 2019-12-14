@@ -17,6 +17,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --
@@ -39,7 +40,7 @@ from EventTimeRecords import *
 
 #-----------------------------
 
-class RecordsFromFiles :
+class RecordsFromFiles(object) :
     """Access to the time records from the file
     """
     rows            = cp.bat_img_rows.value()
@@ -153,7 +154,7 @@ class RecordsFromFiles :
             self.list_of_imon_cfg_pars = None 
             return
 
-        self.list_of_imon_cfg_pars = map(self.values_from_rec, list_recs)
+        self.list_of_imon_cfg_pars = list(map(self.values_from_rec, list_recs))
         return self.list_of_imon_cfg_pars
         
 

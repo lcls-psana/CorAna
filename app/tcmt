@@ -44,7 +44,7 @@ from CorAna.ThreadWorker import ThreadWorker
 #  Application class definition --
 #---------------------------------
 
-class TimeCorrelationDataProcessingEnvironment:
+class TimeCorrelationDataProcessingEnvironment(object):
 
     def __init__ ( self ) :
         """Constructor : This is a regular stuff for PyQt4"""

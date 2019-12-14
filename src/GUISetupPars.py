@@ -287,7 +287,7 @@ class GUISetupPars ( QtGui.QWidget ) :
         logger.info('Set bat_flat_end =' + str(cp.bat_flat_end.value()), __name__)
 
     def setPopupMenuMode(self):
-        self.list_of_nums = range(1,cp.bat_num_max.value()+1)
+        self.list_of_nums = list(range(1,cp.bat_num_max.value()+1))
         self.popupMenuMode = QtGui.QMenu()
         for num in self.list_of_nums :
             self.popupMenuMode.addAction( str(num) )

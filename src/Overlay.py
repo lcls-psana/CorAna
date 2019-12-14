@@ -2,6 +2,7 @@
 
 #----------------------------------
 
+from __future__ import division
 import sys
 #from PyQt4.QtCore import Qt
 #from PyQt4.QtGui import QtGui
@@ -30,8 +31,8 @@ class Overlay(QtGui.QWidget):
 
     def drawCross(self,qp) :
         qp.setPen(QtGui.QPen(QtGui.QColor(255, 0, 0)))
-        qp.drawLine(self.width()/8, self.height()/8, 7*self.width()/8, 7*self.height()/8)
-        qp.drawLine(self.width()/8, 7*self.height()/8, 7*self.width()/8, self.height()/8)
+        qp.drawLine(self.width()//8, self.height()//8, 7*self.width()//8, 7*self.height()//8)
+        qp.drawLine(self.width()//8, 7*self.height()//8, 7*self.width()//8, self.height()//8)
 
 
     def drawText(self,qp) :

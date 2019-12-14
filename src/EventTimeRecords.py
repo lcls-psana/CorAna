@@ -36,7 +36,7 @@ import GlobalUtils as gu
 
 #-----------------------------
 
-class EventTimeRecords :
+class EventTimeRecords(object) :
     """Access to the time records from the file
     """
 
@@ -69,8 +69,8 @@ class EventTimeRecords :
             self.list_vals = None 
             return
         #list_recs[1][:] = ['1', '8.026429', '8.026429', '20120616-080244.698036743', '8255', '1', '1']
-        self.list_vals_all      = map(self.values_from_rec, list_recs)
-        self.list_vals_for_plot = map(self.values_for_plot, self.list_vals_all)
+        self.list_vals_all      = list(map(self.values_from_rec, list_recs))
+        self.list_vals_for_plot = list(map(self.values_for_plot, self.list_vals_all))
         self.arr_for_plot       = np.array(self.list_vals_for_plot)
 
 

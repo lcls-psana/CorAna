@@ -29,6 +29,7 @@ __version__ = "$Revision$"
 #--------------------------------
 import os
 import sys
+import six
 
 #-----------------------------
 # Imports for other modules --
@@ -43,7 +44,7 @@ from Logger import logger
 #  Class definition --
 #---------------------
 
-class Parameter :
+class Parameter(object) :
     """Single parameters.
     #@see OtherClass ConfigParameters
     #@see OtherClass ConfigParametersCorAna
@@ -91,7 +92,10 @@ class Parameter :
                 self._value = int( val )
         
             elif self._type == 'long' :
-                self._value = long( val )
+                if six.PY3:
+                    self._value = int( val )
+                else:
+                    self._value = long( val )
         
             elif self._type == 'float' :
                 self._value = float( val )
@@ -126,7 +130,10 @@ class Parameter :
             self._value = int( str_val )
 
         elif self._type == 'long' :
-            self._value = long( str_val )
+            if six.PY3:
+                self._value = int( str_val )
+            else:
+                self._value = long( str_val )
 
         elif self._type == 'float' :
             self._value = float( str_val )
@@ -180,7 +187,7 @@ class Parameter :
 #---------------------
 #---------------------
 
-class ConfigParameters :
+class ConfigParameters(object) :
     """Is intended as a storage for configuration parameters.
     #@see OtherClass ConfigParametersCorana
     """
@@ -280,7 +287,7 @@ class ConfigParameters :
 
     def setParameterValueByName ( self, name, str_val ) :
 
-        if not ( name in self.dict_pars.keys() ) :
+        if not ( name in list(self.dict_pars.keys()) ) :
             msg  = 'The parameter name ' + name + ' is unknown in the dictionary.\n'
             msg += 'WARNING! Parameter needs to be declared first. Skip this parameter initialization.\n' 
             logger.warning(msg)

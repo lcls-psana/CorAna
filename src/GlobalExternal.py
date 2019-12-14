@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Marcin Sikorski
 """
 from __future__ import print_function
+from __future__ import division
 
 
 #------------------------------

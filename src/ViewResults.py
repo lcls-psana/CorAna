@@ -17,6 +17,7 @@ If you use all or part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --
@@ -142,7 +143,7 @@ def bincount(map_bins, map_weights=None, length=None) :
 
 #-----------------------------
 
-class ViewResults :
+class ViewResults(object) :
     """First look at results.
     """
 

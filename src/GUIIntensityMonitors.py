@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI sets parameters for intensity monitors"""
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --
@@ -149,7 +150,7 @@ class GUIIntensityMonitors ( QtGui.QWidget ) :
 
         self.list_of_dicts.append( sec_dict )
 
-        for col,(fld, par) in sec_dict.iteritems() :
+        for col,(fld, par) in sec_dict.items() :
             self.grid.addWidget(fld, self.grid_row, col)
             if col>0 and col<5 or col==7 :
                 fld.setChecked( par.value() )

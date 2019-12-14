@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI for run input information"""
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --

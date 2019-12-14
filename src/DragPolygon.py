@@ -215,7 +215,7 @@ class DragPolygon( Drag, lines.Line2D ) :
     def get_poly_verts(self):
         """Creates a set of (closed) poly vertices for mask"""
         xarr, yarr = self.get_data()
-        return zip(xarr, yarr)
+        return list(zip(xarr, yarr))
 
 #-----------------------------
 #-----------------------------

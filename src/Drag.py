@@ -12,7 +12,7 @@ import math # cos(x), sin(x), radians(x), degrees()
 
 #from PyQt4 import QtGui, QtCore # need it in order to use QtCore.QObject for signal exchange...
 
-class Drag () : # ( QtCore.QObject )
+class Drag(object) : # ( QtCore.QObject )
 
     dicBool = {'false':False, 'true':True}
 
@@ -259,7 +259,7 @@ class Drag () : # ( QtCore.QObject )
 
 def get_mask(shape, poly_verts) :
     x, y = np.meshgrid(np.arange(shape[1]), np.arange(shape[0]))
-    ij   = zip(x.flatten(), y.flatten()) # or np.vstack((x,y)).T
+    ij   = list(zip(x.flatten(), y.flatten())) # or np.vstack((x,y)).T
     #mask = np.array(points_inside_poly(ij, poly_verts))
     mask = np.array(Path(poly_verts).contains_points(ij))
     mask.shape = shape

@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import division
 
 #------------------------------
 #  Module's version from CVS --
@@ -144,9 +145,9 @@ class PlotG2Widget (QtGui.QWidget) :
         iq_max   = self.arr_q.shape[0]
         #return [0,1,2,3,4,5,6,7,8]
 
-        if   iq_max <= self.nwin_max          : return range(iq_max)
-        elif iq_max-iq_begin <= self.nwin_max : return range(iq_max-self.nwin_max, iq_max)
-        else                                  : return range(iq_begin, iq_begin+self.nwin_max)
+        if   iq_max <= self.nwin_max          : return list(range(iq_max))
+        elif iq_max-iq_begin <= self.nwin_max : return list(range(iq_max-self.nwin_max, iq_max))
+        else                                  : return list(range(iq_begin, iq_begin+self.nwin_max))
 
 
 

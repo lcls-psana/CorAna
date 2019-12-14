@@ -448,7 +448,7 @@ class ConfigParametersCorAna ( ConfigParameters ) :
 
 #-----------------------------
 
-        self.imon_pars_list = zip( self.imon_name_list,
+        self.imon_pars_list = list(zip( self.imon_name_list,
                                    self.imon_ch1_list,
                                    self.imon_ch2_list,
                                    self.imon_ch3_list,
@@ -458,7 +458,7 @@ class ConfigParametersCorAna ( ConfigParameters ) :
                                    self.imon_sele_min_list,
                                    self.imon_sele_max_list,
                                    self.imon_norm_ave_list,
-                                   self.imon_short_name_list )
+                                   self.imon_short_name_list ))
         #print self.imon_pars_list
 
 #-----------------------------

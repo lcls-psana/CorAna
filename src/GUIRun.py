@@ -35,7 +35,7 @@ from GUIRunSplit            import *
 from GUIRunProc             import *
 from GUIRunMerge            import *
 from GUIRunAuto             import *
-from Logger                 import logger
+from CorAna.Logger                 import logger
 from BatchJobPedestals      import bjpeds
 
 #---------------------

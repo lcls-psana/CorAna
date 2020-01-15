@@ -32,7 +32,7 @@ from ConfigParametersCorAna import confpars as cp
 
 from GUISystemSettingsLeft   import *
 from GUISystemSettingsRight  import *
-from Logger             import logger
+from CorAna.Logger             import logger
 
 #---------------------
 #  Class definition --

@@ -33,7 +33,7 @@ from GUIKineticMode         import *
 from GUINonKineticMode      import *
 from GUISetupPars           import *
 from GUISetupEnergyAngle    import *
-from Logger                 import logger
+from CorAna.Logger                 import logger
 
 #---------------------
 #  Class definition --

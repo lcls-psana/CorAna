@@ -35,7 +35,7 @@ import numpy as np
 #import numpy.ma as ma
 
 from ConfigParametersCorAna   import confpars as cp
-from Logger                   import logger
+from CorAna.Logger                   import logger
 from FileNameManager          import fnm
 import GlobalUtils            as     gu
 from PlotImgSpe               import *

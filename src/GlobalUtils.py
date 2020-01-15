@@ -40,7 +40,7 @@ import numpy as np
 #import commands # use 'subprocess' instead of 'commands'
 import subprocess # for subprocess.Popen
 
-from Logger import logger
+from CorAna.Logger import logger
 from PyQt4 import QtGui, QtCore
 
 import PyCSPadImage.CSPAD2x2ImageUtils as cspad2x2img

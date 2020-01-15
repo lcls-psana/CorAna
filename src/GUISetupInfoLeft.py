@@ -34,7 +34,7 @@ from GUISetupSpecular    import *
 from GUISetupBeamZero    import *
 from GUISetupData        import *
 from GUIImgSizePosition  import *
-from Logger              import logger
+from CorAna.Logger              import logger
 
 #---------------------
 #  Class definition --

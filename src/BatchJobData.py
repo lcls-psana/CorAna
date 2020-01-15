@@ -32,7 +32,7 @@ __version__ = "$Revision$"
 from BatchJob import *
 
 #from ConfigParametersCorAna   import confpars as cp
-#from Logger                   import logger
+#from CorAna.Logger                   import logger
 #from ConfigFileGenerator      import cfg
 #from FileNameManager          import fnm
 #import GlobalUtils            as     gu

@@ -31,7 +31,7 @@ import os
 
 from PyQt4 import QtGui, QtCore
 
-from Logger                 import logger
+from CorAna.Logger                 import logger
 from GUIHelp                import *
 from GUIELogPostingDialog   import *
 

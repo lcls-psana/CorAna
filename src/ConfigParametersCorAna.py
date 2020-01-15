@@ -35,7 +35,7 @@ from copy import deepcopy
 #-----------------------------
 #import ConfigParameters as cpbase
 from ConfigParameters import * # ConfigParameters
-from Logger import logger
+from CorAna.Logger import logger
 
 from PyQt4 import QtGui        # for icons only...
 import AppDataPath as apputils # for icons

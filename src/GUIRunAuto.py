@@ -29,7 +29,7 @@ from PyQt4 import QtGui, QtCore
 #-----------------------------
 from ConfigParametersCorAna import confpars as cp
 from FileNameManager        import fnm
-from Logger                 import logger
+from CorAna.Logger                 import logger
 import GlobalUtils          as     gu
 from GUIFileBrowser         import *
 from BatchJobCorAna         import bjcora

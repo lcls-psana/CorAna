@@ -34,7 +34,7 @@ import six
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-from Logger import logger
+from CorAna.Logger import logger
 
 #----------------------------------
 # Local non-exported definitions --

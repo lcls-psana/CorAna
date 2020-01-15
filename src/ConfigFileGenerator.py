@@ -31,7 +31,7 @@ import sys
 import os
 
 from ConfigParametersCorAna import confpars as cp
-from Logger                 import logger
+from CorAna.Logger                 import logger
 from FileNameManager        import fnm
 import GlobalUtils          as     gu
 

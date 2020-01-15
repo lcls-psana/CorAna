@@ -28,7 +28,7 @@ from PyQt4 import QtGui, QtCore
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-from Logger import logger
+from CorAna.Logger import logger
 from ConfigParametersCorAna import confpars as cp
 from GUIELogPostingFields import *
 

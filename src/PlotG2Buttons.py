@@ -32,7 +32,7 @@ import os
 from PyQt4 import QtGui, QtCore
 
 from ConfigParametersCorAna import confpars as cp # for icons
-from Logger                 import logger
+from CorAna.Logger                 import logger
 from GUIHelp                import *
 from GUIELogPostingDialog   import *
 

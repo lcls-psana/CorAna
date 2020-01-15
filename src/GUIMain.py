@@ -51,7 +51,7 @@ from GUIIntensityMonitors import *
 from GUIRun               import *
 from GUIViewResults       import *
 from GUILogger            import *
-from Logger               import logger
+from CorAna.Logger               import logger
 from FileNameManager      import fnm
 from GUIFileBrowser       import *
 

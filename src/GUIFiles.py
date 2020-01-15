@@ -35,7 +35,7 @@ from GUIData                import *
 from GUIFlatField           import *
 from GUIBlemish             import *
 from GUIWorkResDirs         import *
-from Logger                 import logger
+from CorAna.Logger                 import logger
 from BatchJobPedestals      import bjpeds
 
 #---------------------

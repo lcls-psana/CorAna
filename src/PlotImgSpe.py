@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -50,10 +51,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 #-----------------------------
 
 #import ImgSpeNavToolBar     as imgtb
-import PlotImgSpeWidget         as imgwidg
-import PlotImgSpeButtons        as imgbuts
+from . import PlotImgSpeWidget         as imgwidg
+from . import PlotImgSpeButtons        as imgbuts
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 
 #---------------------
 #  Class definition --

@@ -10,6 +10,7 @@
 
 """GUI works with dark run"""
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -28,7 +29,7 @@ import random
 from PyQt5 import QtCore
 #import time   # for sleep(sec)
 #from BatchJobCorAna import bjcora
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 
 #---------------------
 #  Class definition --

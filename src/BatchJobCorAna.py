@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -27,7 +28,7 @@ __version__ = "$Revision$"
 #  Imports of standard modules --
 #--------------------------------
 
-from BatchJob import *
+from .BatchJob import *
 from PyQt5 import QtCore # need it in order to use QtCore.QObject for connect
 
 #-----------------------------

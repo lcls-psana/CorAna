@@ -9,6 +9,7 @@
 
 """Send message to ELog"""
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -29,8 +30,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 from CorAna.Logger import logger
-from ConfigParametersCorAna import confpars as cp
-from GUIELogPostingFields import *
+from .ConfigParametersCorAna import confpars as cp
+from .GUIELogPostingFields import *
 
 #---------------------
 #  Class definition --

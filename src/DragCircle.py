@@ -2,6 +2,7 @@
 #----------------------------------
 from __future__ import print_function
 from __future__ import division
+from __future__ import absolute_import
 import sys
 
 import numpy as np
@@ -9,7 +10,7 @@ import matplotlib.pyplot  as plt
 import matplotlib.patches as patches
 import math # cos(x), sin(x), radians(x), degrees()
 
-from Drag import *
+from .Drag import *
 
 
 class DragCircle( Drag, patches.Circle ) :  #patches.CirclePolygon
@@ -201,7 +202,7 @@ def cart2r(x, y) :
 #-----------------------------
 #-----------------------------
 
-from DragObjectSet import *
+from .DragObjectSet import *
 
 #-----------------------------
 #-----------------------------

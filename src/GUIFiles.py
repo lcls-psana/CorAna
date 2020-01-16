@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI sets path to files"""
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -28,15 +29,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
-from GUIConfigParameters    import *
-from GUIDark                import *
-from GUIData                import *
-from GUIFlatField           import *
-from GUIBlemish             import *
-from GUIWorkResDirs         import *
+from .ConfigParametersCorAna import confpars as cp
+from .GUIConfigParameters    import *
+from .GUIDark                import *
+from .GUIData                import *
+from .GUIFlatField           import *
+from .GUIBlemish             import *
+from .GUIWorkResDirs         import *
 from CorAna.Logger                 import logger
-from BatchJobPedestals      import bjpeds
+from .BatchJobPedestals      import bjpeds
 
 #---------------------
 #  Class definition --

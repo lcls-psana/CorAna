@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -47,10 +48,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-import PlotArrayWidget         as imgwidg
-import PlotArrayButtons        as imgbuts
+from . import PlotArrayWidget         as imgwidg
+from . import PlotArrayButtons        as imgbuts
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 
 #---------------------
 #  Class definition --

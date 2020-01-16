@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI Setup Info Right Panel"""
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -28,11 +29,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
-from GUIKineticMode         import *
-from GUINonKineticMode      import *
-from GUISetupPars           import *
-from GUISetupEnergyAngle    import *
+from .ConfigParametersCorAna import confpars as cp
+from .GUIKineticMode         import *
+from .GUINonKineticMode      import *
+from .GUISetupPars           import *
+from .GUISetupEnergyAngle    import *
 from CorAna.Logger                 import logger
 
 #---------------------

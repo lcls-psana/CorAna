@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -29,9 +30,9 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-from FileNameManager        import fnm
+from .FileNameManager        import fnm
 
 #-----------------------------
 

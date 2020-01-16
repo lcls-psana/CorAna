@@ -17,6 +17,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -30,14 +31,14 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-from FileNameManager        import fnm
-import GlobalUtils          as     gu
+from .FileNameManager        import fnm
+from . import GlobalUtils          as     gu
 
 
 #import AppUtils.AppDataPath as apputils
-import           AppDataPath as apputils # My version, added in path the '../../data:'
+from . import           AppDataPath as apputils # My version, added in path the '../../data:'
 
 #-----------------------------
 

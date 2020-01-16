@@ -17,6 +17,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -31,8 +32,8 @@ import sys
 import os
 import numpy as np
 
-from   Logger  import logger
-import GlobalUtils as gu
+from   .Logger  import logger
+from . import GlobalUtils as gu
 
 #-----------------------------
 

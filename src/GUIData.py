@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI sets the data file"""
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -28,17 +29,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-from FileNameManager        import fnm
-from PlotImgSpe             import *
-from PlotTime               import *
-import GlobalUtils          as     gu
-from BatchLogParser         import blp
-from GUIFileBrowser         import *
-from BatchJobData           import bjdata
-from EventTimeRecords       import *
-from GUIFilesStatusTable    import *
+from .FileNameManager        import fnm
+from .PlotImgSpe             import *
+from .PlotTime               import *
+from . import GlobalUtils          as     gu
+from .BatchLogParser         import blp
+from .GUIFileBrowser         import *
+from .BatchJobData           import bjdata
+from .EventTimeRecords       import *
+from .GUIFilesStatusTable    import *
 
 #---------------------
 #  Class definition --

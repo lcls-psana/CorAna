@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #----------------------------------
 from __future__ import print_function
+from __future__ import absolute_import
 import sys
 
 import numpy as np
@@ -8,7 +9,7 @@ import copy
 import matplotlib.pyplot as plt
 import matplotlib.lines  as lines
 import math # cos(x), sin(x), radians(x), degrees()
-from Drag import *
+from .Drag import *
 
 class DragPolygon( Drag, lines.Line2D ) :
 
@@ -225,7 +226,7 @@ class DragPolygon( Drag, lines.Line2D ) :
 #-----------------------------
 #-----------------------------
 
-from DragObjectSet import *
+from .DragObjectSet import *
 
 #-----------------------------
 #-----------------------------

@@ -17,6 +17,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -38,17 +39,17 @@ from CorAna.Logger                 import logger
 #from GUIHelp                import *
 #from GUIELogPostingDialog   import *
 #from FileNameManager        import fnm
-from ConfigParametersCorAna import confpars as cp
-import GlobalUtils          as     gu
+from .ConfigParametersCorAna import confpars as cp
+from . import GlobalUtils          as     gu
 from CorAna.ArrFileExchange import *
 
-from DragWedge     import *
-from DragLine      import *
-from DragRectangle import *
-from DragCircle    import *
-from DragCenter    import *
-from DragPolygon   import *
-from DragObjectSet import *
+from .DragWedge     import *
+from .DragLine      import *
+from .DragRectangle import *
+from .DragCircle    import *
+from .DragCenter    import *
+from .DragPolygon   import *
+from .DragObjectSet import *
 
 #---------------------
 #  Class definition --

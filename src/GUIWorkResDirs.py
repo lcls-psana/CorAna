@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI for Work/Result directories"""
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -28,9 +29,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-import GlobalUtils          as     gu
+from . import GlobalUtils          as     gu
 
 #---------------------
 #  Class definition --

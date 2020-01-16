@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import absolute_import
 
 
 #------------------------------
@@ -40,21 +41,21 @@ import time   # for sleep(sec)
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 
 #from GUIConfigParameters import * 
-from GUIFiles             import *
-from GUISetupInfo         import *
-from GUIAnaSettings       import *
-from GUISystemSettings    import *
-from GUIIntensityMonitors import *
-from GUIRun               import *
-from GUIViewResults       import *
-from GUILogger            import *
+from .GUIFiles             import *
+from .GUISetupInfo         import *
+from .GUIAnaSettings       import *
+from .GUISystemSettings    import *
+from .GUIIntensityMonitors import *
+from .GUIRun               import *
+from .GUIViewResults       import *
+from .GUILogger            import *
 from CorAna.Logger               import logger
-from FileNameManager      import fnm
-from GUIFileBrowser       import *
-from GUIELogPostingDialog import *
+from .FileNameManager      import fnm
+from .GUIFileBrowser       import *
+from .GUIELogPostingDialog import *
 
 #---------------------
 #  Class definition --

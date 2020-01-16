@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI sets fields for ELog posting"""
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -28,10 +29,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-import GlobalUtils          as     gu
-from FileNameManager        import fnm
+from . import GlobalUtils          as     gu
+from .FileNameManager        import fnm
 #from PlotImgSpe             import *
 #from GUIFileBrowser         import *
 

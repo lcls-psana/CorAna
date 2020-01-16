@@ -9,6 +9,7 @@
 
 """GUI for run input information"""
 from __future__ import division
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -29,10 +30,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-from FileNameManager        import fnm
-from BatchJobCorAna         import bjcora
+from .FileNameManager        import fnm
+from .BatchJobCorAna         import bjcora
 
 #---------------------
 #  Class definition --

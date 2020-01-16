@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 """
 from __future__ import print_function
 from __future__ import division
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -32,11 +33,11 @@ import sys
 import os
 import numpy as np
 
-from   Logger  import logger
-import GlobalUtils as gu
-from FileNameManager  import fnm
-from ConfigParametersCorAna   import confpars as cp
-from EventTimeRecords import *
+from   .Logger  import logger
+from . import GlobalUtils as gu
+from .FileNameManager  import fnm
+from .ConfigParametersCorAna   import confpars as cp
+from .EventTimeRecords import *
 
 #-----------------------------
 

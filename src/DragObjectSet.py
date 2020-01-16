@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 #-----------------------------
 from __future__ import print_function
+from __future__ import absolute_import
 from builtins import object
-from Drag import * # for access to global methods like add_obj_to_axes(...)
+from .Drag import * # for access to global methods like add_obj_to_axes(...)
 
 from PyQt5 import QtCore # For ability to override cursor..., QtGui, QtWidgets
 

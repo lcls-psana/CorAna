@@ -16,6 +16,7 @@ part of it, please give an appropriate acknowledgment.
 @version $Id: 
 @author Mikhail S. Dubrovin
 """
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -32,11 +33,11 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from CorAna.Logger                 import logger
-from GUIHelp                import *
-from GUIELogPostingDialog   import *
+from .GUIHelp                import *
+from .GUIELogPostingDialog   import *
 
 #from FileNameManager        import fnm
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 
 #---------------------
 #  Class definition --

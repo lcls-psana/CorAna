@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI works with dark run"""
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -28,14 +29,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-from FileNameManager        import fnm
-from PlotImgSpe             import *
-from BatchLogParser         import blp
-from GUIFileBrowser         import *
-from BatchJobPedestals      import bjpeds
-from GUIFilesStatusTable    import *
+from .FileNameManager        import fnm
+from .PlotImgSpe             import *
+from .BatchLogParser         import blp
+from .GUIFileBrowser         import *
+from .BatchJobPedestals      import bjpeds
+from .GUIFilesStatusTable    import *
 #import GlobalGraphics       as gg
 
 #---------------------

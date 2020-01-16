@@ -3,12 +3,13 @@
 
 from __future__ import print_function
 from __future__ import division
+from __future__ import absolute_import
 import sys
 import numpy as np
 import matplotlib.pyplot  as plt
 import matplotlib.lines   as lines
 import math # cos(x), sin(x), radians(x), degrees()
-from Drag import *
+from .Drag import *
 
 class DragCenter( Drag, lines.Line2D ) : # lines.Line2D ) : 
 
@@ -254,7 +255,7 @@ class DragCenter( Drag, lines.Line2D ) : # lines.Line2D ) :
 #-----------------------------
 #-----------------------------
 
-from DragObjectSet import *
+from .DragObjectSet import *
 
 #-----------------------------
 #-----------------------------

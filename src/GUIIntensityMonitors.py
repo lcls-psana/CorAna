@@ -9,6 +9,7 @@
 
 """GUI sets parameters for intensity monitors"""
 from __future__ import division
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -29,11 +30,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-from FileNameManager        import fnm
-from PlotArray              import *
-import GlobalUtils          as     gu
+from .FileNameManager        import fnm
+from .PlotArray              import *
+from . import GlobalUtils          as     gu
 #---------------------
 #  Class definition --
 #---------------------

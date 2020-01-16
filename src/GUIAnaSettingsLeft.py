@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI sets parameters for analysis"""
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -27,10 +28,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-from GUIAnaPartitions       import *
-from GUIAnaSettingsOptions  import *
+from .GUIAnaPartitions       import *
+from .GUIAnaSettingsOptions  import *
 
 #---------------------
 #  Class definition --

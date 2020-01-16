@@ -19,6 +19,7 @@ part of it, please give an appropriate acknowledgment.
 @author Mikhail S. Dubrovin
 """
 from __future__ import print_function
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -35,7 +36,7 @@ import random
 import numpy as np
 from math import log10
 
-from ViewResults import valueToIndexProtected
+from .ViewResults import valueToIndexProtected
 
 # For self-run debugging:
 #if __name__ == "__main__" :

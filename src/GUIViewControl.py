@@ -8,6 +8,7 @@
 #------------------------------------------------------------------------
 
 """GUI View Control"""
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -28,13 +29,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Imports for other modules --
 #-----------------------------
 
-from ConfigParametersCorAna import confpars as cp
+from .ConfigParametersCorAna import confpars as cp
 from CorAna.Logger                 import logger
-from ViewResults            import *
-from PlotImgSpe             import *
-from PlotG2                 import *
-from PlotGraph              import *
-from RecordsFromFiles       import rff
+from .ViewResults            import *
+from .PlotImgSpe             import *
+from .PlotG2                 import *
+from .PlotGraph              import *
+from .RecordsFromFiles       import rff
 
 #---------------------
 #  Class definition --

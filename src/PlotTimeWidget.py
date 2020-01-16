@@ -18,6 +18,7 @@ part of it, please give an appropriate acknowledgment.
 
 @author Mikhail S. Dubrovin
 """
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -44,7 +45,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from   matplotlib.ticker import MaxNLocator
 #from   matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from   EventTimeRecords import *
+from   .EventTimeRecords import *
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 

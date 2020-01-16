@@ -18,6 +18,7 @@ If you use all or part of it, please give an appropriate acknowledgment.
 """
 from __future__ import print_function
 from __future__ import division
+from __future__ import absolute_import
 
 #------------------------------
 #  Module's version from CVS --
@@ -34,12 +35,12 @@ import math
 import numpy as np
 #import numpy.ma as ma
 
-from ConfigParametersCorAna   import confpars as cp
+from .ConfigParametersCorAna   import confpars as cp
 from CorAna.Logger                   import logger
-from FileNameManager          import fnm
-import GlobalUtils            as     gu
-from PlotImgSpe               import *
-from EventTimeRecords         import *
+from .FileNameManager          import fnm
+from . import GlobalUtils            as     gu
+from .PlotImgSpe               import *
+from .EventTimeRecords         import *
 #-----------------------------
 
 def cart2polar(x, y) :

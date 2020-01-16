@@ -10,12 +10,12 @@
 
 """This script starts the analysis shell GUI.
 
-This software was developed for the LCLS project.  If you use all or 
+This software was developed for the LCLS project.  If you use all or
 part of it, please give an appropriate acknowledgement.
 
 @see RelatedModule
 
-@version $Id$ 
+@version $Id$
 
 @author Mikhail S. Dubrovin
 """
@@ -51,38 +51,38 @@ class TimeCorrelationDataProcessingEnvironment(object):
 
         self.input_parameters()
 
-	print("Start the main GUI")
+        print("Start the main GUI")
         app = QtWidgets.QApplication(sys.argv)
 
-	t1 = ThreadWorker()
-	#t2 = ThreadWorker()
-	#t3 = ThreadWorker()
+        t1 = ThreadWorker()
+        #t2 = ThreadWorker()
+        #t3 = ThreadWorker()
 
         #gui1.moveToThread(t1)
         #gui2.moveToThread(t2)
 
-	t1.start()
-	#t2.start()
-	#t3.start()
+        t1.start()
+        #t2.start()
+        #t3.start()
 
         gui = GUIMainTB(None,app)
         gui.show()
-        
+
         ##app.setActiveWindow(gui)
         sys.exit(app.exec_())
 
 
-    def input_parameters(self):	
+    def input_parameters(self):
         msg = """tcdpe (Time Correlation Data Processing Environment):
-         To run this application use command "tcdpe" without parameters or with a single parameter - the configuration file name. 
-         All necessary parameters will be set through the GUIs of this application. 
-         By default all configuration parameters are taken from the file "confpars.txt". 
-         If this file is missing, the default values of parameters will be used at start, 
+         To run this application use command "tcdpe" without parameters or with a single parameter - the configuration file name.
+         All necessary parameters will be set through the GUIs of this application.
+         By default all configuration parameters are taken from the file "confpars.txt".
+         If this file is missing, the default values of parameters will be used at start,
          untill the "confpars.txt" is not created.
         """
-	if len(sys.argv) > 2 : 
+        if len(sys.argv) > 2 :
             sys.exit(90*'-' + '\n' + msg + '\n' + 90*'-')
-	
+
 
 #---------------------------------
 #

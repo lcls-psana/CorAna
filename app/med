@@ -10,12 +10,12 @@
 
 """This script starts stand alone version of the MaskEditor.
 
-This software was developed for the LCLS project.  If you use all or 
+This software was developed for the LCLS project.  If you use all or
 part of it, please give an appropriate acknowledgement.
 
 @see RelatedModule
 
-@version $Id$ 
+@version $Id$
 
 @author Mikhail S. Dubrovin
 """
@@ -53,12 +53,12 @@ def input_options_parser() :
     mfname_def	 = './roi-mask'
     ofname_def	 = './fig.png'
     title_def	 = 'Mask editor'
-    xc_def	 = None       
-    yc_def	 = None       
-    picker_def	 = 8          
-    lw_def	 = 1         
-    col_def	 = 'b'        
-    verb_def  	 = True       
+    xc_def	 = None
+    yc_def	 = None
+    picker_def	 = 8
+    lw_def	 = 1
+    col_def	 = 'b'
+    verb_def  	 = True
     fexmod_def	 = False
 
     parser = OptionParser(description='Optional input parameters.', usage ='usage: %prog [options] args')
@@ -77,7 +77,7 @@ def input_options_parser() :
 
     (opts, args) = parser.parse_args()
     return (opts, args)
- 
+
 #---------------------------------
 #
 # run application when launched as a main module
@@ -92,24 +92,24 @@ if __name__ == "__main__" :
     if opts.xc==None or opts.yc==None : xyc=None
     else                              : xyc=(opts.xc,opts.yc)
 
-    pars = {'parent' : None, 
-            'arr'    : None, 
+    pars = {'parent' : None,
+            'arr'    : None,
             'xyc'    : xyc,
-            'ifname' : opts.ifname, 
-            'ofname' : opts.ofname, 
+            'ifname' : opts.ifname,
+            'ofname' : opts.ofname,
             'mfname' : opts.mfname,
             'fexmod' : opts.fexmod,
-            'title'  : opts.title, 
-            'lw'     : opts.lw, 
+            'title'  : opts.title,
+            'lw'     : opts.lw,
             'col'    : opts.col,
             'picker' : opts.picker,
             'verb'   : opts.verb,
-            'ccd_rot': None, 
+            'ccd_rot': None,
             'updown' : False}
 
     print('Start MaskEditor with input parameters:')
     for k,v in pars.items():
-	print('%9s : %s' % (k,v))
+        print('%9s : %s' % (k,v))
 
     app = QtWidgets.QApplication(sys.argv)
     w = MaskEditor(**pars)

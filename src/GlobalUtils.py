@@ -33,7 +33,7 @@ __version__ = "$Revision$"
 import sys
 import os
 #import time
-from time import localtime, gmtime, strftime, clock, time, sleep
+from time import localtime, gmtime, strftime, time, sleep
 
 import numpy as np
 

@@ -182,7 +182,7 @@ def map_image_refl(s, alpha, beam0, beam_s, pixel_size, sample_detector, energy,
 #-----------------------------
 
 import sys
-from time import localtime, gmtime, strftime, clock, time, sleep
+from time import localtime, gmtime, strftime, time, sleep
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from . import PlotImgSpe as pis

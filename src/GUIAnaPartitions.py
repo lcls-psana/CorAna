@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,11 +34,11 @@ from CorAna.Logger                 import logger
 #---------------------
 #  Class definition --
 #---------------------
-class GUIAnaPartitions ( QtGui.QWidget ) :
+class GUIAnaPartitions ( QtWidgets.QWidget ) :
     """GUI sets parameters for analysis"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 370, 30)
         self.setWindowTitle('Analysis parameters')
         self.setFrame()
@@ -47,7 +47,7 @@ class GUIAnaPartitions ( QtGui.QWidget ) :
         self.list_of_methods = ['evenly-spaced','non-evenly-spaced'] 
         self.sect_fields     = []
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid_row = 1
 
         if cp.ana_type.value() == self.list_ana_types[0] : 
@@ -73,8 +73,8 @@ class GUIAnaPartitions ( QtGui.QWidget ) :
         self.setToolTip(msg)
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -85,12 +85,12 @@ class GUIAnaPartitions ( QtGui.QWidget ) :
         self.setStyleSheet(cp.styleBkgd)
 
     def guiSection(self, title, method, par) :
-        tit0     = QtGui.QLabel(title)
-        tit1     = QtGui.QLabel('Method')
-        tit2     = QtGui.QLabel('File/Number/Span')
-        edi      = QtGui.QLineEdit( str(par.value()) )        
-        but      = QtGui.QPushButton('Browse')
-        box      = QtGui.QComboBox( self ) 
+        tit0     = QtWidgets.QLabel(title)
+        tit1     = QtWidgets.QLabel('Method')
+        tit2     = QtWidgets.QLabel('File/Number/Span')
+        edi      = QtWidgets.QLineEdit( str(par.value()) )        
+        but      = QtWidgets.QPushButton('Browse')
+        box      = QtWidgets.QComboBox( self ) 
         box.addItems(self.list_of_methods)
         box.setCurrentIndex( self.list_of_methods.index(method.value()) )
 
@@ -122,9 +122,9 @@ class GUIAnaPartitions ( QtGui.QWidget ) :
         #box    .setFixedWidth(160)
         #tit0   .setFixedWidth(200)
 
-        self.connect(edi, QtCore.SIGNAL('editingFinished()'),        self.onEdit )
-        self.connect(but, QtCore.SIGNAL('clicked()'),                self.onBut  )
-        self.connect(box, QtCore.SIGNAL('currentIndexChanged(int)'), self.onBox  )
+        edi.editingFinished.connect(self.onEdit)
+        but.clicked.connect(self.onBut)
+        box.currentIndexChanged[int].connect(self.onBox)
                                  #   0     1     2    3    4    5       6    7
         self.sect_fields.append( (tit0, tit1, tit2, box, edi, but, method, par ) )
 
@@ -179,7 +179,7 @@ class GUIAnaPartitions ( QtGui.QWidget ) :
                 #fname = par.value()
                 dir   = './'
                 logger.info('Section: ' + str(tit.text()) + ' - browser for file', __name__ )
-                path  = str( QtGui.QFileDialog.getOpenFileName(self,'Select file',dir) )
+                path  = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select file',dir) )[0]
                 dname, fname = os.path.split(path)
 
                 if dname == '' or fname == '' :
@@ -205,7 +205,7 @@ class GUIAnaPartitions ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIAnaPartitions ()
     widget.show()
     app.exec_()

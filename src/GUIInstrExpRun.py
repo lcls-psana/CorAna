@@ -22,7 +22,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -45,7 +45,7 @@ def xtc_fname_parser_helper( part, prefix ) :
 #---------------------
 #  Class definition --
 #---------------------
-class GUIInstrExpRun ( QtGui.QWidget ) :
+class GUIInstrExpRun ( QtWidgets.QWidget ) :
     """GUI sets the instrument, experiment, and run number for signal and dark data"""
 
     #----------------
@@ -54,7 +54,7 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(200, 400, 500, 30)
         self.setWindowTitle('Instrument Experiment Run')
@@ -69,20 +69,20 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
         self.run_number     = cp.str_run_number.value()
         self.run_number_dark= cp.str_run_number_dark.value()
 
-        self.titInstr    = QtGui.QLabel('Instr:')
-        self.butInstr    = QtGui.QPushButton( self.instr_name + self.char_expand )
-        self.butExp      = QtGui.QPushButton( "Exp:" )
-        self.ediExp      = QtGui.QLineEdit  ( self.exp_name )  
-        self.butRun      = QtGui.QPushButton( "Run:" )
-        self.ediRun      = QtGui.QLineEdit  ( self.run_number )  
-        self.butRunDark  = QtGui.QPushButton( "Dark:" )
-        self.ediRunDark  = QtGui.QLineEdit  ( self.run_number_dark )  
+        self.titInstr    = QtWidgets.QLabel('Instr:')
+        self.butInstr    = QtWidgets.QPushButton( self.instr_name + self.char_expand )
+        self.butExp      = QtWidgets.QPushButton( "Exp:" )
+        self.ediExp      = QtWidgets.QLineEdit  ( self.exp_name )  
+        self.butRun      = QtWidgets.QPushButton( "Run:" )
+        self.ediRun      = QtWidgets.QLineEdit  ( self.run_number )  
+        self.butRunDark  = QtWidgets.QPushButton( "Dark:" )
+        self.ediRunDark  = QtWidgets.QLineEdit  ( self.run_number_dark )  
 
         self.ediExp    .setReadOnly( True ) 
         self.ediRun    .setReadOnly( True ) 
         self.ediRunDark.setReadOnly( True ) 
 
-        self.popupMenuInstr = QtGui.QMenu()
+        self.popupMenuInstr = QtWidgets.QMenu()
         for instr in self.list_of_instr :
             self.popupMenuInstr.addAction( instr )
          
@@ -96,7 +96,7 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
         self.ediExp     .setMinimumWidth(70)
         self.ediExp     .setMaximumWidth(80)
 
-        self.hbox = QtGui.QHBoxLayout() 
+        self.hbox = QtWidgets.QHBoxLayout() 
         self.hbox.addWidget(self.titInstr)
         self.hbox.addWidget(self.butInstr)
         self.hbox.addStretch(1)     
@@ -111,13 +111,13 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
 
         self.setLayout(self.hbox)
 
-        self.connect( self.ediExp,     QtCore.SIGNAL('editingFinished ()'), self.processEdiExp )
-        self.connect( self.ediRun,     QtCore.SIGNAL('editingFinished ()'), self.processEdiRun )
-        self.connect( self.ediRunDark, QtCore.SIGNAL('editingFinished ()'), self.processEdiRunDark )
-        self.connect( self.butInstr,   QtCore.SIGNAL('clicked()'),          self.processInstr  )
-        self.connect( self.butExp,     QtCore.SIGNAL('clicked()'),          self.processButExp )
-        self.connect( self.butRun,     QtCore.SIGNAL('clicked()'),          self.processButRun )
-        self.connect( self.butRunDark, QtCore.SIGNAL('clicked()'),          self.processButRunDark )
+        self.ediExp.editingFinished .connect(self.processEdiExp)
+        self.ediRun.editingFinished .connect(self.processEdiRun)
+        self.ediRunDark.editingFinished .connect(self.processEdiRunDark)
+        self.butInstr.clicked.connect(self.processInstr)
+        self.butExp.clicked.connect(self.processButExp)
+        self.butRun.clicked.connect(self.processButRun)
+        self.butRunDark.clicked.connect(self.processButRunDark)
 
         self.showToolTips()
 
@@ -139,8 +139,8 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
         self.ediRunDark.setToolTip( msg_edi + '"Dark:" button.')
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -196,7 +196,7 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
         print('processButExp')
         dir  = self.instr_dir + '/' + self.instr_name
         #path = QtGui.QFileDialog.getOpenFileName(self,'Select experiment',dir)
-        path = str( QtGui.QFileDialog.getExistingDirectory(self,'Select experiment',dir) )
+        path = str( QtWidgets.QFileDialog.getExistingDirectory(self,'Select experiment',dir) )
         path1, name = os.path.split(path)
 
         if path1==self.instr_dir and name==self.instr_name :
@@ -218,7 +218,7 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
         print('processButRun')
 
         dir  = self.instr_dir + '/' + self.instr_name + '/' + self.exp_name + '/xtc'
-        path = str( QtGui.QFileDialog.getOpenFileName(self,'Select experiment',dir) )
+        path = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select experiment',dir) )[0]
         path1, fname = os.path.split(path) # where fname looks like: e170-r0003-s00-c00.xtc
         print('Returned path and fname =', path1, fname)
 
@@ -242,7 +242,7 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
         print('processButRunDark')
 
         dir  = self.instr_dir + '/' + self.instr_name + '/' + self.exp_name + '/xtc'
-        path = str( QtGui.QFileDialog.getOpenFileName(self,'Select experiment',dir) )
+        path = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select experiment',dir) )[0]
         path1, fname = os.path.split(path) # where fname looks like: e170-r0003-s00-c00.xtc
         print('Returned path and fname =', path1, fname)
 
@@ -286,7 +286,7 @@ class GUIInstrExpRun ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIInstrExpRun ()
     widget.show()
     app.exec_()

@@ -41,7 +41,7 @@ if __name__ == "__main__" :
 import matplotlib.pyplot as plt
 
 #from matplotlib.figure import Figure
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 #-----------------------------
 # Imports for other modules --
@@ -57,13 +57,13 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 
 #class PlotTime (QtGui.QMainWindow) :
-class PlotTime (QtGui.QWidget) :
+class PlotTime (QtWidgets.QWidget) :
     """Plot for time records"""
 
 
     def __init__(self, parent=None, ifname=None, ofname='./fig.png'):
         #QtGui.QMainWindow.__init__(self, parent)
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(20, 40, 800, 400)
         self.setWindowTitle('Plot for time records')
         self.setFrame()
@@ -73,7 +73,7 @@ class PlotTime (QtGui.QWidget) :
  
         #---------------------
 
-        vbox = QtGui.QVBoxLayout()                      # <=== Begin to combine layout 
+        vbox = QtWidgets.QVBoxLayout()                      # <=== Begin to combine layout 
         #vbox.addWidget(self.widgimage)                 # <=== Add figure as QWidget
         vbox.addWidget(self.widgimage.getCanvas())      # <=== Add figure as FigureCanvas 
         vbox.addWidget(self.widgbuts)                   # <=== Add buttons         
@@ -82,8 +82,8 @@ class PlotTime (QtGui.QWidget) :
         #---------------------
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -125,7 +125,7 @@ def get_array2d_for_test() :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     fname = 'work/cora-xcsi0112-r0015-data-scan-tstamp-list.txt'
     fname = '/reg/neh/home1/dubrovin/LCLS/PSANA-V01/work-1/t1-xcsi0112-r0015-data-scan-tstamp-list.txt'
     w  = PlotTime(None, fname, './fig.png')

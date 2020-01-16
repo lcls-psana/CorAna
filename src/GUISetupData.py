@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,7 +34,7 @@ from CorAna.Logger                 import logger
 #---------------------
 #  Class definition --
 #---------------------
-class GUISetupData ( QtGui.QWidget ) :
+class GUISetupData ( QtWidgets.QWidget ) :
     """GUI sets the beam and spec coordinates w.r.t. camera frame for specular mode"""
 
     #----------------
@@ -43,19 +43,19 @@ class GUISetupData ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 500, 30)
         self.setWindowTitle('Specularly Reflected Beam Parameters')
         self.setFrame()
 
-        self.titCameraPos  = QtGui.QLabel('CCD Position In Data Collection (mm):')
-        self.tit_frame_x   = QtGui.QLabel('x:')
-        self.tit_frame_y   = QtGui.QLabel('y:')
+        self.titCameraPos  = QtWidgets.QLabel('CCD Position In Data Collection (mm):')
+        self.tit_frame_x   = QtWidgets.QLabel('x:')
+        self.tit_frame_y   = QtWidgets.QLabel('y:')
  
-        self.edi_x0_pos_in_data  = QtGui.QLineEdit( str( cp.x0_pos_in_data .value() ) )        
-        self.edi_y0_pos_in_data  = QtGui.QLineEdit( str( cp.y0_pos_in_data .value() ) )        
+        self.edi_x0_pos_in_data  = QtWidgets.QLineEdit( str( cp.x0_pos_in_data .value() ) )        
+        self.edi_y0_pos_in_data  = QtWidgets.QLineEdit( str( cp.y0_pos_in_data .value() ) )        
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
 
         self.grid.addWidget(self.titCameraPos,       0, 0, 1,8)
         self.grid.addWidget(self.tit_frame_x ,       1, 2)
@@ -63,13 +63,13 @@ class GUISetupData ( QtGui.QWidget ) :
         self.grid.addWidget(self.edi_x0_pos_in_data,    1, 3)
         self.grid.addWidget(self.edi_y0_pos_in_data,    1, 5)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.grid)
         self.vbox.addStretch(1) 
         self.setLayout(self.vbox)
 
-        self.connect( self.edi_x0_pos_in_data,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_x0_pos_in_data )
-        self.connect( self.edi_y0_pos_in_data,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_y0_pos_in_data )
+        self.edi_x0_pos_in_data.editingFinished .connect(self.on_edi_x0_pos_in_data)
+        self.edi_y0_pos_in_data.editingFinished .connect(self.on_edi_y0_pos_in_data)
  
         self.showToolTips()
         self.setStyle()
@@ -85,8 +85,8 @@ class GUISetupData ( QtGui.QWidget ) :
         self.edi_y0_pos_in_data.setToolTip( msg )
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -152,7 +152,7 @@ class GUISetupData ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUISetupData ()
     widget.show()
     app.exec_()

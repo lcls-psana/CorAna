@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -39,12 +39,12 @@ from RecordsFromFiles       import rff
 #---------------------
 #  Class definition --
 #---------------------
-class GUIViewControl ( QtGui.QWidget ) :
+class GUIViewControl ( QtWidgets.QWidget ) :
     """GUI View Control"""
 
     def __init__ ( self, parent=None, fname=None, title='' ) :
         #super(GUIViewControl, self).__init__()
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 500, 150)
         self.setWindowTitle('Load Results')
         self.setFrame()
@@ -77,62 +77,62 @@ class GUIViewControl ( QtGui.QWidget ) :
 
     def makeLayout(self):
 
-        self.tit               = QtGui.QLabel('View Control')
-        self.tit_geom          = QtGui.QLabel('Geom. maps:')
-        self.tit_part          = QtGui.QLabel('Partitions:')
-        self.tit_data          = QtGui.QLabel(u'Raw data (\u03C4):')  # tau = u"\u03C4"
-        self.tit_calc          = QtGui.QLabel(u'Calc.(\u03C4):')
-        self.tit_mask          = QtGui.QLabel('Masks:')
-        self.tit_save          = QtGui.QLabel('Save:')
-        self.tit_plot          = QtGui.QLabel('Plots:')
-        self.edi               = QtGui.QLineEdit( os.path.basename(cp.res_fname.value()) )        
-        self.but               = QtGui.QPushButton('File')
-        self.but_close         = QtGui.QPushButton('Close')
-        self.but_Ip            = QtGui.QPushButton('<Ip>')
-        self.but_If            = QtGui.QPushButton('<If>')
-        self.but_I2            = QtGui.QPushButton('<Ip x If>')
-        self.but_g2raw         = QtGui.QPushButton('g2 raw')
-        self.but_X             = QtGui.QPushButton('X')
-        self.but_Y             = QtGui.QPushButton('Y')
-        self.but_R             = QtGui.QPushButton('R')
-        self.but_P             = QtGui.QPushButton('Phi')
-        self.but_Q             = QtGui.QPushButton('q')
-        self.but_P_st          = QtGui.QPushButton('Phi stat')
-        self.but_Q_st          = QtGui.QPushButton('q stat')
-        self.but_QP_st         = QtGui.QPushButton('q-Phi stat')
-        self.but_P_dy          = QtGui.QPushButton('Phi dyna')
-        self.but_Q_dy          = QtGui.QPushButton('q dyna')
-        self.but_QP_dy         = QtGui.QPushButton('q-Phi dyna')
-        self.but_1oIp          = QtGui.QPushButton('1/<Ip> stat')
-        self.but_1oIf          = QtGui.QPushButton('1/<If> stat')
-        self.but_g2map         = QtGui.QPushButton('g2 map')
-        self.but_g2dy          = QtGui.QPushButton('g2 dyna')
-        self.but_g2tau         = QtGui.QPushButton('g2 vs tau')
-        self.but_g2tau_gr      = QtGui.QPushButton('g2(tau)')
-        self.but_mask_img_lims = QtGui.QPushButton('Image lims')
-        self.but_mask_blemish  = QtGui.QPushButton('Blemish')
-        self.but_mask_hotpix   = QtGui.QPushButton('Hot pixels')
-        self.but_mask_satpix   = QtGui.QPushButton('Satt. pixs')
-        self.but_mask_roi      = QtGui.QPushButton('ROI')
-        self.but_mask_total    = QtGui.QPushButton('Total')
-        self.but_print_res     = QtGui.QPushButton('g2(<q>,tau)')
-        self.but_data_ave      = QtGui.QPushButton('<Img data>')
-        self.but_intens_t      = QtGui.QPushButton('I(q-st,t)-2D')
-        self.but_intens_gr1    = QtGui.QPushButton('I(q-st)-gr')
-        self.but_intens_gr     = QtGui.QPushButton('I(q-st,t)-gr')
+        self.tit               = QtWidgets.QLabel('View Control')
+        self.tit_geom          = QtWidgets.QLabel('Geom. maps:')
+        self.tit_part          = QtWidgets.QLabel('Partitions:')
+        self.tit_data          = QtWidgets.QLabel(u'Raw data (\u03C4):')  # tau = u"\u03C4"
+        self.tit_calc          = QtWidgets.QLabel(u'Calc.(\u03C4):')
+        self.tit_mask          = QtWidgets.QLabel('Masks:')
+        self.tit_save          = QtWidgets.QLabel('Save:')
+        self.tit_plot          = QtWidgets.QLabel('Plots:')
+        self.edi               = QtWidgets.QLineEdit( os.path.basename(cp.res_fname.value()) )        
+        self.but               = QtWidgets.QPushButton('File')
+        self.but_close         = QtWidgets.QPushButton('Close')
+        self.but_Ip            = QtWidgets.QPushButton('<Ip>')
+        self.but_If            = QtWidgets.QPushButton('<If>')
+        self.but_I2            = QtWidgets.QPushButton('<Ip x If>')
+        self.but_g2raw         = QtWidgets.QPushButton('g2 raw')
+        self.but_X             = QtWidgets.QPushButton('X')
+        self.but_Y             = QtWidgets.QPushButton('Y')
+        self.but_R             = QtWidgets.QPushButton('R')
+        self.but_P             = QtWidgets.QPushButton('Phi')
+        self.but_Q             = QtWidgets.QPushButton('q')
+        self.but_P_st          = QtWidgets.QPushButton('Phi stat')
+        self.but_Q_st          = QtWidgets.QPushButton('q stat')
+        self.but_QP_st         = QtWidgets.QPushButton('q-Phi stat')
+        self.but_P_dy          = QtWidgets.QPushButton('Phi dyna')
+        self.but_Q_dy          = QtWidgets.QPushButton('q dyna')
+        self.but_QP_dy         = QtWidgets.QPushButton('q-Phi dyna')
+        self.but_1oIp          = QtWidgets.QPushButton('1/<Ip> stat')
+        self.but_1oIf          = QtWidgets.QPushButton('1/<If> stat')
+        self.but_g2map         = QtWidgets.QPushButton('g2 map')
+        self.but_g2dy          = QtWidgets.QPushButton('g2 dyna')
+        self.but_g2tau         = QtWidgets.QPushButton('g2 vs tau')
+        self.but_g2tau_gr      = QtWidgets.QPushButton('g2(tau)')
+        self.but_mask_img_lims = QtWidgets.QPushButton('Image lims')
+        self.but_mask_blemish  = QtWidgets.QPushButton('Blemish')
+        self.but_mask_hotpix   = QtWidgets.QPushButton('Hot pixels')
+        self.but_mask_satpix   = QtWidgets.QPushButton('Satt. pixs')
+        self.but_mask_roi      = QtWidgets.QPushButton('ROI')
+        self.but_mask_total    = QtWidgets.QPushButton('Total')
+        self.but_print_res     = QtWidgets.QPushButton('g2(<q>,tau)')
+        self.but_data_ave      = QtWidgets.QPushButton('<Img data>')
+        self.but_intens_t      = QtWidgets.QPushButton('I(q-st,t)-2D')
+        self.but_intens_gr1    = QtWidgets.QPushButton('I(q-st)-gr')
+        self.but_intens_gr     = QtWidgets.QPushButton('I(q-st,t)-gr')
 
-        self.cbx_more = QtGui.QCheckBox('Show more', self)
+        self.cbx_more = QtWidgets.QCheckBox('Show more', self)
         self.cbx_more.setChecked( cp.vc_cbx_show_more.value() )
 
 
 
-        self.sli = QtGui.QSlider(QtCore.Qt.Horizontal, self)        
+        self.sli = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)        
         self.sli.setValue(0)
         self.sli.setRange(0, self.list_of_tau.shape[0]-1)
         self.sli.setTickInterval(1)
-        self.edi_tau = QtGui.QLineEdit('tau(ind)')
+        self.edi_tau = QtWidgets.QLineEdit('tau(ind)')
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid_row = 1
         self.grid.addWidget(self.tit,              self.grid_row,   0, 1, 5)
         self.grid.addWidget(self.cbx_more,         self.grid_row,   6, 1, 3)
@@ -192,43 +192,43 @@ class GUIViewControl ( QtGui.QWidget ) :
         self.grid_row += 8
 
         #self.connect(self.edi,         QtCore.SIGNAL('editingFinished()'),        self.onEdit )
-        self.connect(self.but,              QtCore.SIGNAL('clicked()'),         self.onBut     )
-        self.connect(self.but_close,        QtCore.SIGNAL('clicked()'),         self.onButClose)
-        self.connect(self.but_Ip,           QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_If,           QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_I2,           QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_g2raw,        QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_X,            QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_Y,            QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_R,            QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_P,            QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_Q,            QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_P_st,         QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_Q_st,         QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_QP_st,        QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_P_dy,         QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_Q_dy,         QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_QP_dy,        QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_1oIp,         QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_1oIf,         QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_g2map,        QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_g2dy ,        QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_g2tau,        QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_g2tau_gr,     QtCore.SIGNAL('clicked()'),         self.on_but_g2tau_gr )
-        self.connect(self.but_mask_img_lims,QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_mask_blemish, QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_mask_hotpix,  QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_mask_satpix,  QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_mask_roi,     QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.but_mask_total,   QtCore.SIGNAL('clicked()'),         self.onButView )
-        self.connect(self.sli,              QtCore.SIGNAL('valueChanged(int)'), self.onSlider  )
-        self.connect(self.sli,              QtCore.SIGNAL('sliderReleased()'),  self.onSliderReleased )
-        self.connect(self.cbx_more,         QtCore.SIGNAL('stateChanged(int)'), self.on_cbx ) 
-        self.connect(self.but_print_res,    QtCore.SIGNAL('clicked()'),         self.onSave ) 
-        self.connect(self.but_data_ave,     QtCore.SIGNAL('clicked()'),         self.onButView ) 
-        self.connect(self.but_intens_t,     QtCore.SIGNAL('clicked()'),         self.onButView ) 
-        self.connect(self.but_intens_gr1,   QtCore.SIGNAL('clicked()'),         self.onButIntens ) 
-        self.connect(self.but_intens_gr,    QtCore.SIGNAL('clicked()'),         self.onButIntens ) 
+        self.but.clicked.connect(self.onBut)
+        self.but_close.clicked.connect(self.onButClose)
+        self.but_Ip.clicked.connect(self.onButView)
+        self.but_If.clicked.connect(self.onButView)
+        self.but_I2.clicked.connect(self.onButView)
+        self.but_g2raw.clicked.connect(self.onButView)
+        self.but_X.clicked.connect(self.onButView)
+        self.but_Y.clicked.connect(self.onButView)
+        self.but_R.clicked.connect(self.onButView)
+        self.but_P.clicked.connect(self.onButView)
+        self.but_Q.clicked.connect(self.onButView)
+        self.but_P_st.clicked.connect(self.onButView)
+        self.but_Q_st.clicked.connect(self.onButView)
+        self.but_QP_st.clicked.connect(self.onButView)
+        self.but_P_dy.clicked.connect(self.onButView)
+        self.but_Q_dy.clicked.connect(self.onButView)
+        self.but_QP_dy.clicked.connect(self.onButView)
+        self.but_1oIp.clicked.connect(self.onButView)
+        self.but_1oIf.clicked.connect(self.onButView)
+        self.but_g2map.clicked.connect(self.onButView)
+        self.but_g2dy.clicked.connect(self.onButView)
+        self.but_g2tau.clicked.connect(self.onButView)
+        self.but_g2tau_gr.clicked.connect(self.on_but_g2tau_gr)
+        self.but_mask_img_lims.clicked.connect(self.onButView)
+        self.but_mask_blemish.clicked.connect(self.onButView)
+        self.but_mask_hotpix.clicked.connect(self.onButView)
+        self.but_mask_satpix.clicked.connect(self.onButView)
+        self.but_mask_roi.clicked.connect(self.onButView)
+        self.but_mask_total.clicked.connect(self.onButView)
+        self.sli.valueChanged[int].connect(self.onSlider)
+        self.sli.sliderReleased.connect(self.onSliderReleased)
+        self.cbx_more.stateChanged[int].connect(self.on_cbx)
+        self.but_print_res.clicked.connect(self.onSave)
+        self.but_data_ave.clicked.connect(self.onButView)
+        self.but_intens_t.clicked.connect(self.onButView)
+        self.but_intens_gr1.clicked.connect(self.onButIntens)
+        self.but_intens_gr.clicked.connect(self.onButIntens)
   
         self.setLayout(self.grid)
 
@@ -247,8 +247,8 @@ class GUIViewControl ( QtGui.QWidget ) :
  
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -361,7 +361,7 @@ class GUIViewControl ( QtGui.QWidget ) :
         #dir = cp.dir_results.value() # is not used
 
         path0 = par.value()
-        path  = str( QtGui.QFileDialog.getOpenFileName(self,'Select file',path0) )
+        path  = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select file',path0) )[0]
         dname, fname = os.path.split(path)
 
         if dname == '' or fname == '' :
@@ -683,7 +683,7 @@ class GUIViewControl ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIViewControl ()
     widget.show()
     app.exec_()

@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -37,11 +37,17 @@ from BatchJobCorAna         import bjcora
 #---------------------
 #  Class definition --
 #---------------------
-class GUIRunAuto ( QtGui.QWidget ) :
+try:
+    QString = unicode
+except NameError:
+    # Python 3
+    QString = str
+
+class GUIRunAuto ( QtWidgets.QWidget ) :
     """GUI controls the automatic procedure"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(50, 100, 700, 500)
         self.setWindowTitle('Auto-run')
         self.setFrame()
@@ -52,18 +58,18 @@ class GUIRunAuto ( QtGui.QWidget ) :
         self.nparts = cp.bat_img_nparts.value()
         #print 'self.nparts = ', self.nparts
 
-        self.lab_status_split = QtGui.QLabel('')
-        self.lab_status_proc  = QtGui.QLabel('')
-        self.lab_status_merge = QtGui.QLabel('')
+        self.lab_status_split = QtWidgets.QLabel('')
+        self.lab_status_proc  = QtWidgets.QLabel('')
+        self.lab_status_merge = QtWidgets.QLabel('')
 
-        self.vboxS = QtGui.QVBoxLayout()
+        self.vboxS = QtWidgets.QVBoxLayout()
         self.vboxS.addWidget(self.lab_status_split)
         self.vboxS.addWidget(self.lab_status_proc )
         self.vboxS.addWidget(self.lab_status_merge)
 
         self.makeButtons()
  
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.hboxB)
         self.vbox.addLayout(self.vboxS)
         self.vbox.addStretch(1)     
@@ -88,7 +94,7 @@ class GUIRunAuto ( QtGui.QWidget ) :
 
 
     def disconnectFromThread1(self):
-        try : self.disconnect( cp.thread1, QtCore.SIGNAL('update(QString)'), self.updateStatus )
+        try : cp.thread1.update['QString'].disconnect(self.updateStatus)
         except : logger.warning('connectToThread1 IS FAILED !!!', __name__)
 
 
@@ -106,8 +112,8 @@ class GUIRunAuto ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -116,19 +122,19 @@ class GUIRunAuto ( QtGui.QWidget ) :
 
     def makeButtons(self):
         """Makes the horizontal box with buttons"""
-        self.but_run    = QtGui.QPushButton('Run') 
-        self.but_status = QtGui.QPushButton('Status') 
-        self.but_stop   = QtGui.QPushButton('Stop') 
+        self.but_run    = QtWidgets.QPushButton('Run') 
+        self.but_status = QtWidgets.QPushButton('Status') 
+        self.but_stop   = QtWidgets.QPushButton('Stop') 
 
-        self.hboxB = QtGui.QHBoxLayout()
+        self.hboxB = QtWidgets.QHBoxLayout()
         self.hboxB.addWidget(self.but_run)
         self.hboxB.addWidget(self.but_status)
         self.hboxB.addWidget(self.but_stop)
         self.hboxB.addStretch(1)     
 
-        self.connect( self.but_run,    QtCore.SIGNAL('clicked()'), self.onRun    )
-        self.connect( self.but_status, QtCore.SIGNAL('clicked()'), self.onStatus )
-        self.connect( self.but_stop,   QtCore.SIGNAL('clicked()'), self.onStop   )
+        self.but_run.clicked.connect(self.onRun)
+        self.but_status.clicked.connect(self.onStatus)
+        self.but_stop.clicked.connect(self.onStop)
 
 
     def setStyle(self):
@@ -238,7 +244,7 @@ class GUIRunAuto ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIRunAuto ()
     widget.show()
     app.exec_()

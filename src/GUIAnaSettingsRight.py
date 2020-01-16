@@ -22,7 +22,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -37,27 +37,27 @@ import GlobalUtils          as     gu
 #---------------------
 #  Class definition --
 #---------------------
-class GUIAnaSettingsRight ( QtGui.QWidget ) :
+class GUIAnaSettingsRight ( QtWidgets.QWidget ) :
     """GUI sets parameters for analysis (right panel)"""
 
     #----------------
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(20, 40, 390, 30)
         self.setWindowTitle('Analysis Settings Right')
         self.setFrame()
 
         self.list_mask_types = ['no-mask', 'from-file']
 
-        self.tit_lld      = QtGui.QLabel('Low Level Discrimination (LLD):')
-        self.edi_lld_adu  = QtGui.QLineEdit( str( cp.lld_adu.value() ) )        
-        self.edi_lld_rms  = QtGui.QLineEdit( str( cp.lld_rms.value() ) )        
-        self.rad_lld_none = QtGui.QRadioButton('no LLD')
-        self.rad_lld_adu  = QtGui.QRadioButton('ADU threshold:')
-        self.rad_lld_rms  = QtGui.QRadioButton('dark RMS threshold:')
-        self.rad_lld_grp  = QtGui.QButtonGroup()
+        self.tit_lld      = QtWidgets.QLabel('Low Level Discrimination (LLD):')
+        self.edi_lld_adu  = QtWidgets.QLineEdit( str( cp.lld_adu.value() ) )        
+        self.edi_lld_rms  = QtWidgets.QLineEdit( str( cp.lld_rms.value() ) )        
+        self.rad_lld_none = QtWidgets.QRadioButton('no LLD')
+        self.rad_lld_adu  = QtWidgets.QRadioButton('ADU threshold:')
+        self.rad_lld_rms  = QtWidgets.QRadioButton('dark RMS threshold:')
+        self.rad_lld_grp  = QtWidgets.QButtonGroup()
         self.rad_lld_grp.addButton(self.rad_lld_none)
         self.rad_lld_grp.addButton(self.rad_lld_adu )
         self.rad_lld_grp.addButton(self.rad_lld_rms )
@@ -66,27 +66,27 @@ class GUIAnaSettingsRight ( QtGui.QWidget ) :
         elif cp.lld_type.value() == self.list_lld_types[2] : self.rad_lld_rms .setChecked(True)
         else                                               : self.rad_lld_none.setChecked(True)
 
-        self.tit_mask_set  = QtGui.QLabel('Mask Settings:')
-        self.rad_mask_none = QtGui.QRadioButton('no mask (use all pixels)')
-        self.rad_mask_file = QtGui.QRadioButton('from existing file')
-        self.rad_mask_grp  = QtGui.QButtonGroup()
+        self.tit_mask_set  = QtWidgets.QLabel('Mask Settings:')
+        self.rad_mask_none = QtWidgets.QRadioButton('no mask (use all pixels)')
+        self.rad_mask_file = QtWidgets.QRadioButton('from existing file')
+        self.rad_mask_grp  = QtWidgets.QButtonGroup()
         self.rad_mask_grp.addButton(self.rad_mask_none)
         self.rad_mask_grp.addButton(self.rad_mask_file)
         if cp.ana_mask_type.value() == self.list_mask_types[0] : self.rad_mask_none.setChecked(True)
         if cp.ana_mask_type.value() == self.list_mask_types[1] : self.rad_mask_file.setChecked(True)
 
-        self.but_mask_poly = QtGui.QPushButton('ROI Mask Editor')
-        self.but_file      = QtGui.QPushButton('File:')
-        self.edi_mask_file = QtGui.QLineEdit( fnm.path_roi_mask() )       
+        self.but_mask_poly = QtWidgets.QPushButton('ROI Mask Editor')
+        self.but_file      = QtWidgets.QPushButton('File:')
+        self.edi_mask_file = QtWidgets.QLineEdit( fnm.path_roi_mask() )       
         self.edi_mask_file.setReadOnly( True )  
 
-        self.tit_res_sets        = QtGui.QLabel('Result saving settings:')
-        self.cbx_res_ascii_out   = QtGui.QCheckBox('ASCII output', self)
-        self.cbx_res_fit1        = QtGui.QCheckBox('Perform Fit1', self)
-        self.cbx_res_fit2        = QtGui.QCheckBox('Perform Fit2', self)
-        self.cbx_res_fit_cust    = QtGui.QCheckBox('Perform Custom Fit', self)
-        self.cbx_res_png_out     = QtGui.QCheckBox('Create PNG Files', self)
-        self.cbx_res_save_log    = QtGui.QCheckBox('Save Log-file', self)
+        self.tit_res_sets        = QtWidgets.QLabel('Result saving settings:')
+        self.cbx_res_ascii_out   = QtWidgets.QCheckBox('ASCII output', self)
+        self.cbx_res_fit1        = QtWidgets.QCheckBox('Perform Fit1', self)
+        self.cbx_res_fit2        = QtWidgets.QCheckBox('Perform Fit2', self)
+        self.cbx_res_fit_cust    = QtWidgets.QCheckBox('Perform Custom Fit', self)
+        self.cbx_res_png_out     = QtWidgets.QCheckBox('Create PNG Files', self)
+        self.cbx_res_save_log    = QtWidgets.QCheckBox('Save Log-file', self)
 
         self.cbx_res_ascii_out.setChecked( cp.res_ascii_out.value() )
         self.cbx_res_fit1     .setChecked( cp.res_fit1     .value() )
@@ -95,7 +95,7 @@ class GUIAnaSettingsRight ( QtGui.QWidget ) :
         self.cbx_res_png_out  .setChecked( cp.res_png_out  .value() )
         self.cbx_res_save_log .setChecked( cp.res_save_log .value() )
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
 
         self.grid_row = 0
         self.grid.addWidget(self.tit_lld,           self.grid_row+1, 0, 1, 8)
@@ -122,30 +122,30 @@ class GUIAnaSettingsRight ( QtGui.QWidget ) :
         self.grid.addWidget(self.cbx_res_png_out,   self.grid_row+3, 6, 1, 3) 
         self.grid.addWidget(self.cbx_res_save_log,  self.grid_row+4, 6, 1, 3) 
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.grid)
         self.vbox.addStretch(1)
 
         self.setLayout(self.vbox)
 
-        self.connect(self.rad_lld_none, QtCore.SIGNAL('clicked()'), self.onRadioLLD )
-        self.connect(self.rad_lld_adu,  QtCore.SIGNAL('clicked()'), self.onRadioLLD )
-        self.connect(self.rad_lld_rms,  QtCore.SIGNAL('clicked()'), self.onRadioLLD )
+        self.rad_lld_none.clicked.connect(self.onRadioLLD)
+        self.rad_lld_adu.clicked.connect(self.onRadioLLD)
+        self.rad_lld_rms.clicked.connect(self.onRadioLLD)
 
-        self.connect(self.edi_lld_adu , QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_lld_rms , QtCore.SIGNAL('editingFinished()'), self.onEdit )
+        self.edi_lld_adu.editingFinished.connect(self.onEdit)
+        self.edi_lld_rms.editingFinished.connect(self.onEdit)
 
-        self.connect(self.cbx_res_ascii_out  , QtCore.SIGNAL('stateChanged(int)'), self.onCBox ) 
-        self.connect(self.cbx_res_fit1       , QtCore.SIGNAL('stateChanged(int)'), self.onCBox )
-        self.connect(self.cbx_res_fit2       , QtCore.SIGNAL('stateChanged(int)'), self.onCBox ) 
-        self.connect(self.cbx_res_fit_cust   , QtCore.SIGNAL('stateChanged(int)'), self.onCBox ) 
-        self.connect(self.cbx_res_png_out    , QtCore.SIGNAL('stateChanged(int)'), self.onCBox ) 
-        self.connect(self.cbx_res_save_log   , QtCore.SIGNAL('stateChanged(int)'), self.onCBox ) 
+        self.cbx_res_ascii_out.stateChanged[int].connect(self.onCBox)
+        self.cbx_res_fit1.stateChanged[int].connect(self.onCBox)
+        self.cbx_res_fit2.stateChanged[int].connect(self.onCBox)
+        self.cbx_res_fit_cust.stateChanged[int].connect(self.onCBox)
+        self.cbx_res_png_out.stateChanged[int].connect(self.onCBox)
+        self.cbx_res_save_log.stateChanged[int].connect(self.onCBox)
 
-        self.connect( self.rad_mask_none,    QtCore.SIGNAL('clicked()'), self.onMaskRadioGrp )
-        self.connect( self.rad_mask_file,    QtCore.SIGNAL('clicked()'), self.onMaskRadioGrp )
-        self.connect( self.but_mask_poly,    QtCore.SIGNAL('clicked()'), self.onMaskPoly     )
-        self.connect( self.but_file,         QtCore.SIGNAL('clicked()'), self.onButFile   )
+        self.rad_mask_none.clicked.connect(self.onMaskRadioGrp)
+        self.rad_mask_file.clicked.connect(self.onMaskRadioGrp)
+        self.but_mask_poly.clicked.connect(self.onMaskPoly)
+        self.but_file.clicked.connect(self.onButFile)
 
         self.showToolTips()
         self.setStyle()
@@ -168,8 +168,8 @@ class GUIAnaSettingsRight ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -370,7 +370,7 @@ class GUIAnaSettingsRight ( QtGui.QWidget ) :
         if path is None : dname, fname = cp.ana_mask_fname.value_def(), cp.ana_mask_dname.value_def()
         else            : dname, fname = os.path.split(path)
 
-        path = str( QtGui.QFileDialog.getOpenFileName(self,'Select file',path) )
+        path = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select file',path) )[0]
         dname, fname = os.path.split(path)
 
         if dname == '' or fname == '' :
@@ -386,7 +386,7 @@ class GUIAnaSettingsRight ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIAnaSettingsRight ()
     widget.show()
     app.exec_()

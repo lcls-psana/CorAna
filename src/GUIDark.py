@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -41,48 +41,54 @@ from GUIFilesStatusTable    import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIDark ( QtGui.QWidget ) :
+try:
+    QString = unicode
+except NameError:
+    # Python 3
+    QString = str
+
+class GUIDark ( QtWidgets.QWidget ) :
     """GUI works with dark run"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 530, 30)
         self.setWindowTitle('Dark run processing')
         self.setFrame()
 
-        self.cbx_dark = QtGui.QCheckBox('Use dark correction', self)
+        self.cbx_dark = QtWidgets.QCheckBox('Use dark correction', self)
         self.cbx_dark.setChecked( cp.bat_dark_is_used.value() )
 
-        self.cbx_all_chunks = QtGui.QCheckBox('Use all xtc chunks', self)
+        self.cbx_all_chunks = QtWidgets.QCheckBox('Use all xtc chunks', self)
         self.cbx_all_chunks.setChecked( cp.use_dark_xtc_all.value() )
 
-        self.edi_path    = QtGui.QLineEdit( fnm.path_dark_xtc_cond() )        
+        self.edi_path    = QtWidgets.QLineEdit( fnm.path_dark_xtc_cond() )        
         self.edi_path.setReadOnly( True )  
 
-        self.lab_status  = QtGui.QLabel('Status')
-        self.lab_batch   = QtGui.QLabel('Batch')
-        self.lab_start   = QtGui.QLabel('Start')
-        self.lab_end     = QtGui.QLabel('End')
-        self.lab_total   = QtGui.QLabel('Total')
-        self.lab_time    = QtGui.QLabel(u'\u0394t(sec)')
+        self.lab_status  = QtWidgets.QLabel('Status')
+        self.lab_batch   = QtWidgets.QLabel('Batch')
+        self.lab_start   = QtWidgets.QLabel('Start')
+        self.lab_end     = QtWidgets.QLabel('End')
+        self.lab_total   = QtWidgets.QLabel('Total')
+        self.lab_time    = QtWidgets.QLabel(u'\u0394t(sec)')
 
-        self.edi_bat_start  = QtGui.QLineEdit ( str( cp.bat_dark_start.value() ) )        
-        self.edi_bat_end    = QtGui.QLineEdit ( str( cp.bat_dark_end  .value() ) )        
-        self.edi_bat_total  = QtGui.QLineEdit ( str( cp.bat_dark_total.value() ) )        
-        self.edi_bat_time   = QtGui.QLineEdit ( str( cp.bat_dark_time .value() ) )        
+        self.edi_bat_start  = QtWidgets.QLineEdit ( str( cp.bat_dark_start.value() ) )        
+        self.edi_bat_end    = QtWidgets.QLineEdit ( str( cp.bat_dark_end  .value() ) )        
+        self.edi_bat_total  = QtWidgets.QLineEdit ( str( cp.bat_dark_total.value() ) )        
+        self.edi_bat_time   = QtWidgets.QLineEdit ( str( cp.bat_dark_time .value() ) )        
  
-        self.but_path    = QtGui.QPushButton('File:')
-        self.but_status  = QtGui.QPushButton('Check status')
-        self.but_aver    = QtGui.QPushButton('Pedestal')
-        self.but_scan    = QtGui.QPushButton('Scanner')
-        self.but_browse  = QtGui.QPushButton('View')
-        self.but_plot    = QtGui.QPushButton('Plot')
-        self.but_remove  = QtGui.QPushButton('Remove')
+        self.but_path    = QtWidgets.QPushButton('File:')
+        self.but_status  = QtWidgets.QPushButton('Check status')
+        self.but_aver    = QtWidgets.QPushButton('Pedestal')
+        self.but_scan    = QtWidgets.QPushButton('Scanner')
+        self.but_browse  = QtWidgets.QPushButton('View')
+        self.but_plot    = QtWidgets.QPushButton('Plot')
+        self.but_remove  = QtWidgets.QPushButton('Remove')
 
         self.table_scan = GUIFilesStatusTable (parent=None, list_of_files=fnm.get_list_of_files_peds_scan())
         self.table_aver = GUIFilesStatusTable (parent=None, list_of_files=fnm.get_list_of_files_peds_aver())
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid_row = 0
         #self.grid.addWidget(self.tit_path,     self.grid_row,   0)
         self.grid.addWidget(self.cbx_dark,      self.grid_row,   0, 1, 6)
@@ -110,17 +116,17 @@ class GUIDark ( QtGui.QWidget ) :
 
         #self.grid.setRowMinimumHeight(self.grid_row+3, 5)
 
-        self.connect(self.but_path,      QtCore.SIGNAL('clicked()'),          self.on_but_path      )
-        self.connect(self.but_status,    QtCore.SIGNAL('clicked()'),          self.on_but_status    )
-        self.connect(self.but_aver,      QtCore.SIGNAL('clicked()'),          self.on_but_aver    )
-        self.connect(self.but_scan,      QtCore.SIGNAL('clicked()'),          self.on_but_scan   )
-        self.connect(self.but_browse,    QtCore.SIGNAL('clicked()'),          self.on_but_browse    )
-        self.connect(self.but_plot,      QtCore.SIGNAL('clicked()'),          self.on_but_plot      )
-        self.connect(self.but_remove,    QtCore.SIGNAL('clicked()'),          self.on_but_remove    )
-        self.connect(self.edi_bat_start, QtCore.SIGNAL('editingFinished()'),  self.on_edi_bat_start )
-        self.connect(self.edi_bat_end,   QtCore.SIGNAL('editingFinished()'),  self.on_edi_bat_end   )
-        self.connect(self.cbx_dark,      QtCore.SIGNAL('stateChanged(int)'),  self.on_cbx           ) 
-        self.connect(self.cbx_all_chunks,QtCore.SIGNAL('stateChanged(int)'),  self.on_cbx_all_chunks) 
+        self.but_path.clicked.connect(self.on_but_path)
+        self.but_status.clicked.connect(self.on_but_status)
+        self.but_aver.clicked.connect(self.on_but_aver)
+        self.but_scan.clicked.connect(self.on_but_scan)
+        self.but_browse.clicked.connect(self.on_but_browse)
+        self.but_plot.clicked.connect(self.on_but_plot)
+        self.but_remove.clicked.connect(self.on_but_remove)
+        self.edi_bat_start.editingFinished.connect(self.on_edi_bat_start)
+        self.edi_bat_end.editingFinished.connect(self.on_edi_bat_end)
+        self.cbx_dark.stateChanged[int].connect(self.on_cbx)
+        self.cbx_all_chunks.stateChanged[int].connect(self.on_cbx_all_chunks)
  
         self.setLayout(self.grid)
 
@@ -138,7 +144,7 @@ class GUIDark ( QtGui.QWidget ) :
 
 
     def disconnectFromThread1(self):
-        try : self.disconnect( cp.thread1, QtCore.SIGNAL('update(QString)'), self.check_status )
+        try: cp.thread1.update['QString'].disconnect(self.check_status)
         except : pass
 
 
@@ -156,8 +162,8 @@ class GUIDark ( QtGui.QWidget ) :
         self.cbx_all_chunks.setToolTip('Switch between using one \nor all chunks of xtc file')
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -252,7 +258,7 @@ class GUIDark ( QtGui.QWidget ) :
     def on_but_path(self):
         logger.debug('Dark file browser', __name__ )
         path = str(self.edi_path.text())        
-        path = str( QtGui.QFileDialog.getOpenFileName(self,'Select file',path) )
+        path = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select file',path) )[0]
         dname, fname = os.path.split(path)
 
         if dname == '' or fname == '' :
@@ -453,7 +459,7 @@ class GUIDark ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIDark ()
     widget.show()
     app.exec_()

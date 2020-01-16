@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,7 +34,7 @@ from CorAna.Logger                 import logger
 #---------------------
 #  Class definition --
 #---------------------
-class GUISetupEnergyAngle ( QtGui.QWidget ) :
+class GUISetupEnergyAngle ( QtWidgets.QWidget ) :
     """GUI Setup Info Left Panel"""
 
     #----------------
@@ -42,33 +42,33 @@ class GUISetupEnergyAngle ( QtGui.QWidget ) :
     #----------------
     def __init__ ( self, parent=None ) :
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(200, 400, 500, 30)
         self.setWindowTitle('Setup Info Left Panel')
         self.setFrame()
  
-        self.titPhotonE    = QtGui.QLabel('X-Ray Photon Energy (keV):')
-        self.titNomAngle   = QtGui.QLabel('Nominal Angle (deg):')
-        self.titRealAngle  = QtGui.QLabel('Real Angle (deg):')
-        self.titTiltAngle  = QtGui.QLabel('Tilt Angle (deg):')
+        self.titPhotonE    = QtWidgets.QLabel('X-Ray Photon Energy (keV):')
+        self.titNomAngle   = QtWidgets.QLabel('Nominal Angle (deg):')
+        self.titRealAngle  = QtWidgets.QLabel('Real Angle (deg):')
+        self.titTiltAngle  = QtWidgets.QLabel('Tilt Angle (deg):')
 
         #print 'cp.real_angle.value():', cp.real_angle.value()
 
-        self.ediPhotonE    = QtGui.QLineEdit  ( '%8.3f' % (cp.photon_energy.value()) ) 
-        self.ediNomAngle   = QtGui.QLineEdit  ( '%8.3f' % (cp.nominal_angle.value()) ) 
-        self.ediRealAngle  = QtGui.QLineEdit  ( '%8.3f' % (cp.real_angle.value()) ) 
-        self.ediTiltAngle  = QtGui.QLineEdit  ( '%8.3f' % (cp.tilt_angle.value()) ) 
+        self.ediPhotonE    = QtWidgets.QLineEdit  ( '%8.3f' % (cp.photon_energy.value()) ) 
+        self.ediNomAngle   = QtWidgets.QLineEdit  ( '%8.3f' % (cp.nominal_angle.value()) ) 
+        self.ediRealAngle  = QtWidgets.QLineEdit  ( '%8.3f' % (cp.real_angle.value()) ) 
+        self.ediTiltAngle  = QtWidgets.QLineEdit  ( '%8.3f' % (cp.tilt_angle.value()) ) 
 
         self.ediPhotonE  .setReadOnly( True ) 
         self.ediNomAngle .setReadOnly( True ) 
         self.ediRealAngle.setReadOnly( True ) 
         self.ediTiltAngle.setReadOnly( True ) 
 
-        self.hboxE = QtGui.QHBoxLayout()
-        self.hboxA = QtGui.QHBoxLayout()
-        self.hboxR = QtGui.QHBoxLayout()
-        self.hboxT = QtGui.QHBoxLayout()
+        self.hboxE = QtWidgets.QHBoxLayout()
+        self.hboxA = QtWidgets.QHBoxLayout()
+        self.hboxR = QtWidgets.QHBoxLayout()
+        self.hboxT = QtWidgets.QHBoxLayout()
 
         self.hboxA.addWidget(self.titNomAngle)
         self.hboxA.addStretch(1)     
@@ -86,7 +86,7 @@ class GUISetupEnergyAngle ( QtGui.QWidget ) :
         self.hboxE.addStretch(1)     
         self.hboxE.addWidget(self.ediPhotonE)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.hboxE)
         self.vbox.addLayout(self.hboxA)
         self.vbox.addLayout(self.hboxR)
@@ -113,8 +113,8 @@ class GUISetupEnergyAngle ( QtGui.QWidget ) :
         self.ediTiltAngle.setToolTip( msg_info )
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -168,7 +168,7 @@ class GUISetupEnergyAngle ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUISetupEnergyAngle ()
     widget.show()
     app.exec_()

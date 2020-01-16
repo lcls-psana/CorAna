@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -33,22 +33,22 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUINonKineticMode ( QtGui.QWidget ) :
+class GUINonKineticMode ( QtWidgets.QWidget ) :
     """GUI sets the non-kinetic mode parameters"""
 
     #----------------
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 500, 30)
         self.setWindowTitle('Non-Kinetics Mode:')
         self.setFrame()
 
-        self.tit_nonkinetic = QtGui.QLabel('Non-kinetic mode')
-        self.tit_empty      = QtGui.QLabel('does not require extra parameters here...')
+        self.tit_nonkinetic = QtWidgets.QLabel('Non-kinetic mode')
+        self.tit_empty      = QtWidgets.QLabel('does not require extra parameters here...')
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addWidget(self.tit_nonkinetic)
         self.vbox.addWidget(self.tit_empty)
         self.vbox.addStretch(1)     
@@ -66,8 +66,8 @@ class GUINonKineticMode ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -108,7 +108,7 @@ class GUINonKineticMode ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUINonKineticMode ()
     widget.show()
     app.exec_()

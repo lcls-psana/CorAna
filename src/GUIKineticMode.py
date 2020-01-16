@@ -22,7 +22,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,34 +34,34 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIKineticMode ( QtGui.QWidget ) :
+class GUIKineticMode ( QtWidgets.QWidget ) :
     """GUI sets the kinetic mode parameters"""
 
     #----------------
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 500, 30)
         self.setWindowTitle('Kinetic Mode')
         self.setFrame()
 
         #self.list_of_kin_modes  = ['Non-Kinetics', 'Kinetics']
  
-        self.tit_kinetic         = QtGui.QLabel('Kinetic Mode parameters:')
-        self.tit_kin_win_size    = QtGui.QLabel('kinetics window size')
-        self.tit_kin_top_row     = QtGui.QLabel('top row number of visible slice')
-        self.tit_kin_slice_first = QtGui.QLabel('first usable kinetics slice')
-        self.tit_kin_slice_last  = QtGui.QLabel('last usable kinetics slice')
-        self.edi_kin_win_size    = QtGui.QLineEdit( str( cp.kin_win_size   .value() ) )        
-        self.edi_kin_top_row     = QtGui.QLineEdit( str( cp.kin_top_row    .value() ) )        
-        self.edi_kin_slice_first = QtGui.QLineEdit( str( cp.kin_slice_first.value() ) )        
-        self.edi_kin_slice_last  = QtGui.QLineEdit( str( cp.kin_slice_last .value() ) )        
+        self.tit_kinetic         = QtWidgets.QLabel('Kinetic Mode parameters:')
+        self.tit_kin_win_size    = QtWidgets.QLabel('kinetics window size')
+        self.tit_kin_top_row     = QtWidgets.QLabel('top row number of visible slice')
+        self.tit_kin_slice_first = QtWidgets.QLabel('first usable kinetics slice')
+        self.tit_kin_slice_last  = QtWidgets.QLabel('last usable kinetics slice')
+        self.edi_kin_win_size    = QtWidgets.QLineEdit( str( cp.kin_win_size   .value() ) )        
+        self.edi_kin_top_row     = QtWidgets.QLineEdit( str( cp.kin_top_row    .value() ) )        
+        self.edi_kin_slice_first = QtWidgets.QLineEdit( str( cp.kin_slice_first.value() ) )        
+        self.edi_kin_slice_last  = QtWidgets.QLineEdit( str( cp.kin_slice_last .value() ) )        
         #self.box_kin_mode        = QtGui.QComboBox( self ) 
         #self.box_kin_mode.addItems(self.list_of_kin_modes)
         #self.box_kin_mode.setCurrentIndex( self.list_of_kin_modes.index(cp.kin_mode.value()) )
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid.addWidget(self.tit_kinetic,               0, 0, 1, 8)
         self.grid.addWidget(self.tit_kin_win_size   ,       1, 1, 1, 8)
         self.grid.addWidget(self.tit_kin_top_row    ,       2, 1, 1, 8)
@@ -75,10 +75,10 @@ class GUIKineticMode ( QtGui.QWidget ) :
         self.setLayout(self.grid)
 
         #self.connect( self.box_kin_mode       , QtCore.SIGNAL('currentIndexChanged(int)'), self.on_box_kin_mode        )
-        self.connect( self.edi_kin_win_size   , QtCore.SIGNAL('editingFinished ()'),       self.on_edi_kin_win_size    )
-        self.connect( self.edi_kin_top_row    , QtCore.SIGNAL('editingFinished ()'),       self.on_edi_kin_top_row     )
-        self.connect( self.edi_kin_slice_first, QtCore.SIGNAL('editingFinished ()'),       self.on_edi_kin_slice_first )
-        self.connect( self.edi_kin_slice_last , QtCore.SIGNAL('editingFinished ()'),       self.on_edi_kin_slice_last  )
+        self.edi_kin_win_size.editingFinished .connect(self.on_edi_kin_win_size)
+        self.edi_kin_top_row.editingFinished .connect(self.on_edi_kin_top_row)
+        self.edi_kin_slice_first.editingFinished .connect(self.on_edi_kin_slice_first)
+        self.edi_kin_slice_last.editingFinished .connect(self.on_edi_kin_slice_last)
  
         self.showToolTips()
         self.setStyle()
@@ -97,8 +97,8 @@ class GUIKineticMode ( QtGui.QWidget ) :
         self.edi_kin_slice_last .setToolTip( msg )
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -182,7 +182,7 @@ class GUIKineticMode ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIKineticMode ()
     widget.show()
     app.exec_()

@@ -33,7 +33,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 
 #-----------------------------
@@ -58,7 +58,7 @@ from GUIFileBrowser       import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIMainSplit ( QtGui.QWidget ) :
+class GUIMainSplit ( QtWidgets.QWidget ) :
     """Main GUI for the interactive analysis project.
 
     @see BaseClass
@@ -68,7 +68,7 @@ class GUIMainSplit ( QtGui.QWidget ) :
 
         self.name = 'GUIMainSplit'
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(10, 25, 800, 950)
         self.setWindowTitle('Data Processing Environment')
@@ -84,15 +84,15 @@ class GUIMainSplit ( QtGui.QWidget ) :
         #self.butSystem      = QtGui.QPushButton('System')
         #self.butRun         = QtGui.QPushButton('Run')
         #self.butViewResults = QtGui.QPushButton('View Results')
-        self.butStop        = QtGui.QPushButton('Stop')
-        self.butSave        = QtGui.QPushButton('Save')
-        self.butExit        = QtGui.QPushButton('Exit')
-        self.butFBrowser    = QtGui.QPushButton('File Viewer')
+        self.butStop        = QtWidgets.QPushButton('Stop')
+        self.butSave        = QtWidgets.QPushButton('Save')
+        self.butExit        = QtWidgets.QPushButton('Exit')
+        self.butFBrowser    = QtWidgets.QPushButton('File Viewer')
         #self.butLogger      = QtGui.QPushButton('Logger')
 
-        self.hboxW = QtGui.QHBoxLayout() 
+        self.hboxW = QtWidgets.QHBoxLayout() 
 
-        self.hboxWW= QtGui.QHBoxLayout() 
+        self.hboxWW= QtWidgets.QHBoxLayout() 
         self.hboxWW.addStretch(1)
         self.hboxWW.addLayout(self.hboxW) 
         self.hboxWW.addStretch(1)
@@ -112,7 +112,7 @@ class GUIMainSplit ( QtGui.QWidget ) :
         self.makeTabBar()
         self.guiSelector()
 
-        self.hboxB = QtGui.QHBoxLayout() 
+        self.hboxB = QtWidgets.QHBoxLayout() 
         #self.hboxB.addWidget(self.butLogger     )
         self.hboxB.addWidget(self.butFBrowser   )
         self.hboxB.addStretch(1)     
@@ -120,7 +120,7 @@ class GUIMainSplit ( QtGui.QWidget ) :
         self.hboxB.addWidget(self.butSave       )
         self.hboxB.addWidget(self.butExit       )
 
-        self.vbox = QtGui.QVBoxLayout() 
+        self.vbox = QtWidgets.QVBoxLayout() 
         #self.vbox.addWidget(self.titControl    )
         #self.vbox.addWidget(self.butFiles      )
         #self.vbox.addWidget(self.butBatchInfo  )
@@ -134,7 +134,7 @@ class GUIMainSplit ( QtGui.QWidget ) :
         self.vbox.addLayout(self.hboxWW)
         self.vbox.addStretch(1)
 
-        self.widg_vbox = QtGui.QWidget()        
+        self.widg_vbox = QtWidgets.QWidget()        
         self.widg_vbox.setLayout(self.vbox)
 
         #self.edi_stub = QtGui.QLineEdit()
@@ -144,11 +144,11 @@ class GUIMainSplit ( QtGui.QWidget ) :
         cp.guilogger.setMinimumHeight(100)
         cp.guilogger.setMinimumWidth(850)
 
-        self.splitV = QtGui.QSplitter(QtCore.Qt.Vertical)
+        self.splitV = QtWidgets.QSplitter(QtCore.Qt.Vertical)
         self.splitV.addWidget(self.widg_vbox)
         self.splitV.addWidget(cp.guilogger)
 
-        self.hbox = QtGui.QHBoxLayout() 
+        self.hbox = QtWidgets.QHBoxLayout() 
         self.hbox.addWidget(self.splitV)
 
         self.setLayout(self.hbox)
@@ -159,10 +159,10 @@ class GUIMainSplit ( QtGui.QWidget ) :
         #self.connect(self.butSystem     ,  QtCore.SIGNAL('clicked()'), self.onSystem      )
         #self.connect(self.butRun        ,  QtCore.SIGNAL('clicked()'), self.onRun         )
         #self.connect(self.butViewResults,  QtCore.SIGNAL('clicked()'), self.onViewResults )
-        self.connect(self.butStop       ,  QtCore.SIGNAL('clicked()'), self.onStop        )
-        self.connect(self.butSave       ,  QtCore.SIGNAL('clicked()'), self.onSave        )
-        self.connect(self.butExit       ,  QtCore.SIGNAL('clicked()'), self.onExit        )
-        self.connect(self.butFBrowser   ,  QtCore.SIGNAL('clicked()'), self.onFBrowser    )
+        self.butStop.clicked.connect(self.onStop)
+        self.butSave.clicked.connect(self.onSave)
+        self.butExit.clicked.connect(self.onExit)
+        self.butFBrowser.clicked.connect(self.onFBrowser)
         #self.connect(self.butLogger     ,  QtCore.SIGNAL('clicked()'), self.onLogger      )
 
         self.showToolTips()
@@ -196,8 +196,8 @@ class GUIMainSplit ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -221,7 +221,7 @@ class GUIMainSplit ( QtGui.QWidget ) :
 
     def makeTabBar(self,mode=None) :
         #if mode is not None : self.tab_bar.close()
-        self.tab_bar = QtGui.QTabBar()
+        self.tab_bar = QtWidgets.QTabBar()
 
         #Uses self.list_file_types
         self.ind_tab_files  = self.tab_bar.addTab( self.list_of_tabs[0] )
@@ -240,7 +240,7 @@ class GUIMainSplit ( QtGui.QWidget ) :
         self.tab_bar.setTabTextColor(self.ind_tab_intmon , QtGui.QColor('red'))
         self.tab_bar.setTabTextColor(self.ind_tab_run    , QtGui.QColor('magenta'))
         self.tab_bar.setTabTextColor(self.ind_tab_result , QtGui.QColor('gray'))
-        self.tab_bar.setShape(QtGui.QTabBar.RoundedNorth)
+        self.tab_bar.setShape(QtWidgets.QTabBar.RoundedNorth)
 
         #self.tab_bar.setTabEnabled(1, False)
         #self.tab_bar.setTabEnabled(3, False)
@@ -255,7 +255,7 @@ class GUIMainSplit ( QtGui.QWidget ) :
 
         self.tab_bar.setCurrentIndex(tab_index)
 
-        self.connect(self.tab_bar, QtCore.SIGNAL('currentChanged(int)'), self.onTabBar)
+        self.tab_bar.currentChanged[int].connect(self.onTabBar)
 
 
     def guiSelector(self):
@@ -488,7 +488,7 @@ class GUIMainSplit ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIMainSplit()
     ex.show()
     app.exec_()

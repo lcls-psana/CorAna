@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,7 +34,7 @@ from CorAna.Logger                 import logger
 #---------------------
 #  Class definition --
 #---------------------
-class GUIImgSizePosition ( QtGui.QWidget ) :
+class GUIImgSizePosition ( QtWidgets.QWidget ) :
     """GUI sets the beam and spec coordinates w.r.t. camera frame for specular mode"""
 
     #----------------
@@ -43,26 +43,26 @@ class GUIImgSizePosition ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 500, 30)
         self.setWindowTitle('Specularly Reflected Beam Parameters')
         self.setFrame()
 
-        self.tit_img_size  = QtGui.QLabel('CCD Image Size (pix):')
-        self.tit_col       = QtGui.QLabel('column')
-        self.tit_row       = QtGui.QLabel('row')
-        self.tit_begin     = QtGui.QLabel('begin')
-        self.tit_end       = QtGui.QLabel('end')
-        self.tit_size      = QtGui.QLabel('size')
+        self.tit_img_size  = QtWidgets.QLabel('CCD Image Size (pix):')
+        self.tit_col       = QtWidgets.QLabel('column')
+        self.tit_row       = QtWidgets.QLabel('row')
+        self.tit_begin     = QtWidgets.QLabel('begin')
+        self.tit_end       = QtWidgets.QLabel('end')
+        self.tit_size      = QtWidgets.QLabel('size')
  
-        self.edi_col_begin    = QtGui.QLineEdit( str( cp.col_begin   .value() ) )        
-        self.edi_col_end      = QtGui.QLineEdit( str( cp.col_end     .value() ) )        
-        self.edi_col_size     = QtGui.QLineEdit( str( cp.bat_img_cols.value() ) )        
-        self.edi_row_begin    = QtGui.QLineEdit( str( cp.row_begin   .value() ) )        
-        self.edi_row_end      = QtGui.QLineEdit( str( cp.row_end     .value() ) )        
-        self.edi_row_size     = QtGui.QLineEdit( str( cp.bat_img_rows.value() ) )        
+        self.edi_col_begin    = QtWidgets.QLineEdit( str( cp.col_begin   .value() ) )        
+        self.edi_col_end      = QtWidgets.QLineEdit( str( cp.col_end     .value() ) )        
+        self.edi_col_size     = QtWidgets.QLineEdit( str( cp.bat_img_cols.value() ) )        
+        self.edi_row_begin    = QtWidgets.QLineEdit( str( cp.row_begin   .value() ) )        
+        self.edi_row_end      = QtWidgets.QLineEdit( str( cp.row_end     .value() ) )        
+        self.edi_row_size     = QtWidgets.QLineEdit( str( cp.bat_img_rows.value() ) )        
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
 
         self.grid.addWidget(self.tit_img_size,       2, 0, 1,8)
         self.grid.addWidget(self.tit_col     ,       3, 3)
@@ -80,10 +80,10 @@ class GUIImgSizePosition ( QtGui.QWidget ) :
 
         self.setLayout(self.grid)
 
-        self.connect( self.edi_col_begin  ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_col_begin   )
-        self.connect( self.edi_col_end    ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_col_end     )
-        self.connect( self.edi_row_begin  ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_row_begin   )
-        self.connect( self.edi_row_end    ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_row_end     )
+        self.edi_col_begin.editingFinished .connect(self.on_edi_col_begin)
+        self.edi_col_end.editingFinished .connect(self.on_edi_col_end)
+        self.edi_row_begin.editingFinished .connect(self.on_edi_row_begin)
+        self.edi_row_end.editingFinished .connect(self.on_edi_row_end)
  
         self.showToolTips()
         self.setStyle()
@@ -102,8 +102,8 @@ class GUIImgSizePosition ( QtGui.QWidget ) :
         self.edi_row_end    .setToolTip( msg )
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -199,7 +199,7 @@ class GUIImgSizePosition ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIImgSizePosition ()
     widget.show()
     app.exec_()

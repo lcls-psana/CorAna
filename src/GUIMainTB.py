@@ -33,7 +33,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 
 #-----------------------------
@@ -59,7 +59,7 @@ from GUIELogPostingDialog import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIMainTB ( QtGui.QWidget ) :
+class GUIMainTB ( QtWidgets.QWidget ) :
     """Main GUI for the interactive analysis project.
 
     @see BaseClass
@@ -69,7 +69,7 @@ class GUIMainTB ( QtGui.QWidget ) :
 
         self.name = 'GUIMainTB'
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         cp.setIcons()
 
@@ -89,12 +89,12 @@ class GUIMainTB ( QtGui.QWidget ) :
         #self.butRun         = QtGui.QPushButton('Run')
         #self.butViewResults = QtGui.QPushButton('View Results')
         #self.butStop        = QtGui.QPushButton('Stop')
-        self.butSave        = QtGui.QPushButton('Save')
-        self.butExit        = QtGui.QPushButton('Exit')
-        self.butFile        = QtGui.QPushButton(u'GUI \u2192 &File')
-        self.butELog        = QtGui.QPushButton(u'GUI \u2192 &ELog')
-        self.butLogger      = QtGui.QPushButton('Logger')
-        self.butFBrowser    = QtGui.QPushButton('File Viewer')
+        self.butSave        = QtWidgets.QPushButton('Save')
+        self.butExit        = QtWidgets.QPushButton('Exit')
+        self.butFile        = QtWidgets.QPushButton(u'GUI \u2192 &File')
+        self.butELog        = QtWidgets.QPushButton(u'GUI \u2192 &ELog')
+        self.butLogger      = QtWidgets.QPushButton('Logger')
+        self.butFBrowser    = QtWidgets.QPushButton('File Viewer')
 
         self.butELog    .setIcon(cp.icon_mail_forward)
         self.butFile    .setIcon(cp.icon_save)
@@ -104,14 +104,14 @@ class GUIMainTB ( QtGui.QWidget ) :
         self.butSave    .setIcon(cp.icon_save_cfg)
         #self.butStop    .setIcon(cp.icon_stop)
 
-        self.hboxW = QtGui.QHBoxLayout() 
+        self.hboxW = QtWidgets.QHBoxLayout() 
 
-        self.vboxW = QtGui.QVBoxLayout() 
+        self.vboxW = QtWidgets.QVBoxLayout() 
         self.vboxW.addStretch(1)
         self.vboxW.addLayout(self.hboxW) 
         self.vboxW.addStretch(1)
 
-        self.hboxWW= QtGui.QHBoxLayout() 
+        self.hboxWW= QtWidgets.QHBoxLayout() 
         self.hboxWW.addStretch(1)
         self.hboxWW.addLayout(self.vboxW) 
         self.hboxWW.addStretch(1)
@@ -130,7 +130,7 @@ class GUIMainTB ( QtGui.QWidget ) :
         self.makeTabBar()
         self.guiSelector()
 
-        self.hboxB = QtGui.QHBoxLayout() 
+        self.hboxB = QtWidgets.QHBoxLayout() 
         self.hboxB.addWidget(self.butLogger     )
         self.hboxB.addWidget(self.butFBrowser   )
         self.hboxB.addWidget(self.butFile       )
@@ -140,7 +140,7 @@ class GUIMainTB ( QtGui.QWidget ) :
         self.hboxB.addWidget(self.butSave       )
         self.hboxB.addWidget(self.butExit       )
 
-        self.vbox = QtGui.QVBoxLayout() 
+        self.vbox = QtWidgets.QVBoxLayout() 
         #self.vbox.addWidget(self.titControl    )
         #self.vbox.addWidget(self.butFiles      )
         #self.vbox.addWidget(self.butBatchInfo  )
@@ -162,12 +162,12 @@ class GUIMainTB ( QtGui.QWidget ) :
         #self.connect(self.butRun        ,  QtCore.SIGNAL('clicked()'), self.onRun         )
         #self.connect(self.butViewResults,  QtCore.SIGNAL('clicked()'), self.onViewResults )
         #self.connect(self.butStop       ,  QtCore.SIGNAL('clicked()'), self.onStop        )
-        self.connect(self.butSave       ,  QtCore.SIGNAL('clicked()'), self.onSave        )
-        self.connect(self.butExit       ,  QtCore.SIGNAL('clicked()'), self.onExit        )
-        self.connect(self.butELog       ,  QtCore.SIGNAL('clicked()'), self.onELog        )
-        self.connect(self.butFile       ,  QtCore.SIGNAL('clicked()'), self.onFile        )
-        self.connect(self.butLogger     ,  QtCore.SIGNAL('clicked()'), self.onLogger      )
-        self.connect(self.butFBrowser   ,  QtCore.SIGNAL('clicked()'), self.onFBrowser    )
+        self.butSave.clicked.connect(self.onSave)
+        self.butExit.clicked.connect(self.onExit)
+        self.butELog.clicked.connect(self.onELog)
+        self.butFile.clicked.connect(self.onFile)
+        self.butLogger.clicked.connect(self.onLogger)
+        self.butFBrowser.clicked.connect(self.onFBrowser)
 
         self.showToolTips()
         self.setStyle()
@@ -206,8 +206,8 @@ class GUIMainTB ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -238,7 +238,7 @@ class GUIMainTB ( QtGui.QWidget ) :
 
     def makeTabBar(self,mode=None) :
         #if mode is not None : self.tab_bar.close()
-        self.tab_bar = QtGui.QTabBar()
+        self.tab_bar = QtWidgets.QTabBar()
 
         #Uses self.list_file_types
         self.ind_tab_files  = self.tab_bar.addTab( self.list_of_tabs[0] )
@@ -256,7 +256,7 @@ class GUIMainTB ( QtGui.QWidget ) :
         self.tab_bar.setTabTextColor(self.ind_tab_intmon , QtGui.QColor('red'))
         self.tab_bar.setTabTextColor(self.ind_tab_run    , QtGui.QColor('magenta'))
         self.tab_bar.setTabTextColor(self.ind_tab_result , QtGui.QColor('gray'))
-        self.tab_bar.setShape(QtGui.QTabBar.RoundedNorth)
+        self.tab_bar.setShape(QtWidgets.QTabBar.RoundedNorth)
 
         #self.tab_bar.setTabEnabled(1, False)
         #self.tab_bar.setTabEnabled(3, False)
@@ -273,7 +273,7 @@ class GUIMainTB ( QtGui.QWidget ) :
 
         self.tab_bar.setCurrentIndex(tab_index)
 
-        self.connect(self.tab_bar, QtCore.SIGNAL('currentChanged(int)'), self.onTabBar)
+        self.tab_bar.currentChanged[int].connect(self.onTabBar)
 
 
     def guiSelector(self):
@@ -437,11 +437,11 @@ class GUIMainTB ( QtGui.QWidget ) :
         logger.debug('onFile', self.name)
         path  = fnm.path_gui_image()
         #dir, fname = os.path.split(path)
-        path  = str( QtGui.QFileDialog.getSaveFileName(self,
+        path  = str( QtWidgets.QFileDialog.getSaveFileName(self,
                                                        caption='Select file to save the GUI',
                                                        directory = path,
                                                        filter = '*.png'
-                                                       ) )
+                                                       ) )[0]
         if path == '' :
             logger.debug('Saving is cancelled.', self.name)
             return
@@ -567,7 +567,7 @@ class GUIMainTB ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIMainTB()
     ex.show()
     app.exec_()

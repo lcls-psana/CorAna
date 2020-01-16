@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -37,11 +37,17 @@ from BatchJobCorAna         import bjcora
 #---------------------
 #  Class definition --
 #---------------------
-class GUIRunSplit ( QtGui.QWidget ) :
+try:
+    QString = unicode
+except NameError:
+    # Python 3
+    QString = str
+
+class GUIRunSplit ( QtWidgets.QWidget ) :
     """GUI controls the splitting procedure"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(50, 100, 700, 500)
         self.setWindowTitle('Run splitting')
         self.setFrame()
@@ -52,14 +58,14 @@ class GUIRunSplit ( QtGui.QWidget ) :
         self.nparts = cp.bat_img_nparts.value()
         #print 'self.nparts = ', self.nparts
 
-        self.lab_status = QtGui.QLabel('Batch job status: ')
-        self.hboxS = QtGui.QHBoxLayout()
+        self.lab_status = QtWidgets.QLabel('Batch job status: ')
+        self.hboxS = QtWidgets.QHBoxLayout()
         self.hboxS.addWidget(self.lab_status)
 
         self.makeButtons()
         self.makeTable()
  
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.hboxB)
         self.vbox.addLayout(self.hboxS)
         self.vbox.addWidget(self.table)
@@ -85,7 +91,7 @@ class GUIRunSplit ( QtGui.QWidget ) :
 
 
     def disconnectFromThread1(self):
-        try : self.disconnect( cp.thread1, QtCore.SIGNAL('update(QString)'), self.updateStatus )
+        try : cp.thread1.update['QString'].disconnect(self.updateStatus)
         except : pass
 
 
@@ -104,8 +110,8 @@ class GUIRunSplit ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -114,27 +120,27 @@ class GUIRunSplit ( QtGui.QWidget ) :
 
     def makeButtons(self):
         """Makes the horizontal box with buttons"""
-        self.but_run    = QtGui.QPushButton('Run') 
-        self.but_status = QtGui.QPushButton('Status') 
-        self.but_brow   = QtGui.QPushButton('View') 
-        self.but_remove = QtGui.QPushButton('Remove files') 
+        self.but_run    = QtWidgets.QPushButton('Run') 
+        self.but_status = QtWidgets.QPushButton('Status') 
+        self.but_brow   = QtWidgets.QPushButton('View') 
+        self.but_remove = QtWidgets.QPushButton('Remove files') 
 
-        self.hboxB = QtGui.QHBoxLayout()
+        self.hboxB = QtWidgets.QHBoxLayout()
         self.hboxB.addWidget(self.but_run)
         self.hboxB.addWidget(self.but_status)
         self.hboxB.addWidget(self.but_brow)
         self.hboxB.addStretch(1)     
         self.hboxB.addWidget(self.but_remove)
 
-        self.connect( self.but_run,    QtCore.SIGNAL('clicked()'), self.onRun    )
-        self.connect( self.but_status, QtCore.SIGNAL('clicked()'), self.onStatus )
-        self.connect( self.but_brow,   QtCore.SIGNAL('clicked()'), self.onBrow   )
-        self.connect( self.but_remove, QtCore.SIGNAL('clicked()'), self.onRemove )
+        self.but_run.clicked.connect(self.onRun)
+        self.but_status.clicked.connect(self.onStatus)
+        self.but_brow.clicked.connect(self.onBrow)
+        self.but_remove.clicked.connect(self.onRemove)
 
 
     def makeTable(self):
         """Makes the table for the list of output and log files"""
-        self.table = QtGui.QTableWidget(self.nparts+8, 4, self)
+        self.table = QtWidgets.QTableWidget(self.nparts+8, 4, self)
         self.table.setHorizontalHeaderLabels(['File', 'Exists?', 'Creation time', 'Size(Byte)'])
         #self.table.setVerticalHeaderLabels([''])
 
@@ -155,10 +161,10 @@ class GUIRunSplit ( QtGui.QWidget ) :
             #print fname
 
             file_exists = os.path.exists(fname)
-            item_fname  = QtGui.QTableWidgetItem( os.path.basename(fname) )
-            item_exists = QtGui.QTableWidgetItem( self.dict_status[file_exists] )
-            item_ctime  = QtGui.QTableWidgetItem( 'N/A' )
-            item_size   = QtGui.QTableWidgetItem( 'N/A' )
+            item_fname  = QtWidgets.QTableWidgetItem( os.path.basename(fname) )
+            item_exists = QtWidgets.QTableWidgetItem( self.dict_status[file_exists] )
+            item_ctime  = QtWidgets.QTableWidgetItem( 'N/A' )
+            item_size   = QtWidgets.QTableWidgetItem( 'N/A' )
 
             item_exists.setTextAlignment(QtCore.Qt.AlignCenter)
             item_ctime .setTextAlignment(QtCore.Qt.AlignCenter)
@@ -332,7 +338,7 @@ class GUIRunSplit ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIRunSplit ()
     widget.show()
     app.exec_()

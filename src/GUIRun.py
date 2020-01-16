@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -41,22 +41,22 @@ from BatchJobPedestals      import bjpeds
 #---------------------
 #  Class definition --
 #---------------------
-class GUIRun ( QtGui.QWidget ) :
+class GUIRun ( QtWidgets.QWidget ) :
     """GUI control of the entire file processing procedure"""
 
     #----------------
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(1, 1, 800, 600)
         self.setWindowTitle('Run control')
         self.setFrame()
 
-        self.lab_title  = QtGui.QLabel     ('Run control')
+        self.lab_title  = QtWidgets.QLabel     ('Run control')
         #self.but_save   = QtGui.QPushButton('&Save')
         
-        self.hboxW = QtGui.QHBoxLayout()
+        self.hboxW = QtWidgets.QHBoxLayout()
         #self.hboxB = QtGui.QHBoxLayout()
         #self.hboxB.addWidget(self.lab_status)
         #self.hboxB.addStretch(1)     
@@ -66,7 +66,7 @@ class GUIRun ( QtGui.QWidget ) :
         self.makeTabBar()
         self.guiSelector()
 
-        self.vbox = QtGui.QVBoxLayout()   
+        self.vbox = QtWidgets.QVBoxLayout()   
         self.vbox.addWidget(self.lab_title)
         self.vbox.addWidget(self.tab_bar)
         self.vbox.addLayout(self.hboxW)
@@ -88,8 +88,8 @@ class GUIRun ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -112,7 +112,7 @@ class GUIRun ( QtGui.QWidget ) :
         
     def makeTabBar(self,mode=None) :
         #if mode is not None : self.tab_bar.close()
-        self.tab_bar = QtGui.QTabBar()
+        self.tab_bar = QtWidgets.QTabBar()
 
         #Uses self.list_run_types
         self.ind_tab_info  = self.tab_bar.addTab( self.list_run_types[0] )
@@ -126,7 +126,7 @@ class GUIRun ( QtGui.QWidget ) :
         self.tab_bar.setTabTextColor(self.ind_tab_proc , QtGui.QColor('gray'))
         self.tab_bar.setTabTextColor(self.ind_tab_merge, QtGui.QColor('blue'))
         self.tab_bar.setTabTextColor(self.ind_tab_auto , QtGui.QColor('black'))
-        self.tab_bar.setShape(QtGui.QTabBar.RoundedNorth)
+        self.tab_bar.setShape(QtWidgets.QTabBar.RoundedNorth)
 
         #self.tab_bar.setTabEnabled(1, False)
         #self.tab_bar.setTabEnabled(2, False)
@@ -142,7 +142,7 @@ class GUIRun ( QtGui.QWidget ) :
 
         logger.info(' make_tab_bar - set mode: ' + cp.current_run_tab.value(), __name__)
 
-        self.connect(self.tab_bar, QtCore.SIGNAL('currentChanged(int)'), self.onTabBar)
+        self.tab_bar.currentChanged[int].connect(self.onTabBar)
 
 
     def guiSelector(self):
@@ -237,7 +237,7 @@ class GUIRun ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIRun ()
     widget.show()
     app.exec_()

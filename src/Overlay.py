@@ -6,13 +6,13 @@ from __future__ import division
 import sys
 #from PyQt4.QtCore import Qt
 #from PyQt4.QtGui import QtGui
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Overlay(QtGui.QWidget):
+class Overlay(QtWidgets.QWidget):
  
     def __init__(self, parent = None, text='xxx'):
  
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         palette = QtGui.QPalette(self.palette())
         palette.setColor(palette.Background, QtCore.Qt.transparent)
         self.setPalette(palette)
@@ -45,18 +45,18 @@ class Overlay(QtGui.QWidget):
 #----------------------------------
 # TEST stuff:
 
-class MyWindow(QtGui.QMainWindow):
+class MyWindow(QtWidgets.QMainWindow):
  
     def __init__(self, parent = None):
  
-        QtGui.QMainWindow.__init__(self, parent)
+        QtWidgets.QMainWindow.__init__(self, parent)
  
-        widget = QtGui.QWidget(self)
-        self.editor = QtGui.QTextEdit()
-        layout = QtGui.QGridLayout(widget)
+        widget = QtWidgets.QWidget(self)
+        self.editor = QtWidgets.QTextEdit()
+        layout = QtWidgets.QGridLayout(widget)
         layout.addWidget(self.editor,            0, 0, 1, 2)
-        layout.addWidget(QtGui.QPushButton("Refresh"), 1, 0)
-        layout.addWidget(QtGui.QPushButton("Cancel"),  1, 1)
+        layout.addWidget(QtWidgets.QPushButton("Refresh"), 1, 0)
+        layout.addWidget(QtWidgets.QPushButton("Cancel"),  1, 1)
  
         self.setCentralWidget(widget)
         self.overlay = Overlay(self.centralWidget())
@@ -69,7 +69,7 @@ class MyWindow(QtGui.QMainWindow):
 #----------------------------------
  
 if __name__ == "__main__": 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = MyWindow()
     w.show()
     sys.exit(app.exec_())

@@ -36,7 +36,7 @@ import os
 #-----------------------------
 # Imports for other modules --
 #-----------------------------
-from PyQt4 import QtGui
+from PyQt5 import QtGui, QtWidgets
 from CorAna.GUIMainTB import GUIMainTB
 from CorAna.ThreadWorker import ThreadWorker
 #from CorAna.GUIRunInfo   import GUIRunInfo
@@ -52,7 +52,7 @@ class TimeCorrelationDataProcessingEnvironment(object):
         self.input_parameters()
 
 	print("Start the main GUI")
-        app = QtGui.QApplication(sys.argv)
+        app = QtWidgets.QApplication(sys.argv)
 
 	t1 = ThreadWorker()
 	#t2 = ThreadWorker()

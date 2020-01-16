@@ -4,7 +4,7 @@ from __future__ import print_function
 from builtins import object
 from Drag import * # for access to global methods like add_obj_to_axes(...)
 
-from PyQt4 import QtGui, QtCore # For ability to override cursor...
+from PyQt5 import QtCore # For ability to override cursor..., QtGui, QtWidgets
 
 class DragObjectSet(object) : 
 
@@ -91,9 +91,9 @@ class DragObjectSet(object) :
 
     def override_cursor(self, contains):
         if contains :
-            QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+            QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         else :
-            QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+            QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
         #QtCore.Qt.PointingHandCursor,    
         #QtCore.Qt.SizeAllCursor
 

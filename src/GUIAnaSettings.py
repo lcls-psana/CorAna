@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -36,7 +36,7 @@ from GUIListOfTau           import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIAnaSettings ( QtGui.QWidget ) :
+class GUIAnaSettings ( QtWidgets.QWidget ) :
     """GUI Analysis Settings"""
 
     #----------------
@@ -44,46 +44,46 @@ class GUIAnaSettings ( QtGui.QWidget ) :
     #----------------
     def __init__ ( self, parent=None ) :
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(20, 40, 800, 630)
         self.setWindowTitle('Analysis Settings')
         self.setFrame()
  
-        self.tit_title  = QtGui.QLabel('Analysis Settings')
-        self.tit_status = QtGui.QLabel('Status:')
-        self.but_close  = QtGui.QPushButton('Close') 
-        self.but_apply  = QtGui.QPushButton('Save') 
-        self.but_show   = QtGui.QPushButton('Show Mask && Partitions') 
+        self.tit_title  = QtWidgets.QLabel('Analysis Settings')
+        self.tit_status = QtWidgets.QLabel('Status:')
+        self.but_close  = QtWidgets.QPushButton('Close') 
+        self.but_apply  = QtWidgets.QPushButton('Save') 
+        self.but_show   = QtWidgets.QPushButton('Show Mask && Partitions') 
         cp.guianasettingsleft  = GUIAnaSettingsLeft()
         cp.guianasettingsright = GUIAnaSettingsRight()
         cp.guilistoftau        = GUIListOfTau()
 
-        self.vboxR = QtGui.QVBoxLayout()
+        self.vboxR = QtWidgets.QVBoxLayout()
         self.vboxR.addWidget(cp.guianasettingsright)
         self.vboxR.addWidget(cp.guilistoftau)
 
-        self.hboxM = QtGui.QHBoxLayout()
+        self.hboxM = QtWidgets.QHBoxLayout()
         self.hboxM.addWidget(cp.guianasettingsleft)
         #self.hboxM.addWidget(cp.guianasettingsright)
         self.hboxM.addLayout(self.vboxR)
 
-        self.hboxB = QtGui.QHBoxLayout()
+        self.hboxB = QtWidgets.QHBoxLayout()
         self.hboxB.addWidget(self.tit_status)
         self.hboxB.addStretch(1)     
         self.hboxB.addWidget(self.but_close)
         self.hboxB.addWidget(self.but_apply)
         self.hboxB.addWidget(self.but_show )
 
-        self.vbox  = QtGui.QVBoxLayout()
+        self.vbox  = QtWidgets.QVBoxLayout()
         self.vbox.addWidget(self.tit_title)
         self.vbox.addLayout(self.hboxM)
         self.vbox.addLayout(self.hboxB)
         self.setLayout(self.vbox)
         
-        self.connect( self.but_close, QtCore.SIGNAL('clicked()'), self.onClose )
-        self.connect( self.but_apply, QtCore.SIGNAL('clicked()'), self.onSave )
-        self.connect( self.but_show , QtCore.SIGNAL('clicked()'), self.onShow  )
+        self.but_close.clicked.connect(self.onClose)
+        self.but_apply.clicked.connect(self.onSave)
+        self.but_show.clicked.connect(self.onShow)
 
         self.showToolTips()
         self.setStyle()
@@ -100,8 +100,8 @@ class GUIAnaSettings ( QtGui.QWidget ) :
         pass
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -165,7 +165,7 @@ class GUIAnaSettings ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIAnaSettings ()
     widget.show()
     app.exec_()

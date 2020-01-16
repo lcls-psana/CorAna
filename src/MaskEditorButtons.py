@@ -32,7 +32,7 @@ import os
 import time
 import numpy as np
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from CorAna.Logger                 import logger
 #from GUIHelp                import *
@@ -55,7 +55,7 @@ from DragObjectSet import *
 #---------------------
 
 #class MaskEditorButtons (QtGui.QMainWindow) :
-class MaskEditorButtons (QtGui.QWidget) :
+class MaskEditorButtons (QtWidgets.QWidget) :
     """Buttons for interactive plot of the image and spectrum for 2-d array."""
 
     #----------------
@@ -64,7 +64,7 @@ class MaskEditorButtons (QtGui.QWidget) :
 
     def __init__(self, parent=None, widgimage=None, ifname=None, ofname='./roi-mask.png', mfname='./roi-mask', \
                  xyc=None, lw=2, col='b', picker=5, verb=False, ccd_rot_n90=0, y_is_flip=False, fexmod=False):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setWindowTitle('GUI of buttons')
 
         self.setFrame()
@@ -138,30 +138,30 @@ class MaskEditorButtons (QtGui.QWidget) :
         #self.current_form = self.list_of_forms[0]
         self.current_form = None
 
-        self.tit_modes  = QtGui.QLabel('Modes:')
-        self.tit_forms  = QtGui.QLabel('Forms:')
-        self.tit_io     = QtGui.QLabel('I/O:')
-        self.tit_status = QtGui.QLabel('Status:')
-        self.lab_status = QtGui.QPushButton('Good')
+        self.tit_modes  = QtWidgets.QLabel('Modes:')
+        self.tit_forms  = QtWidgets.QLabel('Forms:')
+        self.tit_io     = QtWidgets.QLabel('I/O:')
+        self.tit_status = QtWidgets.QLabel('Status:')
+        self.lab_status = QtWidgets.QPushButton('Good')
         #self.lab_status = QtGui.QLabel('Good')
         #self.lab_status = QtGui.QTextEdit()
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addWidget(self.tit_forms)
         for form in self.list_of_forms :
-            but = QtGui.QPushButton(form)
+            but = QtWidgets.QPushButton(form)
             self.list_of_buts.append(but)
             self.vbox.addWidget(but)
-            self.connect(but, QtCore.SIGNAL('clicked()'), self.on_but)
+            but.clicked.connect(self.on_but)
             but.setToolTip('Select form to draw on image \nas ROI or masked region')
 
         self.vbox.addStretch(1)
         self.vbox.addWidget(self.tit_modes)
         for mode in self.list_of_modes :
-            but = QtGui.QPushButton(mode)
+            but = QtWidgets.QPushButton(mode)
             self.list_of_buts.append(but)
             self.vbox.addWidget(but)
-            self.connect(but, QtCore.SIGNAL('clicked()'), self.on_but)
+            but.clicked.connect(self.on_but)
             if   mode == 'Zoom'   : but.setToolTip(zoom_tip_msg)
             elif mode == 'Select' : but.setToolTip('Select forms for inversed masking. \nSelected forms are marked by different color')
             else                  : but.setToolTip('Select mode of manipulation with form')
@@ -169,10 +169,10 @@ class MaskEditorButtons (QtGui.QWidget) :
         self.vbox.addStretch(1)
         self.vbox.addWidget(self.tit_io)
         for io_tit, io_tip in zip(self.list_of_io_tits, self.list_of_io_tips) :
-            but = QtGui.QPushButton(io_tit)
+            but = QtWidgets.QPushButton(io_tit)
             self.list_of_io_buts.append(but)
             self.vbox.addWidget(but)
-            self.connect(but, QtCore.SIGNAL('clicked()'), self.on_io_but)
+            but.clicked.connect(self.on_io_but)
             but.setToolTip(io_tip)
 
         self.vbox.addStretch(1)
@@ -200,8 +200,8 @@ class MaskEditorButtons (QtGui.QWidget) :
         pass
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -605,10 +605,10 @@ class MaskEditorButtons (QtGui.QWidget) :
 
     def popup_confirmation_box(self):
         """Pop-up box for help"""
-        msg = QtGui.QMessageBox(self, windowTitle='Help for interactive plot',
+        msg = QtWidgets.QMessageBox(self, windowTitle='Help for interactive plot',
             text='This is a help',
-            #standardButtons=QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel)
-            standardButtons=QtGui.QMessageBox.Close)
+            #standardButtons=QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard | QtWidgets.QMessageBox.Cancel)
+            standardButtons=QtWidgets.QMessageBox.Close)
 
         msg.setDefaultButton(msg.Close)
         clicked = msg.exec_()
@@ -661,7 +661,7 @@ class MaskEditorButtons (QtGui.QWidget) :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = MaskEditorButtons(None)
     w.move(QtCore.QPoint(50,50))
     w.show()

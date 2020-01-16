@@ -22,7 +22,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -37,36 +37,36 @@ from BatchJobCorAna         import bjcora
 #---------------------
 #  Class definition --
 #---------------------
-class GUIRunInput ( QtGui.QWidget ) :
+class GUIRunInput ( QtWidgets.QWidget ) :
     """GUI for run input information"""
 
     def __init__ ( self, parent=None ) :
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(100, 10, 740, 350)
         self.setWindowTitle('Run input information')
         self.setFrame()
  
-        self.tit_title  = QtGui.QLabel('Input information')
-        self.tit_status = QtGui.QLabel('Status:')
+        self.tit_title  = QtWidgets.QLabel('Input information')
+        self.tit_status = QtWidgets.QLabel('Status:')
 
         self.makeTableInfo()
         self.makeTable()
 
-        self.hboxT = QtGui.QHBoxLayout()
+        self.hboxT = QtWidgets.QHBoxLayout()
         self.hboxT.addWidget(self.tit_title)
 
-        self.hboxS = QtGui.QHBoxLayout()
+        self.hboxS = QtWidgets.QHBoxLayout()
         self.hboxS.addWidget(self.tit_status)
         self.hboxS.addStretch(1)     
 
-        self.hboxN = QtGui.QHBoxLayout()
+        self.hboxN = QtWidgets.QHBoxLayout()
         self.hboxN.addStretch(1)     
         self.hboxN.addWidget(self.table)
         self.hboxN.addStretch(1)     
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.hboxT)
         self.vbox.addLayout(self.hboxN)
         #self.vbox.addWidget(self.table)
@@ -91,8 +91,8 @@ class GUIRunInput ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -144,7 +144,7 @@ class GUIRunInput ( QtGui.QWidget ) :
 
     def makeTableInfo(self) :
 
-        self.table_info = QtGui.QTableWidget(4,5,self)
+        self.table_info = QtWidgets.QTableWidget(4,5,self)
         self.table_info.setHorizontalHeaderLabels(['File name', 'Start', 'End', 'Total', u'\u0394t(sec):'])
         self.table_info.setVerticalHeaderLabels  (['Data:', 'Dark:', 'Flat:', 'Blem:'])
 
@@ -152,15 +152,15 @@ class GUIRunInput ( QtGui.QWidget ) :
         self.table_info.horizontalHeader().resizeSection(0,300)
         self.table_info.horizontalHeader().resizeSection(4,150)
 
-        self.item_data_file  = QtGui.QTableWidgetItem('Data')        
-        self.item_dark_file  = QtGui.QTableWidgetItem('Dark')        
-        self.item_flat_file  = QtGui.QTableWidgetItem('Flat')        
-        self.item_blem_file  = QtGui.QTableWidgetItem('Blem')        
+        self.item_data_file  = QtWidgets.QTableWidgetItem('Data')        
+        self.item_dark_file  = QtWidgets.QTableWidgetItem('Dark')        
+        self.item_flat_file  = QtWidgets.QTableWidgetItem('Flat')        
+        self.item_blem_file  = QtWidgets.QTableWidgetItem('Blem')        
 
-        self.item_data_start = QtGui.QTableWidgetItem('Start')        
-        self.item_data_end   = QtGui.QTableWidgetItem('End'  )        
-        self.item_data_total = QtGui.QTableWidgetItem('Total')        
-        self.item_data_time  = QtGui.QTableWidgetItem('Time' )        
+        self.item_data_start = QtWidgets.QTableWidgetItem('Start')        
+        self.item_data_end   = QtWidgets.QTableWidgetItem('End'  )        
+        self.item_data_total = QtWidgets.QTableWidgetItem('Total')        
+        self.item_data_time  = QtWidgets.QTableWidgetItem('Time' )        
 
         self.setTableInfoItems()
 
@@ -213,7 +213,7 @@ class GUIRunInput ( QtGui.QWidget ) :
 
 
     def makeTable(self) :
-        self.table = QtGui.QTableWidget(1,7,self)
+        self.table = QtWidgets.QTableWidget(1,7,self)
         self.table.setHorizontalHeaderLabels(['#Parts', '#Rows', '#Cols', 'Img size', 'Part size', 'Rest', 'Control'])
         #self.table.setVerticalHeaderLabels(['Set:'])
         self.table.verticalHeader().hide()
@@ -226,13 +226,13 @@ class GUIRunInput ( QtGui.QWidget ) :
         #self.edi_bat_nparts = QtGui.QLineEdit       (str(cp.bat_img_nparts.value()))        
         #self.item_nparts    = QtGui.QTableWidget(self.edi_bat_nparts)
 
-        self.item_nparts    = QtGui.QTableWidgetItem(str(cp.bat_img_nparts.value()))
-        self.item_rows      = QtGui.QTableWidgetItem(str(cp.bat_img_rows.value()))
-        self.item_cols      = QtGui.QTableWidgetItem(str(cp.bat_img_cols.value()))
-        self.item_size      = QtGui.QTableWidgetItem(str(cp.bat_img_size.value()))
-        self.item_part_size = QtGui.QTableWidgetItem('y')
-        self.item_rest_size = QtGui.QTableWidgetItem('z')
-        self.item_control   = QtGui.QTableWidgetItem('lock')
+        self.item_nparts    = QtWidgets.QTableWidgetItem(str(cp.bat_img_nparts.value()))
+        self.item_rows      = QtWidgets.QTableWidgetItem(str(cp.bat_img_rows.value()))
+        self.item_cols      = QtWidgets.QTableWidgetItem(str(cp.bat_img_cols.value()))
+        self.item_size      = QtWidgets.QTableWidgetItem(str(cp.bat_img_size.value()))
+        self.item_part_size = QtWidgets.QTableWidgetItem('y')
+        self.item_rest_size = QtWidgets.QTableWidgetItem('z')
+        self.item_control   = QtWidgets.QTableWidgetItem('lock')
 
         item_flags = QtCore.Qt.ItemFlags(QtCore.Qt.NoItemFlags)
         self.item_rows     .setFlags(item_flags)
@@ -359,7 +359,7 @@ class GUIRunInput ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIRunInput ()
     widget.show()
     app.exec_()

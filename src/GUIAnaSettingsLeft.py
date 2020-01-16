@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -35,22 +35,22 @@ from GUIAnaSettingsOptions  import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIAnaSettingsLeft ( QtGui.QWidget ) :
+class GUIAnaSettingsLeft ( QtWidgets.QWidget ) :
     """GUI sets parameters for analysis"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(20, 40, 390, 30)
         self.setWindowTitle('Analysis Settings Left')
         self.setFrame()
 
-        self.tit_ana_type = QtGui.QLabel('Select Analysis Type:')
-        self.hboxW = QtGui.QHBoxLayout()
-        self.hboxS = QtGui.QHBoxLayout()
+        self.tit_ana_type = QtWidgets.QLabel('Select Analysis Type:')
+        self.hboxW = QtWidgets.QHBoxLayout()
+        self.hboxS = QtWidgets.QHBoxLayout()
         self.makeTabBar()
         self.guiSelector()
  
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addWidget(self.tit_ana_type)
         self.vbox.addWidget(self.tab_bar)
         self.vbox.addLayout(self.hboxW)
@@ -70,8 +70,8 @@ class GUIAnaSettingsLeft ( QtGui.QWidget ) :
         self.tab_bar.setToolTip(msg)
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -79,7 +79,7 @@ class GUIAnaSettingsLeft ( QtGui.QWidget ) :
 
     def makeTabBar(self,mode=None) :
         #if mode is not None : self.tab_bar.close()
-        self.tab_bar = QtGui.QTabBar()
+        self.tab_bar = QtWidgets.QTabBar()
 
         self.list_ana_types  = ['Static', 'Dynamic']
 
@@ -88,13 +88,13 @@ class GUIAnaSettingsLeft ( QtGui.QWidget ) :
 
         self.tab_bar.setTabTextColor(self.ind_tab_static, QtGui.QColor('green'))
         self.tab_bar.setTabTextColor(self.ind_tab_dynamic,QtGui.QColor('blue'))
-        self.tab_bar.setShape(QtGui.QTabBar.RoundedNorth)
+        self.tab_bar.setShape(QtWidgets.QTabBar.RoundedNorth)
 
         logger.info(' makeTabBar - set mode: ' + cp.ana_type.value(), __name__)
 
         self.tab_bar.setCurrentIndex(self.list_ana_types.index(cp.ana_type.value()))
 
-        self.connect(self.tab_bar, QtCore.SIGNAL('currentChanged(int)'), self.onTabBar)
+        self.tab_bar.currentChanged[int].connect(self.onTabBar)
 
 
     def guiSelector(self):
@@ -177,7 +177,7 @@ class GUIAnaSettingsLeft ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIAnaSettingsLeft ()
     widget.show()
     app.exec_()

@@ -41,7 +41,7 @@ if __name__ == "__main__" :
 import matplotlib.pyplot as plt
 
 #from matplotlib.figure import Figure
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 #-----------------------------
 # Imports for other modules --
@@ -56,11 +56,11 @@ from ConfigParametersCorAna import confpars as cp
 #  Class definition --
 #---------------------
 
-class PlotArray (QtGui.QWidget) :
+class PlotArray (QtWidgets.QWidget) :
     """Plot for array"""
 
     def __init__(self, parent=None, arr=None, ofname='./fig.png', title='', help_msg=None):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(20, 40, 800, 600)
         self.setWindowTitle('Plot for array')
         self.setFrame()
@@ -69,7 +69,7 @@ class PlotArray (QtGui.QWidget) :
         self.widgbuts  = imgbuts.PlotArrayButtons(self, self.widgimage, ofname, help_msg)
  
         #---------------------
-        vbox = QtGui.QVBoxLayout()                      # <=== Begin to combine layout 
+        vbox = QtWidgets.QVBoxLayout()                      # <=== Begin to combine layout 
         #vbox.addWidget(self.widgimage)                 # <=== Add figure as QWidget
         vbox.addWidget(self.widgimage.getCanvas())      # <=== Add figure as FigureCanvas 
         vbox.addWidget(self.widgbuts)                   # <=== Add buttons         
@@ -79,8 +79,8 @@ class PlotArray (QtGui.QWidget) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -125,7 +125,7 @@ def get_array_for_test() :
 
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = PlotArray(arr=get_array_for_test(), ofname='./fig.png')
     w.move(QtCore.QPoint(50,50))
     w.show()

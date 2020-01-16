@@ -22,7 +22,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -37,9 +37,9 @@ from GUIELogPostingFields import *
 #---------------------
 
 
-class GUIELogPostingDialog(QtGui.QDialog) :
+class GUIELogPostingDialog(QtWidgets.QDialog) :
     def __init__(self, parent=None, fname=None):
-        QtGui.QDialog.__init__(self,parent)
+        QtWidgets.QDialog.__init__(self,parent)
         #self.setGeometry(20, 40, 500, 200)
         self.setWindowTitle('Send message to ELog')
         self.setFrame()
@@ -47,9 +47,9 @@ class GUIELogPostingDialog(QtGui.QDialog) :
 
         #self.setModal(True)
         self.widg_pars = GUIELogPostingFields(parent=self,att_fname=fname)
-        self.cbx_cntl  = QtGui.QCheckBox('&Lock control') 
-        self.but_canc  = QtGui.QPushButton('&Cancel') 
-        self.but_send  = QtGui.QPushButton('&Send to ELog') 
+        self.cbx_cntl  = QtWidgets.QCheckBox('&Lock control') 
+        self.but_canc  = QtWidgets.QPushButton('&Cancel') 
+        self.but_send  = QtWidgets.QPushButton('&Send to ELog') 
         #self.but_canc.setIcon(cp.icon_button_cancel)
         #self.but_send.setIcon(cp.icon_mail_forward)
         #self.setWindowIcon(cp.icon_mail_forward)
@@ -59,17 +59,17 @@ class GUIELogPostingDialog(QtGui.QDialog) :
         self.but_send.setIcon(cp.icon_mail_forward)
         self.setWindowIcon   (cp.icon_mail_forward)
         
-        self.connect( self.cbx_cntl, QtCore.SIGNAL('stateChanged(int)'), self.onCBox)
-        self.connect( self.but_canc, QtCore.SIGNAL('clicked()'),         self.onCancel )
-        self.connect( self.but_send, QtCore.SIGNAL('clicked()'),         self.onSend )
+        self.cbx_cntl.stateChanged[int].connect(self.onCBox)
+        self.but_canc.clicked.connect(self.onCancel)
+        self.but_send.clicked.connect(self.onSend)
 
-        self.hbox = QtGui.QHBoxLayout()
+        self.hbox = QtWidgets.QHBoxLayout()
         self.hbox.addWidget(self.cbx_cntl)
         self.hbox.addStretch(1)
         self.hbox.addWidget(self.but_canc)
         self.hbox.addWidget(self.but_send)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addWidget(self.widg_pars)
         self.vbox.addLayout(self.hbox)
         self.setLayout(self.vbox)
@@ -89,8 +89,8 @@ class GUIELogPostingDialog(QtGui.QDialog) :
         self.cbx_cntl.setToolTip('Lock/unlock top row \nof control buttons')
         
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -154,13 +154,13 @@ class GUIELogPostingDialog(QtGui.QDialog) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = GUIELogPostingDialog ()
     #w.show()
     resp=w.exec_()
     print('resp=',resp)
-    print('QtGui.QDialog.Rejected: ', QtGui.QDialog.Rejected)
-    print('QtGui.QDialog.Accepted: ', QtGui.QDialog.Accepted)
+    print('QtWidgets.QDialog.Rejected: ', QtWidgets.QDialog.Rejected)
+    print('QtWidgets.QDialog.Accepted: ', QtWidgets.QDialog.Accepted)
 
     #app.exec_()
 

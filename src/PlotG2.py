@@ -42,7 +42,7 @@ if __name__ == "__main__" :
 import matplotlib.pyplot as plt
 
 #from matplotlib.figure import Figure
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 #-----------------------------
 # Imports for other modules --
@@ -57,11 +57,11 @@ from ConfigParametersCorAna import confpars as cp
 #  Class definition --
 #---------------------
 
-class PlotG2 (QtGui.QWidget) :
+class PlotG2 (QtWidgets.QWidget) :
     """Plot for G2 arrays"""
 
     def __init__(self, parent=None, arrays=None, ofname='./fig_g2.png', title=''):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(20, 40, 800, 600)
         self.setWindowTitle('Plot for G2 arrays')
         self.setFrame()
@@ -70,7 +70,7 @@ class PlotG2 (QtGui.QWidget) :
         self.widgbuts  = imgbuts.PlotG2Buttons(self, self.widgimage, ofname)
  
         #---------------------
-        vbox = QtGui.QVBoxLayout()                      # <=== Begin to combine layout 
+        vbox = QtWidgets.QVBoxLayout()                      # <=== Begin to combine layout 
         #vbox.addWidget(self.widgimage)                 # <=== Add figure as QWidget
         vbox.addWidget(self.widgimage.getCanvas())      # <=== Add figure as FigureCanvas 
         vbox.addWidget(self.widgbuts)                   # <=== Add buttons         
@@ -80,8 +80,8 @@ class PlotG2 (QtGui.QWidget) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -135,7 +135,7 @@ def print_array(arr, msg='') :
     print('shape:', arr.shape)
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = PlotG2(arrays=get_arrays_for_test(), ofname='./fig_g2.png', title='My title')
     w.move(QtCore.QPoint(50,50))
     w.show()

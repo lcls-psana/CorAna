@@ -25,7 +25,7 @@ import os
 import random
 #import numpy as np
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore
 #import time   # for sleep(sec)
 #from BatchJobCorAna import bjcora
 from ConfigParametersCorAna import confpars as cp
@@ -35,6 +35,7 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 
 class ThreadWorker (QtCore.QThread) :
+    update = QtCore.pyqtSignal('QString')
 
     def __init__ ( self, parent=None ) :
         QtCore.QThread.__init__(self, parent)        
@@ -67,9 +68,9 @@ class ThreadWorker (QtCore.QThread) :
         #status_str = bstatus_str + '   ' + fstatus_str
         #status_str = bstatus_str
         if not QtCore is None :
-            self.emit( QtCore.SIGNAL('update(QString)'), \
+            self.update.emit(\
                        'from work thread ' + str(self.thread_id) +\
-                       '  check counter: ' + str(self.counter) )
+                       '  check counter: ' + str(self.counter))
         #print status_str
 
 

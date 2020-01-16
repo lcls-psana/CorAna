@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,20 +34,20 @@ from GUICCDSettings           import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUISystemSettingsLeft ( QtGui.QWidget ) :
+class GUISystemSettingsLeft ( QtWidgets.QWidget ) :
     """GUI sets system parameters"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 350, 300)
         self.setWindowTitle('System Settings Left')
         self.setFrame()
 
         cp.guiccdsettings = GUICCDSettings()
 
-        self.hbox = QtGui.QHBoxLayout()
+        self.hbox = QtWidgets.QHBoxLayout()
         self.hbox.addStretch(1) 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addWidget(cp.guiccdsettings)
         self.vbox.addStretch(1) 
         self.vbox.addLayout(self.hbox)
@@ -66,8 +66,8 @@ class GUISystemSettingsLeft ( QtGui.QWidget ) :
         #self.tit_sys_ram_size.setToolTip(msg)
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -113,7 +113,7 @@ class GUISystemSettingsLeft ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUISystemSettingsLeft ()
     widget.show()
     app.exec_()

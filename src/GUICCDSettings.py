@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -33,45 +33,45 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUICCDSettings ( QtGui.QWidget ) :
+class GUICCDSettings ( QtWidgets.QWidget ) :
     """GUI sets parameters for analysis (right panel)"""
 
     #----------------
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 300, 250)
         self.setWindowTitle('Analysis Settings Right')
         self.setFrame()
 
-        self.tit_ccdset         = QtGui.QLabel('CCD Settings:')
-        self.tit_ccdset_pixsize = QtGui.QLabel('Pixel size [mm]')
-        self.tit_ccdset_adcsatu = QtGui.QLabel('ADC saturation level [ADU]')
-        self.tit_ccdset_aduphot = QtGui.QLabel('ADU per photon')
-        self.tit_ccdset_ccdeff  = QtGui.QLabel('CCD efficiency')
-        self.tit_ccdset_ccdgain = QtGui.QLabel('CCD gain')
-        self.tit_mask_hot       = QtGui.QLabel('Hot pix mask thr. on RMS [ADU]:')
+        self.tit_ccdset         = QtWidgets.QLabel('CCD Settings:')
+        self.tit_ccdset_pixsize = QtWidgets.QLabel('Pixel size [mm]')
+        self.tit_ccdset_adcsatu = QtWidgets.QLabel('ADC saturation level [ADU]')
+        self.tit_ccdset_aduphot = QtWidgets.QLabel('ADU per photon')
+        self.tit_ccdset_ccdeff  = QtWidgets.QLabel('CCD efficiency')
+        self.tit_ccdset_ccdgain = QtWidgets.QLabel('CCD gain')
+        self.tit_mask_hot       = QtWidgets.QLabel('Hot pix mask thr. on RMS [ADU]:')
 
-        self.edi_ccdset_pixsize = QtGui.QLineEdit( str( cp.ccdset_pixsize.value() ) )        
-        self.edi_ccdset_adcsatu = QtGui.QLineEdit( str( cp.ccdset_adcsatu.value() ) )        
-        self.edi_ccdset_aduphot = QtGui.QLineEdit( str( cp.ccdset_aduphot.value() ) )        
-        self.edi_ccdset_ccdeff  = QtGui.QLineEdit( str( cp.ccdset_ccdeff .value() ) )        
-        self.edi_ccdset_ccdgain = QtGui.QLineEdit( str( cp.ccdset_ccdgain.value() ) )        
+        self.edi_ccdset_pixsize = QtWidgets.QLineEdit( str( cp.ccdset_pixsize.value() ) )        
+        self.edi_ccdset_adcsatu = QtWidgets.QLineEdit( str( cp.ccdset_adcsatu.value() ) )        
+        self.edi_ccdset_aduphot = QtWidgets.QLineEdit( str( cp.ccdset_aduphot.value() ) )        
+        self.edi_ccdset_ccdeff  = QtWidgets.QLineEdit( str( cp.ccdset_ccdeff .value() ) )        
+        self.edi_ccdset_ccdgain = QtWidgets.QLineEdit( str( cp.ccdset_ccdgain.value() ) )        
 
-        self.edi_mask_hot       = QtGui.QLineEdit( str( cp.mask_hot_thr.value() ) )        
+        self.edi_mask_hot       = QtWidgets.QLineEdit( str( cp.mask_hot_thr.value() ) )        
         #self.cbx_mask_hot       = QtGui.QCheckBox('Use hot pix mask', self)
-        self.cbx_mask_hot       = QtGui.QCheckBox('', self)
+        self.cbx_mask_hot       = QtWidgets.QCheckBox('', self)
         self.cbx_mask_hot.setChecked( cp.mask_hot_is_used.value() )
 
-        self.tit_orient = QtGui.QLabel('CCD orientation [deg]:')
+        self.tit_orient = QtWidgets.QLabel('CCD orientation [deg]:')
         self.list_of_orient = ['0', '90', '180', '270'] 
-        self.box_orient     = QtGui.QComboBox( self ) 
+        self.box_orient     = QtWidgets.QComboBox( self ) 
         self.box_orient.addItems(self.list_of_orient)
         self.box_orient.setCurrentIndex( self.list_of_orient.index(cp.ccd_orient.value()) )
 
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
 
         self.grid_row = 0
         self.grid.addWidget(self.tit_ccdset,               self.grid_row+1, 0, 1, 5)
@@ -94,20 +94,20 @@ class GUICCDSettings ( QtGui.QWidget ) :
         self.grid.addWidget(self.tit_orient,               self.grid_row+9, 1, 1, 3)
         self.grid.addWidget(self.box_orient,               self.grid_row+9, 4)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.grid)
         self.vbox.addStretch(1)
 
         self.setLayout(self.vbox)
 
-        self.connect(self.edi_ccdset_pixsize, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_ccdset_adcsatu, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_ccdset_aduphot, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_ccdset_ccdeff , QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_ccdset_ccdgain, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_mask_hot,       QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.cbx_mask_hot,       QtCore.SIGNAL('stateChanged(int)'), self.on_cbx ) 
-        self.connect(self.box_orient,         QtCore.SIGNAL('currentIndexChanged(int)'), self.on_box_orient )
+        self.edi_ccdset_pixsize.editingFinished.connect(self.onEdit)
+        self.edi_ccdset_adcsatu.editingFinished.connect(self.onEdit)
+        self.edi_ccdset_aduphot.editingFinished.connect(self.onEdit)
+        self.edi_ccdset_ccdeff.editingFinished.connect(self.onEdit)
+        self.edi_ccdset_ccdgain.editingFinished.connect(self.onEdit)
+        self.edi_mask_hot.editingFinished.connect(self.onEdit)
+        self.cbx_mask_hot.stateChanged[int].connect(self.on_cbx)
+        self.box_orient.currentIndexChanged[int].connect(self.on_box_orient)
 
         self.showToolTips()
         self.setStyle()
@@ -131,8 +131,8 @@ class GUICCDSettings ( QtGui.QWidget ) :
         self.edi_mask_hot.setToolTip('Threshold [ADU] on RMS for hot pixels')
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -258,7 +258,7 @@ class GUICCDSettings ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUICCDSettings ()
     widget.show()
     app.exec_()

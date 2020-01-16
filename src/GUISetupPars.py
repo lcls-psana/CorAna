@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,7 +34,7 @@ from CorAna.Logger                 import logger
 #---------------------
 #  Class definition --
 #---------------------
-class GUISetupPars ( QtGui.QWidget ) :
+class GUISetupPars ( QtWidgets.QWidget ) :
     """GUI sets setup parameters"""
 
     #----------------
@@ -43,43 +43,43 @@ class GUISetupPars ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 500, 30)
         self.setWindowTitle('Setup Parameters')
         self.setFrame()
 
         #self.tit_bat_num_max     = QtGui.QLabel('Batches To Be Analysied:')
         #self.tit_bat_num         = QtGui.QLabel('View and Edit Batch #')
-        self.tit_bat             = QtGui.QLabel('Setup Parameters:')
-        self.tit_bat_start       = QtGui.QLabel('start')
-        self.tit_bat_end         = QtGui.QLabel('end')
-        self.tit_bat_total       = QtGui.QLabel('total')
-        self.tit_bat_time        = QtGui.QLabel(u'\u0394t(sec)')
-        self.tit_bat_data        = QtGui.QLabel('data')
-        self.tit_bat_dark        = QtGui.QLabel('dark')
-        self.tit_bat_flat        = QtGui.QLabel('flat')
+        self.tit_bat             = QtWidgets.QLabel('Setup Parameters:')
+        self.tit_bat_start       = QtWidgets.QLabel('start')
+        self.tit_bat_end         = QtWidgets.QLabel('end')
+        self.tit_bat_total       = QtWidgets.QLabel('total')
+        self.tit_bat_time        = QtWidgets.QLabel(u'\u0394t(sec)')
+        self.tit_bat_data        = QtWidgets.QLabel('data')
+        self.tit_bat_dark        = QtWidgets.QLabel('dark')
+        self.tit_bat_flat        = QtWidgets.QLabel('flat')
 
         #self.but_bat_num         = QtGui.QPushButton(str( cp.bat_num       .value() ) + self.char_expand  ) 
         #self.edi_bat_num_max     = QtGui.QLineEdit ( str( cp.bat_num_max   .value() ) )        
-        self.edi_bat_data_start  = QtGui.QLineEdit ( str( cp.bat_data_start.value() ) )        
-        self.edi_bat_data_end    = QtGui.QLineEdit ( str( cp.bat_data_end  .value() ) )        
-        self.edi_bat_data_total  = QtGui.QLineEdit ( str( cp.bat_data_total.value() ) )        
-        self.edi_bat_data_time   = QtGui.QLineEdit ( str( cp.bat_data_time .value() ) )        
-        self.edi_bat_dark_start  = QtGui.QLineEdit ( str( cp.bat_dark_start.value() ) )        
-        self.edi_bat_dark_end    = QtGui.QLineEdit ( str( cp.bat_dark_end  .value() ) )        
-        self.edi_bat_dark_total  = QtGui.QLineEdit ( str( cp.bat_dark_total.value() ) )        
-        self.edi_bat_dark_time   = QtGui.QLineEdit ( str( cp.bat_dark_time .value() ) )        
-        self.edi_bat_flat_start  = QtGui.QLineEdit ( str( cp.bat_flat_start.value() ) )        
-        self.edi_bat_flat_end    = QtGui.QLineEdit ( str( cp.bat_flat_end  .value() ) )        
-        self.edi_bat_flat_total  = QtGui.QLineEdit ( str( cp.bat_flat_total.value() ) )        
-        self.edi_bat_flat_time   = QtGui.QLineEdit ( str( cp.bat_flat_time .value() ) )        
+        self.edi_bat_data_start  = QtWidgets.QLineEdit ( str( cp.bat_data_start.value() ) )        
+        self.edi_bat_data_end    = QtWidgets.QLineEdit ( str( cp.bat_data_end  .value() ) )        
+        self.edi_bat_data_total  = QtWidgets.QLineEdit ( str( cp.bat_data_total.value() ) )        
+        self.edi_bat_data_time   = QtWidgets.QLineEdit ( str( cp.bat_data_time .value() ) )        
+        self.edi_bat_dark_start  = QtWidgets.QLineEdit ( str( cp.bat_dark_start.value() ) )        
+        self.edi_bat_dark_end    = QtWidgets.QLineEdit ( str( cp.bat_dark_end  .value() ) )        
+        self.edi_bat_dark_total  = QtWidgets.QLineEdit ( str( cp.bat_dark_total.value() ) )        
+        self.edi_bat_dark_time   = QtWidgets.QLineEdit ( str( cp.bat_dark_time .value() ) )        
+        self.edi_bat_flat_start  = QtWidgets.QLineEdit ( str( cp.bat_flat_start.value() ) )        
+        self.edi_bat_flat_end    = QtWidgets.QLineEdit ( str( cp.bat_flat_end  .value() ) )        
+        self.edi_bat_flat_total  = QtWidgets.QLineEdit ( str( cp.bat_flat_total.value() ) )        
+        self.edi_bat_flat_time   = QtWidgets.QLineEdit ( str( cp.bat_flat_time .value() ) )        
 
 
         self.edi_bat_data_time.setReadOnly( True ) 
         self.edi_bat_dark_time.setReadOnly( True ) 
         self.edi_bat_flat_time.setReadOnly( True ) 
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         #self.grid.addWidget(self.tit_bat_num_max,                0, 0, 1, 4)
         #self.grid.addWidget(self.tit_bat_num    ,                1, 0, 1, 4)
         self.grid.addWidget(self.tit_bat        ,                0, 0, 1, 6)
@@ -110,12 +110,12 @@ class GUISetupPars ( QtGui.QWidget ) :
 
         #self.connect( self.but_bat_num        ,     QtCore.SIGNAL('clicked()'),          self.on_but_bat_num        )
         #self.connect( self.edi_bat_num_max    ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_bat_num_max    )
-        self.connect( self.edi_bat_data_start ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_bat_data_start )
-        self.connect( self.edi_bat_data_end   ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_bat_data_end   )
-        self.connect( self.edi_bat_dark_start ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_bat_dark_start )
-        self.connect( self.edi_bat_dark_end   ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_bat_dark_end   )
-        self.connect( self.edi_bat_flat_start ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_bat_flat_start )
-        self.connect( self.edi_bat_flat_end   ,     QtCore.SIGNAL('editingFinished ()'), self.on_edi_bat_flat_end   )
+        self.edi_bat_data_start.editingFinished .connect(self.on_edi_bat_data_start)
+        self.edi_bat_data_end.editingFinished .connect(self.on_edi_bat_data_end)
+        self.edi_bat_dark_start.editingFinished .connect(self.on_edi_bat_dark_start)
+        self.edi_bat_dark_end.editingFinished .connect(self.on_edi_bat_dark_end)
+        self.edi_bat_flat_start.editingFinished .connect(self.on_edi_bat_flat_start)
+        self.edi_bat_flat_end.editingFinished .connect(self.on_edi_bat_flat_end)
   
         self.showToolTips()
         self.setStyle()
@@ -147,8 +147,8 @@ class GUISetupPars ( QtGui.QWidget ) :
         self.edi_bat_flat_total.setToolTip( msg_info )
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -288,7 +288,7 @@ class GUISetupPars ( QtGui.QWidget ) :
 
     def setPopupMenuMode(self):
         self.list_of_nums = list(range(1,cp.bat_num_max.value()+1))
-        self.popupMenuMode = QtGui.QMenu()
+        self.popupMenuMode = QtWidgets.QMenu()
         for num in self.list_of_nums :
             self.popupMenuMode.addAction( str(num) )
 
@@ -305,7 +305,7 @@ class GUISetupPars ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUISetupPars ()
     widget.show()
     app.exec_()

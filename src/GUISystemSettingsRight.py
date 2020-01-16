@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -33,25 +33,25 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUISystemSettingsRight ( QtGui.QWidget ) :
+class GUISystemSettingsRight ( QtWidgets.QWidget ) :
     """GUI sets system parameters (right panel)"""
 
     #----------------
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 400, 150)
         self.setWindowTitle('System Settings Right')
         self.setFrame()
 
-        self.tit_thickness         = QtGui.QLabel('Thickness normalization options (transmission mode):')
-        self.edi_thickness_sample  = QtGui.QLineEdit( str( cp.thickness_sample.value() ) )        
-        self.edi_thickness_attlen  = QtGui.QLineEdit( str( cp.thickness_attlen.value() ) )        
-        self.rad_thickness_nonorm  = QtGui.QRadioButton('no thickness normalization')
-        self.rad_thickness_sample  = QtGui.QRadioButton('sample thickness [mm]')
-        self.rad_thickness_attlen  = QtGui.QRadioButton('sample attenuation length [mm]')
-        self.rad_thickness_grp     = QtGui.QButtonGroup()
+        self.tit_thickness         = QtWidgets.QLabel('Thickness normalization options (transmission mode):')
+        self.edi_thickness_sample  = QtWidgets.QLineEdit( str( cp.thickness_sample.value() ) )        
+        self.edi_thickness_attlen  = QtWidgets.QLineEdit( str( cp.thickness_attlen.value() ) )        
+        self.rad_thickness_nonorm  = QtWidgets.QRadioButton('no thickness normalization')
+        self.rad_thickness_sample  = QtWidgets.QRadioButton('sample thickness [mm]')
+        self.rad_thickness_attlen  = QtWidgets.QRadioButton('sample attenuation length [mm]')
+        self.rad_thickness_grp     = QtWidgets.QButtonGroup()
         self.rad_thickness_grp.addButton(self.rad_thickness_nonorm)
         self.rad_thickness_grp.addButton(self.rad_thickness_sample)
         self.rad_thickness_grp.addButton(self.rad_thickness_attlen)
@@ -61,20 +61,20 @@ class GUISystemSettingsRight ( QtGui.QWidget ) :
         else                                                           : self.rad_thickness_nonorm.setChecked(True)
 
         self.char_expand         = u' \u25BE' # down-head triangle
-        self.tit_detector   = QtGui.QLabel('Detector:')
-        self.tit_bat_queue  = QtGui.QLabel('Queue:')
+        self.tit_detector   = QtWidgets.QLabel('Detector:')
+        self.tit_bat_queue  = QtWidgets.QLabel('Queue:')
 
         self.list_of_dets   = cp.list_of_dets 
-        self.box_detector   = QtGui.QComboBox( self ) 
+        self.box_detector   = QtWidgets.QComboBox( self ) 
         self.box_detector .addItems(self.list_of_dets)
         self.box_detector .setCurrentIndex( self.list_of_dets.index(cp.detector.value()) )
 
         self.list_of_queues = ['psnehq','psfehq','psanacsq'] 
-        self.box_bat_queue  = QtGui.QComboBox( self ) 
+        self.box_bat_queue  = QtWidgets.QComboBox( self ) 
         self.box_bat_queue.addItems(self.list_of_queues)
         self.box_bat_queue.setCurrentIndex( self.list_of_queues.index(cp.bat_queue.value()) )
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
 
         self.grid_row = 0
         self.grid.addWidget(self.tit_thickness,        self.grid_row+1, 0, 1, 8)
@@ -88,20 +88,20 @@ class GUISystemSettingsRight ( QtGui.QWidget ) :
         self.grid.addWidget(self.tit_bat_queue,        self.grid_row+7, 0, 1, 2)
         self.grid.addWidget(self.box_bat_queue,        self.grid_row+7, 2, 1, 2)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.grid)
         self.vbox.addStretch(1)
 
         self.setLayout(self.vbox)
 
-        self.connect(self.rad_thickness_nonorm, QtCore.SIGNAL('clicked()'), self.onRadioThickness )
-        self.connect(self.rad_thickness_sample, QtCore.SIGNAL('clicked()'), self.onRadioThickness )
-        self.connect(self.rad_thickness_attlen, QtCore.SIGNAL('clicked()'), self.onRadioThickness )
+        self.rad_thickness_nonorm.clicked.connect(self.onRadioThickness)
+        self.rad_thickness_sample.clicked.connect(self.onRadioThickness)
+        self.rad_thickness_attlen.clicked.connect(self.onRadioThickness)
 
-        self.connect(self.edi_thickness_sample, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_thickness_attlen, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.box_bat_queue,        QtCore.SIGNAL('currentIndexChanged(int)'), self.on_box_bat_queue )
-        self.connect(self.box_detector,         QtCore.SIGNAL('currentIndexChanged(int)'), self.on_box_detector )
+        self.edi_thickness_sample.editingFinished.connect(self.onEdit)
+        self.edi_thickness_attlen.editingFinished.connect(self.onEdit)
+        self.box_bat_queue.currentIndexChanged[int].connect(self.on_box_bat_queue)
+        self.box_detector.currentIndexChanged[int].connect(self.on_box_detector)
 
         self.showToolTips()
         self.setStyle()
@@ -117,8 +117,8 @@ class GUISystemSettingsRight ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -217,7 +217,7 @@ class GUISystemSettingsRight ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUISystemSettingsRight ()
     widget.show()
     app.exec_()

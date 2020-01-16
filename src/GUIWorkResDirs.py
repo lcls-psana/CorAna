@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -35,32 +35,32 @@ import GlobalUtils          as     gu
 #---------------------
 #  Class definition --
 #---------------------
-class GUIWorkResDirs ( QtGui.QWidget ) :
+class GUIWorkResDirs ( QtWidgets.QWidget ) :
     """GUI for Work/Result directories"""
 
     #----------------
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 530, 150)
         self.setWindowTitle('Files')
         self.setFrame()
 
-        self.tit_dir_work = QtGui.QLabel('Work / Results output:')
+        self.tit_dir_work = QtWidgets.QLabel('Work / Results output:')
 
-        self.edi_dir_work = QtGui.QLineEdit( cp.dir_work.value() )        
-        self.but_dir_work = QtGui.QPushButton('Dir work:')
+        self.edi_dir_work = QtWidgets.QLineEdit( cp.dir_work.value() )        
+        self.but_dir_work = QtWidgets.QPushButton('Dir work:')
         self.edi_dir_work.setReadOnly( True )  
 
-        self.edi_dir_results = QtGui.QLineEdit( cp.dir_results.value() )        
-        self.but_dir_results = QtGui.QPushButton('Dir results:')
+        self.edi_dir_results = QtWidgets.QLineEdit( cp.dir_results.value() )        
+        self.but_dir_results = QtWidgets.QPushButton('Dir results:')
         self.edi_dir_results.setReadOnly( True )  
 
-        self.lab_fname_prefix = QtGui.QLabel('File prefix:')
-        self.edi_fname_prefix = QtGui.QLineEdit( cp.fname_prefix.value() )        
+        self.lab_fname_prefix = QtWidgets.QLabel('File prefix:')
+        self.edi_fname_prefix = QtWidgets.QLineEdit( cp.fname_prefix.value() )        
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid_row = 0
         self.grid.addWidget(self.tit_dir_work,      self.grid_row,   0, 1, 9)
         self.grid.addWidget(self.but_dir_work,      self.grid_row+1, 0)
@@ -71,9 +71,9 @@ class GUIWorkResDirs ( QtGui.QWidget ) :
         self.grid.addWidget(self.edi_fname_prefix,  self.grid_row+3, 1, 1, 4)
         self.setLayout(self.grid)
 
-        self.connect( self.but_dir_work,     QtCore.SIGNAL('clicked()'),          self.onButDirWork )
-        self.connect( self.but_dir_results,  QtCore.SIGNAL('clicked()'),          self.onButDirResults )
-        self.connect( self.edi_fname_prefix, QtCore.SIGNAL('editingFinished ()'), self.onEditPrefix )
+        self.but_dir_work.clicked.connect(self.onButDirWork)
+        self.but_dir_results.clicked.connect(self.onButDirResults)
+        self.edi_fname_prefix.editingFinished .connect(self.onEditPrefix)
 
         self.showToolTips()
         self.setStyle()
@@ -90,8 +90,8 @@ class GUIWorkResDirs ( QtGui.QWidget ) :
         self.edi_fname_prefix.setToolTip('Edit the common file prefix in this field')
         
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -159,7 +159,7 @@ class GUIWorkResDirs ( QtGui.QWidget ) :
         logger.debug('Select directory for ' + label, __name__)
         dir0 = par.value()
         path, name = os.path.split(dir0)
-        dir = str( QtGui.QFileDialog.getExistingDirectory(None,'Select directory for '+label,path) )
+        dir = str( QtWidgets.QFileDialog.getExistingDirectory(None,'Select directory for '+label,path) )
 
         if dir == dir0 or dir == '' :
             logger.info('Directiry for ' + label + ' has not been changed.', __name__)
@@ -180,7 +180,7 @@ class GUIWorkResDirs ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIWorkResDirs ()
     widget.show()
     app.exec_()

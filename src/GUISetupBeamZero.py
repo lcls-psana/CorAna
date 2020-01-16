@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,7 +34,7 @@ from CorAna.Logger             import logger
 #---------------------
 #  Class definition --
 #---------------------
-class GUISetupBeamZero ( QtGui.QWidget ) :
+class GUISetupBeamZero ( QtWidgets.QWidget ) :
     """GUI sets the beam coordinates w.r.t. camera frame for transmission/beam-zero mode"""
 
     #----------------
@@ -43,27 +43,27 @@ class GUISetupBeamZero ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 500, 30)
         self.setWindowTitle('Transmission parameters')
         self.setFrame()
  
-        self.tit_beam_zero = QtGui.QLabel('Transm. beam coords in full frame mode (pix):')
-        self.tit_x_coord   = QtGui.QLabel('x:')
-        self.tit_y_coord   = QtGui.QLabel('y:')
+        self.tit_beam_zero = QtWidgets.QLabel('Transm. beam coords in full frame mode (pix):')
+        self.tit_x_coord   = QtWidgets.QLabel('x:')
+        self.tit_y_coord   = QtWidgets.QLabel('y:')
 
-        self.tit_ccd_pos   = QtGui.QLabel('CCD Position In Beam Zero Meas. (mm):')
-        self.tit_x0_pos    = QtGui.QLabel('x:')
-        self.tit_y0_pos    = QtGui.QLabel('y:')
-
-
-        self.edi_x_coord   = QtGui.QLineEdit( str( cp.x_coord_beam0.value() ) )        
-        self.edi_y_coord   = QtGui.QLineEdit( str( cp.y_coord_beam0.value() ) )        
-        self.edi_x0_pos    = QtGui.QLineEdit( str( cp.x0_pos_in_beam0.value() ) )        
-        self.edi_y0_pos    = QtGui.QLineEdit( str( cp.y0_pos_in_beam0.value() ) )        
+        self.tit_ccd_pos   = QtWidgets.QLabel('CCD Position In Beam Zero Meas. (mm):')
+        self.tit_x0_pos    = QtWidgets.QLabel('x:')
+        self.tit_y0_pos    = QtWidgets.QLabel('y:')
 
 
-        self.grid = QtGui.QGridLayout()
+        self.edi_x_coord   = QtWidgets.QLineEdit( str( cp.x_coord_beam0.value() ) )        
+        self.edi_y_coord   = QtWidgets.QLineEdit( str( cp.y_coord_beam0.value() ) )        
+        self.edi_x0_pos    = QtWidgets.QLineEdit( str( cp.x0_pos_in_beam0.value() ) )        
+        self.edi_y0_pos    = QtWidgets.QLineEdit( str( cp.y0_pos_in_beam0.value() ) )        
+
+
+        self.grid = QtWidgets.QGridLayout()
         self.grid.addWidget(self.tit_beam_zero,     2, 0, 1, 8)
         self.grid.addWidget(self.tit_x_coord,       3, 2)
         self.grid.addWidget(self.tit_y_coord,       3, 4)
@@ -76,16 +76,16 @@ class GUISetupBeamZero ( QtGui.QWidget ) :
         self.grid.addWidget(self.edi_x0_pos ,       1, 3)
         self.grid.addWidget(self.edi_y0_pos ,       1, 5)
   
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.grid)
         self.vbox.addStretch(1) 
 
         self.setLayout(self.vbox)
 
-        self.connect( self.edi_x_coord,  QtCore.SIGNAL('editingFinished ()'), self.on_edi_x_coord )
-        self.connect( self.edi_y_coord,  QtCore.SIGNAL('editingFinished ()'), self.on_edi_y_coord )
-        self.connect( self.edi_x0_pos,   QtCore.SIGNAL('editingFinished ()'), self.on_edi_x0_pos )
-        self.connect( self.edi_y0_pos,   QtCore.SIGNAL('editingFinished ()'), self.on_edi_y0_pos )
+        self.edi_x_coord.editingFinished .connect(self.on_edi_x_coord)
+        self.edi_y_coord.editingFinished .connect(self.on_edi_y_coord)
+        self.edi_x0_pos.editingFinished .connect(self.on_edi_x0_pos)
+        self.edi_y0_pos.editingFinished .connect(self.on_edi_y0_pos)
  
  
         self.showToolTips()
@@ -103,8 +103,8 @@ class GUISetupBeamZero ( QtGui.QWidget ) :
         self.edi_y_coord.setToolTip( msg )
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -194,7 +194,7 @@ class GUISetupBeamZero ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUISetupBeamZero ()
     widget.show()
     app.exec_()

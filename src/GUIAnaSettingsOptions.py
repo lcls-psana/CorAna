@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -33,32 +33,32 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 #  Class definition --
 #---------------------
-class GUIAnaSettingsOptions ( QtGui.QWidget ) :
+class GUIAnaSettingsOptions ( QtWidgets.QWidget ) :
     """GUI sets options for analysis"""
 
     #----------------
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(20, 40, 370, 30)
         self.setWindowTitle('Analysis Options')
         self.setFrame()
 
-        self.tit_ana_opts        = QtGui.QLabel('Dynamic Analysis Options:')
-        self.tit_ana_opt1        = QtGui.QLabel('# of delays per multiple tau level:')
-        self.tit_ana_opt2        = QtGui.QLabel('# of slice delays per multiple tau level:')
-        self.edi_ana_opt1        = QtGui.QLineEdit( str( cp.ana_ndelays.value() ) )        
-        self.edi_ana_opt2        = QtGui.QLineEdit( str( cp.ana_nslice_delays.value() ) )        
-        self.edi_ana_opt3        = QtGui.QLineEdit( str( cp.ana_npix_to_smooth.value() ) )        
-        self.cbx_ana_smooth_norm = QtGui.QCheckBox('use smoothed sym. norm., Npix min:', self)
-        self.cbx_ana_two_corfuns = QtGui.QCheckBox('Two time correlation function control', self)
-        self.cbx_ana_spec_stab   = QtGui.QCheckBox('Check speckle stability', self)
+        self.tit_ana_opts        = QtWidgets.QLabel('Dynamic Analysis Options:')
+        self.tit_ana_opt1        = QtWidgets.QLabel('# of delays per multiple tau level:')
+        self.tit_ana_opt2        = QtWidgets.QLabel('# of slice delays per multiple tau level:')
+        self.edi_ana_opt1        = QtWidgets.QLineEdit( str( cp.ana_ndelays.value() ) )        
+        self.edi_ana_opt2        = QtWidgets.QLineEdit( str( cp.ana_nslice_delays.value() ) )        
+        self.edi_ana_opt3        = QtWidgets.QLineEdit( str( cp.ana_npix_to_smooth.value() ) )        
+        self.cbx_ana_smooth_norm = QtWidgets.QCheckBox('use smoothed sym. norm., Npix min:', self)
+        self.cbx_ana_two_corfuns = QtWidgets.QCheckBox('Two time correlation function control', self)
+        self.cbx_ana_spec_stab   = QtWidgets.QCheckBox('Check speckle stability', self)
         self.cbx_ana_smooth_norm.setChecked( cp.ana_smooth_norm.value() )
         self.cbx_ana_two_corfuns.setChecked( cp.ana_two_corfuns.value() )
         self.cbx_ana_spec_stab  .setChecked( cp.ana_spec_stab.value() )
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid.addWidget(self.tit_ana_opts,             0, 0, 1, 8)
         self.grid.addWidget(self.tit_ana_opt1,             1, 1, 1, 8)
         self.grid.addWidget(self.edi_ana_opt1,             1, 8)
@@ -69,19 +69,19 @@ class GUIAnaSettingsOptions ( QtGui.QWidget ) :
         self.grid.addWidget(self.cbx_ana_two_corfuns,      4, 1, 1, 8)
         self.grid.addWidget(self.cbx_ana_spec_stab,        5, 1, 1, 8)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.grid)
         self.vbox.addStretch(1)
 
         self.setLayout(self.vbox)
 
-        self.connect(self.edi_ana_opt1, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_ana_opt2, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(self.edi_ana_opt3, QtCore.SIGNAL('editingFinished()'), self.onEdit )
+        self.edi_ana_opt1.editingFinished.connect(self.onEdit)
+        self.edi_ana_opt2.editingFinished.connect(self.onEdit)
+        self.edi_ana_opt3.editingFinished.connect(self.onEdit)
 
-        self.connect(self.cbx_ana_smooth_norm, QtCore.SIGNAL('stateChanged(int)'), self.onCBox )
-        self.connect(self.cbx_ana_two_corfuns, QtCore.SIGNAL('stateChanged(int)'), self.onCBox) 
-        self.connect(self.cbx_ana_spec_stab  , QtCore.SIGNAL('stateChanged(int)'), self.onCBox ) 
+        self.cbx_ana_smooth_norm.stateChanged[int].connect(self.onCBox)
+        self.cbx_ana_two_corfuns.stateChanged[int].connect(self.onCBox)
+        self.cbx_ana_spec_stab.stateChanged[int].connect(self.onCBox)
 
         self.showToolTips()
         self.setStyle()
@@ -96,8 +96,8 @@ class GUIAnaSettingsOptions ( QtGui.QWidget ) :
         self.tit_ana_opts.setToolTip('Change analysis options.')
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -202,7 +202,7 @@ class GUIAnaSettingsOptions ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIAnaSettingsOptions()
     widget.show()
     app.exec_()

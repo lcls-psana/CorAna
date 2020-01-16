@@ -48,17 +48,17 @@ import matplotlib.gridspec as gridspec
 from   matplotlib.ticker   import MaxNLocator, NullFormatter
 #from   matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------
 #  Class definition --
 #---------------------
 
-class PlotG2Widget (QtGui.QWidget) :
+class PlotG2Widget (QtWidgets.QWidget) :
     """Plot array as a graphic and as a histogram"""
 
     def __init__(self, parent=None, arrays=None, figsize=(10,10), title=''):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setWindowTitle('Matplotlib image embadded in Qt widget')
         self.setGeometry(10, 25, 1000, 700)
  
@@ -75,7 +75,7 @@ class PlotG2Widget (QtGui.QWidget) :
 
         #-----------------------------------
         self.canvas = self.fig.canvas
-        self.vbox = QtGui.QVBoxLayout()         # <=== Begin to combine layout 
+        self.vbox = QtWidgets.QVBoxLayout()         # <=== Begin to combine layout 
         self.vbox.addWidget(self.canvas)        # <=== Add figure 
         #self.vbox.addStretch(1)
         self.setLayout(self.vbox)
@@ -94,8 +94,8 @@ class PlotG2Widget (QtGui.QWidget) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -228,7 +228,7 @@ class PlotG2Widget (QtGui.QWidget) :
         #print 'AxesEnterEvent'
         if self.event_is_in_axgr(event) :
             #QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
-            QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeHorCursor))
+            QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeHorCursor))
             #QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeAllCursor))
 
 
@@ -236,12 +236,12 @@ class PlotG2Widget (QtGui.QWidget) :
         #print 'AxesLeaveEvent'
         try : self.curstext.remove()
         except : pass
-        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
 
     def processFigureLeaveEvent(self, event) :
         #print 'FigureLeaveEvent'
-        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
 
     def event_is_in_axgr(self, event) :
@@ -359,7 +359,7 @@ def print_array(arr, msg='') :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = PlotG2Widget(arrays=get_arrays_for_test())
     w.move(QtCore.QPoint(50,50))
     w.show()    

@@ -33,7 +33,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import time   # for sleep(sec)
 
 #-----------------------------
@@ -58,7 +58,7 @@ from GUIFileBrowser       import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIMain ( QtGui.QWidget ) :
+class GUIMain ( QtWidgets.QWidget ) :
     """Main GUI for the interactive analysis project.
 
     @see BaseClass
@@ -68,7 +68,7 @@ class GUIMain ( QtGui.QWidget ) :
 
         self.name = 'GUIMain'
         self.myapp = app
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(10, 25, 150, 500)
         self.setWindowTitle('Interactive Analysis')
@@ -77,21 +77,21 @@ class GUIMain ( QtGui.QWidget ) :
 
         self.setFrame()
  
-        self.titControl     = QtGui.QLabel('Control Panel')
-        self.butFiles       = QtGui.QPushButton('Files')    
-        self.butBatchInfo   = QtGui.QPushButton('Setup Info')    
-        self.butAnaSettings = QtGui.QPushButton('Analysis Settings')
-        self.butSystem      = QtGui.QPushButton('System')
-        self.butIntMon      = QtGui.QPushButton('Intensity Monitors')
-        self.butRun         = QtGui.QPushButton('Run')
-        self.butViewResults = QtGui.QPushButton('View Results')
-        self.butStop        = QtGui.QPushButton('Stop')
-        self.butSave        = QtGui.QPushButton('Save')
-        self.butExit        = QtGui.QPushButton('Exit')
-        self.butLogger      = QtGui.QPushButton('Logger')
-        self.butFBrowser    = QtGui.QPushButton('File Viewer')
+        self.titControl     = QtWidgets.QLabel('Control Panel')
+        self.butFiles       = QtWidgets.QPushButton('Files')    
+        self.butBatchInfo   = QtWidgets.QPushButton('Setup Info')    
+        self.butAnaSettings = QtWidgets.QPushButton('Analysis Settings')
+        self.butSystem      = QtWidgets.QPushButton('System')
+        self.butIntMon      = QtWidgets.QPushButton('Intensity Monitors')
+        self.butRun         = QtWidgets.QPushButton('Run')
+        self.butViewResults = QtWidgets.QPushButton('View Results')
+        self.butStop        = QtWidgets.QPushButton('Stop')
+        self.butSave        = QtWidgets.QPushButton('Save')
+        self.butExit        = QtWidgets.QPushButton('Exit')
+        self.butLogger      = QtWidgets.QPushButton('Logger')
+        self.butFBrowser    = QtWidgets.QPushButton('File Viewer')
 
-        self.vbox = QtGui.QVBoxLayout() 
+        self.vbox = QtWidgets.QVBoxLayout() 
         self.vbox.addWidget(self.titControl    )
         self.vbox.addWidget(self.butFiles      )
         self.vbox.addWidget(self.butBatchInfo  )
@@ -110,18 +110,18 @@ class GUIMain ( QtGui.QWidget ) :
 
         self.setLayout(self.vbox)
 
-        self.connect(self.butFiles      ,  QtCore.SIGNAL('clicked()'), self.onFiles   )
-        self.connect(self.butBatchInfo  ,  QtCore.SIGNAL('clicked()'), self.onBatchInfo   )
-        self.connect(self.butAnaSettings,  QtCore.SIGNAL('clicked()'), self.onAnaSettings )
-        self.connect(self.butSystem     ,  QtCore.SIGNAL('clicked()'), self.onSystem      )
-        self.connect(self.butIntMon     ,  QtCore.SIGNAL('clicked()'), self.onIntMon      )
-        self.connect(self.butRun        ,  QtCore.SIGNAL('clicked()'), self.onRun         )
-        self.connect(self.butViewResults,  QtCore.SIGNAL('clicked()'), self.onViewResults )
-        self.connect(self.butStop       ,  QtCore.SIGNAL('clicked()'), self.onStop        )
-        self.connect(self.butSave       ,  QtCore.SIGNAL('clicked()'), self.onSave        )
-        self.connect(self.butExit       ,  QtCore.SIGNAL('clicked()'), self.onExit        )
-        self.connect(self.butLogger     ,  QtCore.SIGNAL('clicked()'), self.onLogger      )
-        self.connect(self.butFBrowser   ,  QtCore.SIGNAL('clicked()'), self.onFBrowser    )
+        self.butFiles.clicked.connect(self.onFiles)
+        self.butBatchInfo.clicked.connect(self.onBatchInfo)
+        self.butAnaSettings.clicked.connect(self.onAnaSettings)
+        self.butSystem.clicked.connect(self.onSystem)
+        self.butIntMon.clicked.connect(self.onIntMon)
+        self.butRun.clicked.connect(self.onRun)
+        self.butViewResults.clicked.connect(self.onViewResults)
+        self.butStop.clicked.connect(self.onStop)
+        self.butSave.clicked.connect(self.onSave)
+        self.butExit.clicked.connect(self.onExit)
+        self.butLogger.clicked.connect(self.onLogger)
+        self.butFBrowser.clicked.connect(self.onFBrowser)
 
         self.showToolTips()
         self.setStyle()
@@ -155,8 +155,8 @@ class GUIMain ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -371,7 +371,7 @@ class GUIMain ( QtGui.QWidget ) :
 #  In case someone decides to run this module
 #
 if __name__ == "__main__" :
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex  = GUIMain()
     ex.show()
     app.exec_()

@@ -41,7 +41,7 @@ import numpy as np
 import subprocess # for subprocess.Popen
 
 from CorAna.Logger import logger
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 import PyCSPadImage.CSPAD2x2ImageUtils as cspad2x2img
 import PyCSPadImage.CSPADImageUtils    as cspadimg
@@ -567,11 +567,11 @@ def get_text_list_from_file(fname) :
 
 def get_save_fname_through_dialog_box(parent, path0, dial_title, filter='*.txt'):       
 
-    path = str( QtGui.QFileDialog.getSaveFileName(parent,
+    path = str( QtWidgets.QFileDialog.getSaveFileName(parent,
                                                   caption   = dial_title,
                                                   directory = path0,
                                                   filter    = filter
-                                                  ) )
+                                                  ) )[0]
     if path == '' :
         logger.debug('Saving is cancelled.', __name__)
         return None
@@ -582,7 +582,7 @@ def get_save_fname_through_dialog_box(parent, path0, dial_title, filter='*.txt')
 
 def get_open_fname_through_dialog_box(parent, path0, dial_title, filter='*.txt'):       
 
-    path = str( QtGui.QFileDialog.getOpenFileName(parent, dial_title, path0, filter=filter) )
+    path = str( QtWidgets.QFileDialog.getOpenFileName(parent, dial_title, path0, filter=filter) )[0]
     dname, fname = os.path.split(path)
     if dname == '' or fname == '' :
         logger.info('Input directiry name or file name is empty... keep file path unchanged...')
@@ -595,9 +595,9 @@ def get_open_fname_through_dialog_box(parent, path0, dial_title, filter='*.txt')
 def confirm_dialog_box(parent=None, text='Please confirm that you aware!', title='Please acknowledge') :
         """Pop-up MODAL box for confirmation"""
 
-        mesbox = QtGui.QMessageBox(parent, windowTitle=title,
+        mesbox = QtWidgets.QMessageBox(parent, windowTitle=title,
                                            text=text,
-                                           standardButtons=QtGui.QMessageBox.Ok)
+                                           standardButtons=QtWidgets.QMessageBox.Ok)
                #standardButtons=QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel)
         #mesbox.setDefaultButton(QtGui.QMessageBox.Ok)
         #mesbox.setMinimumSize(400, 200)
@@ -622,9 +622,9 @@ def confirm_dialog_box(parent=None, text='Please confirm that you aware!', title
 def help_dialog_box(parent=None, text='Help message goes here', title='Help') :
         """Pop-up NON-MODAL box for help etc."""
 
-        mesbox = QtGui.QMessageBox(parent, windowTitle=title,
+        mesbox = QtWidgets.QMessageBox(parent, windowTitle=title,
                                            text=text,
-                                           standardButtons=QtGui.QMessageBox.Close)
+                                           standardButtons=QtWidgets.QMessageBox.Close)
         style = "background-color: rgb(255, 255, 220); color: rgb(0, 0, 0);" # Yellowish
         mesbox.setStyleSheet (style)
         mesbox.setWindowModality (QtCore.Qt.NonModal)

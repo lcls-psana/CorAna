@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -40,26 +40,26 @@ from MaskEditor             import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIBlemish ( QtGui.QWidget ) :
+class GUIBlemish ( QtWidgets.QWidget ) :
     """GUI sets the blemish file"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 530, 30)
         self.setWindowTitle('Blemish file')
         self.setFrame()
 
-        self.cbx_use = QtGui.QCheckBox('Use blemish correction', self)
+        self.cbx_use = QtWidgets.QCheckBox('Use blemish correction', self)
         self.cbx_use.setChecked( cp.ccdcorr_blemish.value() )
 
-        self.edi_path = QtGui.QLineEdit( fnm.path_blem() )        
+        self.edi_path = QtWidgets.QLineEdit( fnm.path_blem() )        
         self.edi_path.setReadOnly( True )   
-        self.but_path = QtGui.QPushButton('File:')
-        self.but_plot = QtGui.QPushButton('Plot')
-        self.but_brow = QtGui.QPushButton('View')
-        self.but_med  = QtGui.QPushButton('Mask Editor')
+        self.but_path = QtWidgets.QPushButton('File:')
+        self.but_plot = QtWidgets.QPushButton('Plot')
+        self.but_brow = QtWidgets.QPushButton('View')
+        self.but_med  = QtWidgets.QPushButton('Mask Editor')
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid_row = 1
         #self.grid.addWidget(self.tit_path, self.grid_row,   0)
         self.grid.addWidget(self.cbx_use,  self.grid_row,   0, 1, 6)
@@ -69,11 +69,11 @@ class GUIBlemish ( QtGui.QWidget ) :
         self.grid.addWidget(self.but_brow, self.grid_row+2, 1)
         self.grid.addWidget(self.but_med,  self.grid_row+2, 2)
 
-        self.connect(self.cbx_use,  QtCore.SIGNAL('stateChanged(int)'), self.onCBox ) 
-        self.connect(self.but_path, QtCore.SIGNAL('clicked()'), self.on_but_path )
-        self.connect(self.but_plot, QtCore.SIGNAL('clicked()'), self.on_but_plot )
-        self.connect(self.but_brow, QtCore.SIGNAL('clicked()'), self.on_but_browser )
-        self.connect(self.but_med,  QtCore.SIGNAL('clicked()'), self.on_but_med )
+        self.cbx_use.stateChanged[int].connect(self.onCBox)
+        self.but_path.clicked.connect(self.on_but_path)
+        self.but_plot.clicked.connect(self.on_but_plot)
+        self.but_brow.clicked.connect(self.on_but_browser)
+        self.but_med.clicked.connect(self.on_but_med)
 
         self.setLayout(self.grid)
 
@@ -94,8 +94,8 @@ class GUIBlemish ( QtGui.QWidget ) :
         self.cbx_use    .setToolTip('Check box \nto set and use \nblemish mask correction')
         
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -166,7 +166,7 @@ class GUIBlemish ( QtGui.QWidget ) :
     def on_but_path(self):
         logger.debug('Blemish file browser', __name__ )
         path = str(self.edi_path.text())        
-        path = str( QtGui.QFileDialog.getOpenFileName(self,'Select file',path) )
+        path = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select file',path) )[0]
         dname, fname = os.path.split(path)
 
         if dname == '' or fname == '' :
@@ -244,7 +244,7 @@ class GUIBlemish ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIBlemish ()
     widget.show()
     app.exec_()

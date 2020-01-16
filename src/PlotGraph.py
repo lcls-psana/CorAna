@@ -46,7 +46,7 @@ import matplotlib.pyplot as plt
 #print 'Backend:', matplotlib.get_backend()
 
 #from matplotlib.figure import Figure
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 #-----------------------------
 # Imports for other modules --
@@ -62,11 +62,11 @@ from ConfigParametersCorAna import confpars as cp
 #  Class definition --
 #---------------------
 
-class PlotGraph (QtGui.QWidget) :
+class PlotGraph (QtWidgets.QWidget) :
     """Plot for graphic arrays"""
 
     def __init__(self, parent=None, arrays=None, ofname='./fig_graphs.png', title='', axlabs=('','')):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(20, 40, 800, 600)
         self.setWindowTitle('Plot for G2 arrays')
         self.setFrame()
@@ -76,7 +76,7 @@ class PlotGraph (QtGui.QWidget) :
         self.widgbuts  = imgbuts.PlotArrayButtons(self, self.widgimage, ofname)#, help_msg)
   
         #---------------------
-        vbox = QtGui.QVBoxLayout()                      # <=== Begin to combine layout 
+        vbox = QtWidgets.QVBoxLayout()                      # <=== Begin to combine layout 
         #vbox.addWidget(self.widgimage)                 # <=== Add figure as QWidget
         vbox.addWidget(self.widgimage.getCanvas())      # <=== Add figure as FigureCanvas 
         vbox.addWidget(self.widgbuts)                   # <=== Add buttons         
@@ -86,8 +86,8 @@ class PlotGraph (QtGui.QWidget) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -142,7 +142,7 @@ def print_array(arr, msg='') :
     print('shape:', arr.shape)
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = PlotGraph(arrays=get_arrays_for_test(), ofname='./fig_gr.png', title='My title', axlabs=( r'$\tau$[sec] ', r'$g_{2}$' ))
     w.move(QtCore.QPoint(50,50))
     w.show()

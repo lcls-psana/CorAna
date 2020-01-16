@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -35,42 +35,42 @@ from GUIViewControl         import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIViewResults ( QtGui.QWidget ) :
+class GUIViewResults ( QtWidgets.QWidget ) :
     """GUI is intended for presentation of results."""
 
     def __init__ ( self, parent=None ) :
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(200, 400, 500, 200)
         self.setWindowTitle('View Results')
         self.setFrame()
  
-        self.tit_title  = QtGui.QLabel('View Results')
-        self.tit_status = QtGui.QLabel('Status: ')
-        self.but_close  = QtGui.QPushButton('Close') 
-        self.but_apply  = QtGui.QPushButton('Save') 
+        self.tit_title  = QtWidgets.QLabel('View Results')
+        self.tit_status = QtWidgets.QLabel('Status: ')
+        self.but_close  = QtWidgets.QPushButton('Close') 
+        self.but_apply  = QtWidgets.QPushButton('Save') 
 
         cp.guiviewcontrol  = GUIViewControl()
 
-        self.hboxM = QtGui.QHBoxLayout()
+        self.hboxM = QtWidgets.QHBoxLayout()
         self.hboxM.addWidget(cp.guiviewcontrol )
         #self.hboxM.addWidget(cp.guisystemsettingsright)
 
-        self.hboxB = QtGui.QHBoxLayout()
+        self.hboxB = QtWidgets.QHBoxLayout()
         self.hboxB.addWidget(self.tit_status)
         self.hboxB.addStretch(1)     
         self.hboxB.addWidget(self.but_close)
         self.hboxB.addWidget(self.but_apply)
 
-        self.vbox  = QtGui.QVBoxLayout()
+        self.vbox  = QtWidgets.QVBoxLayout()
         self.vbox.addWidget(self.tit_title)
         self.vbox.addLayout(self.hboxM)
         self.vbox.addLayout(self.hboxB)
         self.setLayout(self.vbox)
 
-        self.connect( self.but_close, QtCore.SIGNAL('clicked()'), self.onClose )
-        self.connect( self.but_apply, QtCore.SIGNAL('clicked()'), self.onSave  )
+        self.but_close.clicked.connect(self.onClose)
+        self.but_apply.clicked.connect(self.onSave)
 
         self.showToolTips()
         self.setStyle()
@@ -86,8 +86,8 @@ class GUIViewResults ( QtGui.QWidget ) :
         #self.but_show  .setToolTip('Show ...')
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -144,7 +144,7 @@ class GUIViewResults ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIViewResults ()
     widget.show()
     app.exec_()

@@ -28,7 +28,7 @@ __version__ = "$Revision$"
 #--------------------------------
 
 from BatchJob import *
-from PyQt4 import QtGui, QtCore # need it in order to use QtCore.QObject for connect
+from PyQt5 import QtCore # need it in order to use QtCore.QObject for connect
 
 #-----------------------------
 
@@ -264,12 +264,12 @@ class BatchJobCorAna( BatchJob, QtCore.QObject ) : # need in QtCore.QObject in o
 #-----------------------------
 
     def connectToThread1(self):
-        try : self.connect( cp.thread1, QtCore.SIGNAL('update(QString)'), self.updateStatus )
+        try : cp.thread1.update['QString'].connect(self.updateStatus)
         except : logger.warning('connectToThread1 IS FAILED !!!', __name__)
 
 
     def disconnectFromThread1(self):
-        try : self.disconnect( cp.thread1, QtCore.SIGNAL('update(QString)'), self.updateStatus )
+        try : cp.thread1.update['QString'].disconnect(self.updateStatus)
         except : logger.warning('disconnectFromThread1 IS FAILED !!!', __name__)
 
 

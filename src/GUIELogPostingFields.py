@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -56,7 +56,7 @@ class LocalParameter(object) :
 
 #---------------------
 
-class GUIELogPostingFields ( QtGui.QWidget ) :
+class GUIELogPostingFields ( QtWidgets.QWidget ) :
     """GUI sets fields for ELog posting"""
 
     ins = LocalParameter ()
@@ -68,7 +68,7 @@ class GUIELogPostingFields ( QtGui.QWidget ) :
     att = LocalParameter ()
 
     def __init__ ( self, parent=None, att_fname=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 530, 30)
         self.setWindowTitle('Fields for ELog posting')
         self.setFrame()
@@ -80,30 +80,30 @@ class GUIELogPostingFields ( QtGui.QWidget ) :
         #self.cbx_use.setChecked( cp.elog_post_cbx_state.value() )
 
         self.list_of_rad_types = ['Data', 'Dark', 'Saved', 'Default', 'Edit']
-        self.rad_grp = QtGui.QButtonGroup()
+        self.rad_grp = QtWidgets.QButtonGroup()
         self.list_of_rad = []
 
         for type in self.list_of_rad_types :
-            rad = QtGui.QRadioButton(type)
+            rad = QtWidgets.QRadioButton(type)
             self.list_of_rad.append(rad)
             self.rad_grp.addButton(rad)        
-            self.connect(rad, QtCore.SIGNAL('clicked()'), self.onRadio ) 
+            rad.clicked.connect(self.onRadio)
 
-        self.lab_ins = QtGui.QLabel('Ins:')
-        self.lab_exp = QtGui.QLabel('Exp:')
-        self.lab_run = QtGui.QLabel('Run:')
-        self.lab_tag = QtGui.QLabel('Tag:')
-        self.lab_res = QtGui.QLabel('Rsp:')
-        self.lab_msg = QtGui.QLabel('Msg:')
-        self.lab_att = QtGui.QLabel('Att:')
+        self.lab_ins = QtWidgets.QLabel('Ins:')
+        self.lab_exp = QtWidgets.QLabel('Exp:')
+        self.lab_run = QtWidgets.QLabel('Run:')
+        self.lab_tag = QtWidgets.QLabel('Tag:')
+        self.lab_res = QtWidgets.QLabel('Rsp:')
+        self.lab_msg = QtWidgets.QLabel('Msg:')
+        self.lab_att = QtWidgets.QLabel('Att:')
 
-        self.edi_ins = QtGui.QLineEdit( cp.elog_post_ins.value() ) 
-        self.edi_exp = QtGui.QLineEdit( cp.elog_post_exp.value() )
-        self.edi_run = QtGui.QLineEdit( cp.elog_post_run.value() )
-        self.edi_tag = QtGui.QLineEdit( cp.elog_post_tag.value() )
-        self.edi_res = QtGui.QLineEdit( cp.elog_post_res.value() )
-        self.edi_msg = QtGui.QLineEdit( cp.elog_post_msg.value() )
-        self.edi_att = QtGui.QLineEdit( cp.elog_post_att.value() )
+        self.edi_ins = QtWidgets.QLineEdit( cp.elog_post_ins.value() ) 
+        self.edi_exp = QtWidgets.QLineEdit( cp.elog_post_exp.value() )
+        self.edi_run = QtWidgets.QLineEdit( cp.elog_post_run.value() )
+        self.edi_tag = QtWidgets.QLineEdit( cp.elog_post_tag.value() )
+        self.edi_res = QtWidgets.QLineEdit( cp.elog_post_res.value() )
+        self.edi_msg = QtWidgets.QLineEdit( cp.elog_post_msg.value() )
+        self.edi_att = QtWidgets.QLineEdit( cp.elog_post_att.value() )
 
         self.edi_res.setValidator(QtGui.QIntValidator(0,9000000,self))
 
@@ -119,9 +119,9 @@ class GUIELogPostingFields ( QtGui.QWidget ) :
             [self.lab_att, self.edi_att, cp.elog_post_att, self.att] ]
 
         for [label, edi, par, loc_par] in self.list_of_fields :
-           self.connect(edi, QtCore.SIGNAL('editingFinished ()'), self.onEdit) 
+           edi.editingFinished .connect(self.onEdit)
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid_row = 0
         for col,rad in enumerate(self.list_of_rad) :
             self.grid.addWidget(rad, self.grid_row, col*2, 1, 2)
@@ -166,8 +166,8 @@ class GUIELogPostingFields ( QtGui.QWidget ) :
 
         
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -389,7 +389,7 @@ class GUIELogPostingFields ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIELogPostingFields ()
     widget.show()
     app.exec_()

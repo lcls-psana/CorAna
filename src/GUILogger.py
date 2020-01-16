@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -38,12 +38,12 @@ from FileNameManager        import fnm
 #---------------------
 #  Class definition --
 #---------------------
-class GUILogger ( QtGui.QWidget ) :
+class GUILogger ( QtWidgets.QWidget ) :
     """GUI for Logger"""
 
     def __init__ ( self, parent=None ) :
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(200, 400, 900, 500)
         self.setWindowTitle('GUI Logger')
@@ -51,23 +51,23 @@ class GUILogger ( QtGui.QWidget ) :
 
         self.setFrame()
 
-        self.box_txt    = QtGui.QTextEdit()
+        self.box_txt    = QtWidgets.QTextEdit()
  
         #self.tit_title  = QtGui.QLabel('Logger')
-        self.tit_status = QtGui.QLabel('Status:')
-        self.tit_level  = QtGui.QLabel('Verbosity level:')
-        self.but_close  = QtGui.QPushButton('&Close') 
-        self.but_save   = QtGui.QPushButton('&Save log-file') 
+        self.tit_status = QtWidgets.QLabel('Status:')
+        self.tit_level  = QtWidgets.QLabel('Verbosity level:')
+        self.but_close  = QtWidgets.QPushButton('&Close') 
+        self.but_save   = QtWidgets.QPushButton('&Save log-file') 
 
         self.list_of_levels = logger.getListOfLevels()
-        self.box_level      = QtGui.QComboBox( self ) 
+        self.box_level      = QtWidgets.QComboBox( self ) 
         self.box_level.addItems(self.list_of_levels)
         self.box_level.setCurrentIndex( self.list_of_levels.index(cp.log_level.value()) )
         
-        self.hboxM = QtGui.QHBoxLayout()
+        self.hboxM = QtWidgets.QHBoxLayout()
         self.hboxM.addWidget( self.box_txt )
 
-        self.hboxB = QtGui.QHBoxLayout()
+        self.hboxB = QtWidgets.QHBoxLayout()
         self.hboxB.addWidget(self.tit_status)
         self.hboxB.addStretch(4)     
         self.hboxB.addWidget(self.tit_level)
@@ -76,15 +76,15 @@ class GUILogger ( QtGui.QWidget ) :
         self.hboxB.addWidget(self.but_save)
         self.hboxB.addWidget(self.but_close)
 
-        self.vbox  = QtGui.QVBoxLayout()
+        self.vbox  = QtWidgets.QVBoxLayout()
         #self.vbox.addWidget(self.tit_title)
         self.vbox.addLayout(self.hboxM)
         self.vbox.addLayout(self.hboxB)
         self.setLayout(self.vbox)
         
-        self.connect( self.but_close, QtCore.SIGNAL('clicked()'), self.onClose )
-        self.connect( self.but_save,  QtCore.SIGNAL('clicked()'), self.onSave  )
-        self.connect( self.box_level, QtCore.SIGNAL('currentIndexChanged(int)'), self.onBox  )
+        self.but_close.clicked.connect(self.onClose)
+        self.but_save.clicked.connect(self.onSave)
+        self.box_level.currentIndexChanged[int].connect(self.onBox)
  
         self.startGUILog()
 
@@ -105,8 +105,8 @@ class GUILogger ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -185,16 +185,16 @@ class GUILogger ( QtGui.QWidget ) :
 
     def getConfirmation(self):
         """Pop-up box for confirmation"""
-        msg = QtGui.QMessageBox(self, windowTitle='Confirm closing!',
+        msg = QtWidgets.QMessageBox(self, windowTitle='Confirm closing!',
             text='You are about to close GUI Logger...\nIf the log-file is not saved it will be lost.',
-            standardButtons=QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel)
+            standardButtons=QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard | QtWidgets.QMessageBox.Cancel)
         msg.setDefaultButton(msg.Save)
 
         clicked = msg.exec_()
 
-        if   clicked == QtGui.QMessageBox.Save :
+        if   clicked == QtWidgets.QMessageBox.Save :
             logger.info('Saving is requested', __name__)
-        elif clicked == QtGui.QMessageBox.Discard :
+        elif clicked == QtWidgets.QMessageBox.Discard :
             logger.info('Discard is requested', __name__)
         else :
             logger.info('Cancel is requested', __name__)
@@ -246,7 +246,7 @@ class GUILogger ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUILogger ()
     widget.show()
     app.exec_()

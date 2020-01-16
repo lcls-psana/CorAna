@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -34,7 +34,7 @@ from CorAna.Logger                 import logger
 #---------------------
 #  Class definition --
 #---------------------
-class GUIConfigParameters ( QtGui.QWidget ) :
+class GUIConfigParameters ( QtWidgets.QWidget ) :
     """GUI works with configuration parameters management"""
 
     #----------------
@@ -43,7 +43,7 @@ class GUIConfigParameters ( QtGui.QWidget ) :
     def __init__ ( self, parent=None ) :
         """Constructor"""
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         #self.parent = cp.guimain
 
@@ -51,17 +51,17 @@ class GUIConfigParameters ( QtGui.QWidget ) :
         self.setWindowTitle('Configuration Parameters')
         self.setFrame()
         
-        self.titFile     = QtGui.QLabel('File with configuration parameters:')
-        self.titPars     = QtGui.QLabel('Operations on configuration parameters:')
-        self.butBrowse   = QtGui.QPushButton("View")
-        self.butRead     = QtGui.QPushButton("Read")
-        self.butWrite    = QtGui.QPushButton("Save")
-        self.butDefault  = QtGui.QPushButton("Reset default")
-        self.butPrint    = QtGui.QPushButton("Print current")
+        self.titFile     = QtWidgets.QLabel('File with configuration parameters:')
+        self.titPars     = QtWidgets.QLabel('Operations on configuration parameters:')
+        self.butBrowse   = QtWidgets.QPushButton("View")
+        self.butRead     = QtWidgets.QPushButton("Read")
+        self.butWrite    = QtWidgets.QPushButton("Save")
+        self.butDefault  = QtWidgets.QPushButton("Reset default")
+        self.butPrint    = QtWidgets.QPushButton("Print current")
         #self.butClose    = QtGui.QPushButton("Close")
-        self.fnameEdit   = QtGui.QLineEdit( cp.fname_cp.value() )        
+        self.fnameEdit   = QtWidgets.QLineEdit( cp.fname_cp.value() )        
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         grid.addWidget(self.titFile,       0, 0, 1, 4)
         grid.addWidget(self.fnameEdit,     1, 0, 1, 4)
         grid.addWidget(self.butBrowse,     1, 4)
@@ -73,12 +73,12 @@ class GUIConfigParameters ( QtGui.QWidget ) :
         #grid.addWidget(self.butClose,      3, 4)
         self.setLayout(grid)
 
-        self.connect(self.fnameEdit,    QtCore.SIGNAL('editingFinished ()'), self.onFileEdit     )
-        self.connect(self.butRead,      QtCore.SIGNAL('clicked()'),          self.onRead         )
-        self.connect(self.butWrite,     QtCore.SIGNAL('clicked()'),          self.onSave         )
-        self.connect(self.butPrint,     QtCore.SIGNAL('clicked()'),          self.onPrint        )
-        self.connect(self.butDefault,   QtCore.SIGNAL('clicked()'),          self.onDefault      )
-        self.connect(self.butBrowse,    QtCore.SIGNAL('clicked()'),          self.onBrowse       )
+        self.fnameEdit.editingFinished .connect(self.onFileEdit)
+        self.butRead.clicked.connect(self.onRead)
+        self.butWrite.clicked.connect(self.onSave)
+        self.butPrint.clicked.connect(self.onPrint)
+        self.butDefault.clicked.connect(self.onDefault)
+        self.butBrowse.clicked.connect(self.onBrowse)
         #self.connect(self.butClose,     QtCore.SIGNAL('clicked()'),          self.onClose        )
 
         self.showToolTips()
@@ -101,8 +101,8 @@ class GUIConfigParameters ( QtGui.QWidget ) :
         #self.butClose  .setToolTip('Close this window.')
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -182,7 +182,7 @@ class GUIConfigParameters ( QtGui.QWidget ) :
         self.dname,self.fname = os.path.split(self.path)
         logger.info('dname : %s' % (self.dname), __name__)
         logger.info('fname : %s' % (self.fname), __name__)
-        self.path = str( QtGui.QFileDialog.getOpenFileName(self,'Open file',self.dname) )
+        self.path = str( QtWidgets.QFileDialog.getOpenFileName(self,'Open file',self.dname) )[0]
         self.dname,self.fname = os.path.split(self.path)
 
         if self.dname == '' or self.fname == '' :
@@ -206,7 +206,7 @@ class GUIConfigParameters ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIConfigParameters ()
     widget.show()
     app.exec_()

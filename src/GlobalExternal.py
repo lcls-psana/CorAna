@@ -183,7 +183,7 @@ def map_image_refl(s, alpha, beam0, beam_s, pixel_size, sample_detector, energy,
 import sys
 from time import localtime, gmtime, strftime, clock, time, sleep
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 import PlotImgSpe as pis
 from ConfigParametersCorAna import confpars as cp
 
@@ -259,7 +259,7 @@ def get_array2d_for_test() :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     #w  = pis.PlotImgSpe(None, get_array2d_for_test())
     #w  = pis.PlotImgSpe(None, get_q_map_transition())
     w  = pis.PlotImgSpe(None, get_q_map_reflection())

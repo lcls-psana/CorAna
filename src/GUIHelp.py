@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -35,12 +35,12 @@ from CorAna.Logger                 import logger
 #---------------------
 #  Class definition --
 #---------------------
-class GUIHelp ( QtGui.QWidget ) :
+class GUIHelp ( QtWidgets.QWidget ) :
     """GUI Help"""
 
     def __init__ ( self, parent=None, msg='No message in GUIHelp...' ) :
 
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
 
         self.setGeometry(100, 100, 730, 200)
         self.setWindowTitle('GUI Help')
@@ -48,24 +48,24 @@ class GUIHelp ( QtGui.QWidget ) :
         except : pass
         self.setFrame()
 
-        self.box_txt    = QtGui.QTextEdit()
-        self.tit_status = QtGui.QLabel('Status:')
-        self.but_close  = QtGui.QPushButton('Close') 
+        self.box_txt    = QtWidgets.QTextEdit()
+        self.tit_status = QtWidgets.QLabel('Status:')
+        self.but_close  = QtWidgets.QPushButton('Close') 
 
-        self.hboxM = QtGui.QHBoxLayout()
+        self.hboxM = QtWidgets.QHBoxLayout()
         self.hboxM.addWidget( self.box_txt )
 
-        self.hboxB = QtGui.QHBoxLayout()
+        self.hboxB = QtWidgets.QHBoxLayout()
         self.hboxB.addWidget(self.tit_status)
         self.hboxB.addStretch(4)     
         self.hboxB.addWidget(self.but_close)
 
-        self.vbox  = QtGui.QVBoxLayout()
+        self.vbox  = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.hboxM)
         self.vbox.addLayout(self.hboxB)
         self.setLayout(self.vbox)
         
-        self.connect( self.but_close, QtCore.SIGNAL('clicked()'), self.onClose )
+        self.but_close.clicked.connect(self.onClose)
  
         self.setHelpMessage(msg)
 
@@ -82,8 +82,8 @@ class GUIHelp ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -151,7 +151,7 @@ class GUIHelp ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = GUIHelp()
     w.setHelpMessage('This is a test message to test methods of GUIHelp...')
     w.show()

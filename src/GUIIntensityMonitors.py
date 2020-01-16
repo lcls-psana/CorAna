@@ -22,7 +22,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -37,28 +37,28 @@ import GlobalUtils          as     gu
 #---------------------
 #  Class definition --
 #---------------------
-class GUIIntensityMonitors ( QtGui.QWidget ) :
+class GUIIntensityMonitors ( QtWidgets.QWidget ) :
     """GUI sets parameters for intensity monitors"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(100, 200, 850, 300)
         self.setWindowTitle('GUI for Intensity Monitors')
         self.setFrame()
 
         self.list_of_dicts   = []
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid_row = 1
         self.setTitleBar()
 
-        self.tit_title  = QtGui.QLabel('Intensity Monitors')
+        self.tit_title  = QtWidgets.QLabel('Intensity Monitors')
         self.grid.addWidget(self.tit_title, 0,   0, 1, 10)          
 
-        self.rad_nonorm = QtGui.QRadioButton('No norm.')
-        self.rad_sele_grp = QtGui.QButtonGroup()
+        self.rad_nonorm = QtWidgets.QRadioButton('No norm.')
+        self.rad_sele_grp = QtWidgets.QButtonGroup()
         self.rad_sele_grp.addButton(self.rad_nonorm)
-        self.connect(self.rad_nonorm, QtCore.SIGNAL('clicked()'), self.onRadio)
+        self.rad_nonorm.clicked.connect(self.onRadio)
 
         for i, (name, ch1, ch2, ch3, ch4, norm, sele, sele_min, sele_max, norm_ave, short_name) in enumerate(cp.imon_pars_list) :
             #print i, name.value(), ch1.value(), ch2.value(), ch3.value(), ch4.value()
@@ -83,8 +83,8 @@ class GUIIntensityMonitors ( QtGui.QWidget ) :
         self.setToolTip(msg)
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -105,7 +105,7 @@ class GUIIntensityMonitors ( QtGui.QWidget ) :
         list_of_sizes       = [170, 50, 50, 50, 50, 80, 50, 50, 60, 60, 60]
 
         for i,t in enumerate(self.list_of_titles) : 
-            label = QtGui.QLabel(t)
+            label = QtWidgets.QLabel(t)
             label.setStyleSheet(cp.styleLabel)
             label.setFixedHeight(10)
             label.setFixedWidth(list_of_sizes[i])
@@ -115,25 +115,25 @@ class GUIIntensityMonitors ( QtGui.QWidget ) :
 
     def guiSection(self, name, cbch1=None, cbch2=None, cbch3=None, cbch4=None,
                    norm=None, sele=None, sele_min=None, sele_max=None, norm_ave=None, short_name=None) :
-        edi      = QtGui.QLineEdit( str(short_name.value()) )        
-        but      = QtGui.QPushButton('Browse')
+        edi      = QtWidgets.QLineEdit( str(short_name.value()) )        
+        but      = QtWidgets.QPushButton('Browse')
         #box      = QtGui.QComboBox( self ) 
         #box.addItems(self.list_of_methods)
         #box.setCurrentIndex( self.list_of_methods.index(method.value()) )
-        cb1 = QtGui.QCheckBox('   +', self)
-        cb2 = QtGui.QCheckBox('   +', self)
-        cb3 = QtGui.QCheckBox('   +', self)
-        cb4 = QtGui.QCheckBox('   =', self)
+        cb1 = QtWidgets.QCheckBox('   +', self)
+        cb2 = QtWidgets.QCheckBox('   +', self)
+        cb3 = QtWidgets.QCheckBox('   +', self)
+        cb4 = QtWidgets.QCheckBox('   =', self)
 
-        rad = QtGui.QRadioButton('    ')
+        rad = QtWidgets.QRadioButton('    ')
         if norm.value() : rad.setChecked(True)
 
         self.rad_sele_grp.addButton(rad)
 
-        cbs = QtGui.QCheckBox('', self)
-        mis = QtGui.QLineEdit( str(sele_min.value()) )        
-        mas = QtGui.QLineEdit( str(sele_max.value()) )        
-        ave = QtGui.QLineEdit( str(norm_ave.value()) )        
+        cbs = QtWidgets.QCheckBox('', self)
+        mis = QtWidgets.QLineEdit( str(sele_min.value()) )        
+        mas = QtWidgets.QLineEdit( str(sele_max.value()) )        
+        ave = QtWidgets.QLineEdit( str(norm_ave.value()) )        
 
         sec_dict = { 0:(edi,short_name),
                      1:(cb1,cbch1),
@@ -154,10 +154,10 @@ class GUIIntensityMonitors ( QtGui.QWidget ) :
             self.grid.addWidget(fld, self.grid_row, col)
             if col>0 and col<5 or col==7 :
                 fld.setChecked( par.value() )
-                self.connect(fld, QtCore.SIGNAL('stateChanged(int)'), self.onCBox )
+                fld.stateChanged[int].connect(self.onCBox)
 
         self.grid_row += 1
-        self.connect(rad, QtCore.SIGNAL('clicked()'), self.onRadio)
+        rad.clicked.connect(self.onRadio)
 
 
         edi.setReadOnly( True )  
@@ -188,9 +188,9 @@ class GUIIntensityMonitors ( QtGui.QWidget ) :
         mas    .setFixedWidth(width)
         ave    .setFixedWidth(width)
 
-        self.connect(but, QtCore.SIGNAL('clicked()'),         self.onBut  )
-        self.connect(mis, QtCore.SIGNAL('editingFinished()'), self.onEdit )
-        self.connect(mas, QtCore.SIGNAL('editingFinished()'), self.onEdit )
+        but.clicked.connect(self.onBut)
+        mis.editingFinished.connect(self.onEdit)
+        mas.editingFinished.connect(self.onEdit)
 
 
     def setParent(self,parent) :
@@ -445,7 +445,7 @@ class GUIIntensityMonitors ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
 
     widget = GUIIntensityMonitors ()
     widget.show()

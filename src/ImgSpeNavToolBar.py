@@ -44,7 +44,7 @@ import numpy as np
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------
 #  Class definition --
@@ -116,7 +116,7 @@ class ImgSpeNavToolBar ( NavigationToolbar ) :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
 
     arr = np.arange(2400)
     arr.shape = (40,60)
@@ -127,11 +127,11 @@ def main():
     canvas = FigureCanvas(fig)
     mytb   = ImgSpeNavToolBar(canvas, None)
 
-    vbox = QtGui.QVBoxLayout()
+    vbox = QtWidgets.QVBoxLayout()
     vbox.addWidget(canvas)
     vbox.addWidget(mytb)
 
-    w = QtGui.QWidget()
+    w = QtWidgets.QWidget()
     w.setLayout(vbox)
     w.move(QtCore.QPoint(50,50))
     w.show()

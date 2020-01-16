@@ -29,7 +29,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from CorAna.Logger                 import logger
 from GUIHelp                import *
@@ -43,7 +43,7 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 
 #class PlotImgSpeButtons (QtGui.QMainWindow) :
-class PlotImgSpeButtons (QtGui.QWidget) :
+class PlotImgSpeButtons (QtWidgets.QWidget) :
     """Buttons for interactive plot of the image and spectrum for 2-d array."""
 
     #----------------
@@ -51,7 +51,7 @@ class PlotImgSpeButtons (QtGui.QWidget) :
     #----------------
 
     def __init__(self, parent=None, widgimage=None, ifname='', ofname='./fig.png', help_msg=None):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setWindowTitle('GUI of buttons')
 
         self.setFrame()
@@ -66,16 +66,16 @@ class PlotImgSpeButtons (QtGui.QWidget) :
         if help_msg is None : self.help_msg = self.help_message()
         else                : self.help_msg = help_msg
 
-        self.but_reset = QtGui.QPushButton('&Reset')
-        self.but_help  = QtGui.QPushButton('&Help')
-        self.but_load  = QtGui.QPushButton('Load')
-        self.but_save  = QtGui.QPushButton('&Save')
-        self.but_elog  = QtGui.QPushButton('&ELog') #u'\u2192 &ELog'
-        self.but_quit  = QtGui.QPushButton('&Close')
-        self.cbox_grid = QtGui.QCheckBox('&Grid')
-        self.cbox_log  = QtGui.QCheckBox('&Log')
-        self.tit_nbins = QtGui.QLabel('N bins:')
-        self.edi_nbins = QtGui.QLineEdit(self.stringOrNone(self.fig.myNBins))
+        self.but_reset = QtWidgets.QPushButton('&Reset')
+        self.but_help  = QtWidgets.QPushButton('&Help')
+        self.but_load  = QtWidgets.QPushButton('Load')
+        self.but_save  = QtWidgets.QPushButton('&Save')
+        self.but_elog  = QtWidgets.QPushButton('&ELog') #u'\u2192 &ELog'
+        self.but_quit  = QtWidgets.QPushButton('&Close')
+        self.cbox_grid = QtWidgets.QCheckBox('&Grid')
+        self.cbox_log  = QtWidgets.QCheckBox('&Log')
+        self.tit_nbins = QtWidgets.QLabel('N bins:')
+        self.edi_nbins = QtWidgets.QLineEdit(self.stringOrNone(self.fig.myNBins))
 
         self.set_buttons()
         self.setIcons()
@@ -95,15 +95,15 @@ class PlotImgSpeButtons (QtGui.QWidget) :
         self.but_save .setStyleSheet (cp.styleButton) 
         self.but_quit .setStyleSheet (cp.styleButtonBad) 
 
-        self.connect(self.but_help,  QtCore.SIGNAL('clicked()'),          self.on_but_help)
-        self.connect(self.but_reset, QtCore.SIGNAL('clicked()'),          self.on_but_reset)
-        self.connect(self.but_load,  QtCore.SIGNAL('clicked()'),          self.on_but_load)
-        self.connect(self.but_save,  QtCore.SIGNAL('clicked()'),          self.on_but_save)
-        self.connect(self.but_elog,  QtCore.SIGNAL('clicked()'),          self.on_but_elog)
-        self.connect(self.but_quit,  QtCore.SIGNAL('clicked()'),          self.on_but_quit)
-        self.connect(self.cbox_grid, QtCore.SIGNAL('stateChanged(int)'),  self.on_cbox_grid)
-        self.connect(self.cbox_log,  QtCore.SIGNAL('stateChanged(int)'),  self.on_cbox_log)
-        self.connect(self.edi_nbins, QtCore.SIGNAL('editingFinished ()'), self.on_edit_nbins)
+        self.but_help.clicked.connect(self.on_but_help)
+        self.but_reset.clicked.connect(self.on_but_reset)
+        self.but_load.clicked.connect(self.on_but_load)
+        self.but_save.clicked.connect(self.on_but_save)
+        self.but_elog.clicked.connect(self.on_but_elog)
+        self.but_quit.clicked.connect(self.on_but_quit)
+        self.cbox_grid.stateChanged[int].connect(self.on_cbox_grid)
+        self.cbox_log.stateChanged[int].connect(self.on_cbox_log)
+        self.edi_nbins.editingFinished .connect(self.on_edit_nbins)
 
         #self.setGridLayout()        
         self.setHBoxLayout()        
@@ -122,7 +122,7 @@ class PlotImgSpeButtons (QtGui.QWidget) :
 
 
     def setHBoxLayout(self):
-        self.hbox = QtGui.QHBoxLayout()
+        self.hbox = QtWidgets.QHBoxLayout()
         self.hbox.addWidget(self.but_help)
         self.hbox.addWidget(self.tit_nbins)
         self.hbox.addWidget(self.edi_nbins)
@@ -138,7 +138,7 @@ class PlotImgSpeButtons (QtGui.QWidget) :
 
 
     def setGridLayout(self):
-        self.grid = QtGui.QGridLayout() 
+        self.grid = QtWidgets.QGridLayout() 
         self.grid.addWidget(self.but_help,  0, 0)
         self.grid.addWidget(self.tit_nbins, 0, 1)
         self.grid.addWidget(self.edi_nbins, 0, 2)
@@ -164,8 +164,8 @@ class PlotImgSpeButtons (QtGui.QWidget) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -239,11 +239,11 @@ class PlotImgSpeButtons (QtGui.QWidget) :
         logger.debug('on_but_save', __name__ )
         path = self.ofname
         #dir, fname = os.path.split(path)
-        path  = str( QtGui.QFileDialog.getSaveFileName(self,
+        path  = str( QtWidgets.QFileDialog.getSaveFileName(self,
                                                        caption='Select file to save the plot',
                                                        directory = path,
                                                        filter = 'Image files(*.png *.eps *pdf *.ps)'
-                                                       ) )
+                                                       ) )[0]
         if path == '' :
             logger.debug('Saving is cancelled.', __name__ )
             return
@@ -299,10 +299,10 @@ class PlotImgSpeButtons (QtGui.QWidget) :
 
     def popup_confirmation_box(self):
         """Pop-up box for help"""
-        msg = QtGui.QMessageBox(self, windowTitle='Help for interactive plot',
+        msg = QtWidgets.QMessageBox(self, windowTitle='Help for interactive plot',
             text='This is a help',
-            #standardButtons=QtGui.QMessageBox.Save | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel)
-            standardButtons=QtGui.QMessageBox.Close)
+            #standardButtons=QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard | QtWidgets.QMessageBox.Cancel)
+            standardButtons=QtWidgets.QMessageBox.Close)
 
         msg.setDefaultButton(msg.Close)
         clicked = msg.exec_()
@@ -320,7 +320,7 @@ class PlotImgSpeButtons (QtGui.QWidget) :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
 
     w = PlotImgSpeButtons(None)
     w.move(QtCore.QPoint(50,50))

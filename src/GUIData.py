@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -43,44 +43,50 @@ from GUIFilesStatusTable    import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIData ( QtGui.QWidget ) :
+try:
+    QString = unicode
+except NameError:
+    # Python 3
+    QString = str
+
+class GUIData ( QtWidgets.QWidget ) :
     """GUI sets the data file"""
 
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(200, 400, 530, 30)
         self.setWindowTitle('Data file')
         self.setFrame()
 
-        self.cbx_data = QtGui.QCheckBox('Activate / protect buttons', self)
+        self.cbx_data = QtWidgets.QCheckBox('Activate / protect buttons', self)
         self.cbx_data.setChecked( cp.is_active_data_gui.value() )
 
-        self.cbx_all_chunks = QtGui.QCheckBox('Use all xtc chunks', self)
+        self.cbx_all_chunks = QtWidgets.QCheckBox('Use all xtc chunks', self)
         self.cbx_all_chunks.setChecked( cp.use_data_xtc_all.value() )
 
-        self.edi_path = QtGui.QLineEdit( fnm.path_data_xtc_cond() )        
+        self.edi_path = QtWidgets.QLineEdit( fnm.path_data_xtc_cond() )        
         self.edi_path.setReadOnly( True )   
 
-        self.lab_status = QtGui.QLabel('Status')
-        self.lab_batch  = QtGui.QLabel('Batch')
-        self.lab_start  = QtGui.QLabel('Start')
-        self.lab_end    = QtGui.QLabel('End')
-        self.lab_total  = QtGui.QLabel('Total')
-        self.lab_time   = QtGui.QLabel(u'\u0394t(sec)')
+        self.lab_status = QtWidgets.QLabel('Status')
+        self.lab_batch  = QtWidgets.QLabel('Batch')
+        self.lab_start  = QtWidgets.QLabel('Start')
+        self.lab_end    = QtWidgets.QLabel('End')
+        self.lab_total  = QtWidgets.QLabel('Total')
+        self.lab_time   = QtWidgets.QLabel(u'\u0394t(sec)')
 
-        self.edi_bat_start  = QtGui.QLineEdit ( str( cp.bat_data_start.value() ) )        
-        self.edi_bat_end    = QtGui.QLineEdit ( str( cp.bat_data_end  .value() ) )        
-        self.edi_bat_total  = QtGui.QLineEdit ( str( cp.bat_data_total.value() ) )        
-        self.edi_bat_time   = QtGui.QLineEdit ( str( cp.bat_data_time .value() ) )        
+        self.edi_bat_start  = QtWidgets.QLineEdit ( str( cp.bat_data_start.value() ) )        
+        self.edi_bat_end    = QtWidgets.QLineEdit ( str( cp.bat_data_end  .value() ) )        
+        self.edi_bat_total  = QtWidgets.QLineEdit ( str( cp.bat_data_total.value() ) )        
+        self.edi_bat_time   = QtWidgets.QLineEdit ( str( cp.bat_data_time .value() ) )        
  
-        self.but_path   = QtGui.QPushButton('File:')
-        self.but_plot   = QtGui.QPushButton('img-Plot')
-        self.but_tspl   = QtGui.QPushButton('t-Plot')
-        self.but_brow   = QtGui.QPushButton('View')
-        self.but_scan   = QtGui.QPushButton('Scan')
-        self.but_aver   = QtGui.QPushButton('Average')
-        self.but_status = QtGui.QPushButton('Check status')
-        self.but_remove = QtGui.QPushButton('Remove')
+        self.but_path   = QtWidgets.QPushButton('File:')
+        self.but_plot   = QtWidgets.QPushButton('img-Plot')
+        self.but_tspl   = QtWidgets.QPushButton('t-Plot')
+        self.but_brow   = QtWidgets.QPushButton('View')
+        self.but_scan   = QtWidgets.QPushButton('Scan')
+        self.but_aver   = QtWidgets.QPushButton('Average')
+        self.but_status = QtWidgets.QPushButton('Check status')
+        self.but_remove = QtWidgets.QPushButton('Remove')
 
         self.table_scan = GUIFilesStatusTable (parent=self, list_of_files=fnm.get_list_of_files_data_scan())
         self.table_aver = GUIFilesStatusTable (parent=self, list_of_files=fnm.get_list_of_files_data_aver())
@@ -89,7 +95,7 @@ class GUIData ( QtGui.QWidget ) :
         #self.table_scan.table.setFixedWidth(self.table_scan.table.horizontalHeader().length() + 4)
         #self.table_scan.table.setFixedHeight(self.table_scan.table.verticalHeader().length() + 29)
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid_row = 1
         self.grid.addWidget(self.cbx_data,      self.grid_row,   0, 1, 6)          
 
@@ -121,18 +127,18 @@ class GUIData ( QtGui.QWidget ) :
         self.grid.addWidget(self.table_scan,    self.grid_row+6, 0, 7, 8)
         self.grid.addWidget(self.table_aver,    self.grid_row+13,0, 4, 8)
 
-        self.connect(self.but_path,      QtCore.SIGNAL('clicked()'),         self.on_but_path )
-        self.connect(self.but_plot,      QtCore.SIGNAL('clicked()'),         self.on_but_plot )
-        self.connect(self.but_tspl,      QtCore.SIGNAL('clicked()'),         self.on_but_tspl )
-        self.connect(self.but_brow,      QtCore.SIGNAL('clicked()'),         self.on_but_brow )
-        self.connect(self.but_aver,      QtCore.SIGNAL('clicked()'),         self.on_but_aver )
-        self.connect(self.but_scan,      QtCore.SIGNAL('clicked()'),         self.on_but_scan )
-        self.connect(self.but_status,    QtCore.SIGNAL('clicked()'),         self.on_but_status )
-        self.connect(self.but_remove,    QtCore.SIGNAL('clicked()'),         self.on_but_remove )
-        self.connect(self.edi_bat_start, QtCore.SIGNAL('editingFinished()'), self.on_edi_bat_start )
-        self.connect(self.edi_bat_end,   QtCore.SIGNAL('editingFinished()'), self.on_edi_bat_end   )
-        self.connect(self.cbx_data,      QtCore.SIGNAL('stateChanged(int)'), self.on_cbx ) 
-        self.connect(self.cbx_all_chunks,QtCore.SIGNAL('stateChanged(int)'), self.on_cbx_all_chunks ) 
+        self.but_path.clicked.connect(self.on_but_path)
+        self.but_plot.clicked.connect(self.on_but_plot)
+        self.but_tspl.clicked.connect(self.on_but_tspl)
+        self.but_brow.clicked.connect(self.on_but_brow)
+        self.but_aver.clicked.connect(self.on_but_aver)
+        self.but_scan.clicked.connect(self.on_but_scan)
+        self.but_status.clicked.connect(self.on_but_status)
+        self.but_remove.clicked.connect(self.on_but_remove)
+        self.edi_bat_start.editingFinished.connect(self.on_edi_bat_start)
+        self.edi_bat_end.editingFinished.connect(self.on_edi_bat_end)
+        self.cbx_data.stateChanged[int].connect(self.on_cbx)
+        self.cbx_all_chunks.stateChanged[int].connect(self.on_cbx_all_chunks)
   
         self.setLayout(self.grid)
 
@@ -152,7 +158,7 @@ class GUIData ( QtGui.QWidget ) :
 
 
     def disconnectFromThread1(self):
-        try : self.disconnect( cp.thread1, QtCore.SIGNAL('update(QString)'), self.check_status )
+        try : cp.thread1.update['QString'].disconnect(self.check_status)
         except : pass
 
 
@@ -175,8 +181,8 @@ class GUIData ( QtGui.QWidget ) :
 
            
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -274,7 +280,7 @@ class GUIData ( QtGui.QWidget ) :
     def on_but_path(self):
         logger.debug('Data file browser', __name__ )
         path = str(self.edi_path.text())        
-        path = str( QtGui.QFileDialog.getOpenFileName(self,'Select file',path) )
+        path = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select file',path) )[0]
         dname, fname = os.path.split(path)
 
         if dname == '' or fname == '' :
@@ -504,7 +510,7 @@ class GUIData ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIData ()
     widget.show()
     app.exec_()

@@ -21,7 +21,7 @@ __version__ = "$Revision$"
 import sys
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #import time   # for sleep(sec)
 
 #-----------------------------
@@ -36,7 +36,7 @@ from GUIFileBrowser         import *
 #---------------------
 #  Class definition --
 #---------------------
-class GUIListOfTau ( QtGui.QWidget ) :
+class GUIListOfTau ( QtWidgets.QWidget ) :
     """GUI sets the list of tau indexes"""
 
     list_tau_options = ['auto', 'file']
@@ -45,27 +45,27 @@ class GUIListOfTau ( QtGui.QWidget ) :
     #  Constructor --
     #----------------
     def __init__ ( self, parent=None ) :
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setGeometry(20, 40, 390, 30)
         self.setWindowTitle('List of tau')
         self.setFrame()
 
-        self.tit_tau_list_set  = QtGui.QLabel(u'List of \u03C4 indexes:')  # tau = u"\u03C4"
-        self.rad_tau_list_auto = QtGui.QRadioButton('auto-generated (log-like)')
-        self.rad_tau_list_file = QtGui.QRadioButton('from file')
-        self.rad_tau_list_grp  = QtGui.QButtonGroup()
+        self.tit_tau_list_set  = QtWidgets.QLabel(u'List of \u03C4 indexes:')  # tau = u"\u03C4"
+        self.rad_tau_list_auto = QtWidgets.QRadioButton('auto-generated (log-like)')
+        self.rad_tau_list_file = QtWidgets.QRadioButton('from file')
+        self.rad_tau_list_grp  = QtWidgets.QButtonGroup()
         self.rad_tau_list_grp.addButton(self.rad_tau_list_auto)
         self.rad_tau_list_grp.addButton(self.rad_tau_list_file)
         if cp.ana_tau_list_type.value() == self.list_tau_options[0] : self.rad_tau_list_auto.setChecked(True)
         if cp.ana_tau_list_type.value() == self.list_tau_options[1] : self.rad_tau_list_file.setChecked(True)
 
-        self.but_file          = QtGui.QPushButton('File:')
-        self.but_brow          = QtGui.QPushButton('View/Edit')
-        self.but_reset         = QtGui.QPushButton('Reset')
-        self.edi_tau_list_file = QtGui.QLineEdit( fnm.path_tau_list() )       
+        self.but_file          = QtWidgets.QPushButton('File:')
+        self.but_brow          = QtWidgets.QPushButton('View/Edit')
+        self.but_reset         = QtWidgets.QPushButton('Reset')
+        self.edi_tau_list_file = QtWidgets.QLineEdit( fnm.path_tau_list() )       
         self.edi_tau_list_file.setReadOnly( True )  
 
-        self.grid = QtGui.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
 
         self.grid_row = 0
         self.grid.addWidget(self.tit_tau_list_set,      self.grid_row+1, 0, 1, 9)
@@ -76,17 +76,17 @@ class GUIListOfTau ( QtGui.QWidget ) :
         self.grid.addWidget(self.but_file,              self.grid_row+4, 0, 1, 2)
         self.grid.addWidget(self.edi_tau_list_file,     self.grid_row+4, 2, 1, 7)
 
-        self.vbox = QtGui.QVBoxLayout()
+        self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addLayout(self.grid)
         self.vbox.addStretch(1)
 
         self.setLayout(self.vbox)
 
-        self.connect( self.rad_tau_list_auto, QtCore.SIGNAL('clicked()'), self.onTauRadioGrp )
-        self.connect( self.rad_tau_list_file, QtCore.SIGNAL('clicked()'), self.onTauRadioGrp )
-        self.connect( self.but_file,          QtCore.SIGNAL('clicked()'), self.onButFile   )
-        self.connect( self.but_brow,          QtCore.SIGNAL('clicked()'), self.onButBrow   )
-        self.connect( self.but_reset,         QtCore.SIGNAL('clicked()'), self.onButReset  )
+        self.rad_tau_list_auto.clicked.connect(self.onTauRadioGrp)
+        self.rad_tau_list_file.clicked.connect(self.onTauRadioGrp)
+        self.but_file.clicked.connect(self.onButFile)
+        self.but_brow.clicked.connect(self.onButBrow)
+        self.but_reset.clicked.connect(self.onButReset)
 
         self.showToolTips()
         self.setStyle()
@@ -111,8 +111,8 @@ class GUIListOfTau ( QtGui.QWidget ) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -192,7 +192,7 @@ class GUIListOfTau ( QtGui.QWidget ) :
         if path is None : dname, fname = cp.ana_tau_list_fname.value_def(), cp.ana_tau_list_dname.value_def()
         else            : dname, fname = os.path.split(path)
 
-        path = str( QtGui.QFileDialog.getOpenFileName(self,'Select file',path) )
+        path = str( QtWidgets.QFileDialog.getOpenFileName(self,'Select file',path) )[0]
         dname, fname = os.path.split(path)
 
         if dname == '' or fname == '' :
@@ -227,7 +227,7 @@ class GUIListOfTau ( QtGui.QWidget ) :
 
 if __name__ == "__main__" :
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = GUIListOfTau ()
     widget.show()
     app.exec_()

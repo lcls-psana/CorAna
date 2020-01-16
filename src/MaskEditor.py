@@ -42,7 +42,7 @@ if __name__ == "__main__" :
 
 
 #from matplotlib.figure import Figure
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 #from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 #-----------------------------
 # Imports for other modules --
@@ -60,9 +60,10 @@ from ConfigParametersCorAna import confpars as cp
 #---------------------
 
 #class MaskEditor (QtGui.QMainWindow) :
-class MaskEditor (QtGui.QWidget) :
+class MaskEditor (QtWidgets.QWidget) :
     """Mask editor for 2d array"""
 
+    MaskEditorWindowIsClosed = QtCore.pyqtSignal()
 
     def __init__(self, parent=None, arr=None, xyc=None, ifname='', ofname='./fig.png', mfname='./roi-mask',
                  title='Mask editor', lw=1, col='b', picker=8, verb=False, ccd_rot=None, updown=None, fexmod=False):
@@ -79,7 +80,7 @@ class MaskEditor (QtGui.QWidget) :
         """
  
         #QtGui.QMainWindow.__init__(self, parent)
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         #self.setGeometry(20, 40, 500, 550)
         self.setGeometry(20, 40, 900, 900)
         self.setWindowTitle(title)
@@ -105,10 +106,10 @@ class MaskEditor (QtGui.QWidget) :
  
         #---------------------
 
-        hbox = QtGui.QHBoxLayout()      
+        hbox = QtWidgets.QHBoxLayout()      
         hbox.addWidget(self.widgmebuts)
         hbox.addWidget(self.widgimage.getCanvas())
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addLayout(hbox)
         vbox.addWidget(self.widgbuts)
         self.setLayout(vbox)
@@ -134,8 +135,8 @@ class MaskEditor (QtGui.QWidget) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken ) #Box, Panel | Sunken, Raised 
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -167,7 +168,7 @@ class MaskEditor (QtGui.QWidget) :
 
         #print 'Close application'
 
-        self.emit(QtCore.SIGNAL('MaskEditorWindowIsClosed()'))
+        self.MaskEditorWindowIsClosed.emit()
 
 
     def help_message(self):
@@ -233,7 +234,7 @@ def get_array2d_for_test() :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = MaskEditor(None, get_array2d_for_test(), xyc=(600,700), ccd_rot=90, updown=False)
     #w = MaskEditor(None, get_array2d_for_test(), xyc=(600,700))
     #w = MaskEditor(None)

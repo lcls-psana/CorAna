@@ -46,7 +46,7 @@ import matplotlib.gridspec as gridspec
 from   matplotlib.ticker import MaxNLocator, NullFormatter
 #from   matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 #---------------------
 
@@ -59,11 +59,11 @@ def arr_rot_n90(arr, rot_ang_n90=0) :
 
 #---------------------
 
-class PlotImgSpeWidget (QtGui.QWidget) :
+class PlotImgSpeWidget (QtWidgets.QWidget) :
     """Plots image and spectrum for 2d numpy array."""
 
     def __init__(self, parent=None, arr=None, rot_ang_n90=0, y_is_flip=False):
-        QtGui.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.setWindowTitle('Matplotlib image embadded in Qt widget')
         self.y_is_flip = y_is_flip
         self.rot_ang_n90 = int(rot_ang_n90)
@@ -75,7 +75,7 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         #-----------------------------------
         #self.canvas = FigureCanvas(self.fig)
         self.canvas = self.fig.canvas
-        self.vbox = QtGui.QVBoxLayout()         # <=== Begin to combine layout 
+        self.vbox = QtWidgets.QVBoxLayout()         # <=== Begin to combine layout 
         self.vbox.addWidget(self.canvas)        # <=== Add figure 
         self.setLayout(self.vbox)
         #-----------------------------------
@@ -132,8 +132,8 @@ class PlotImgSpeWidget (QtGui.QWidget) :
 
 
     def setFrame(self):
-        self.frame = QtGui.QFrame(self)
-        self.frame.setFrameStyle( QtGui.QFrame.Box | QtGui.QFrame.Sunken )
+        self.frame = QtWidgets.QFrame(self)
+        self.frame.setFrameStyle( QtWidgets.QFrame.Box | QtWidgets.QFrame.Sunken )
         self.frame.setLineWidth(0)
         self.frame.setMidLineWidth(1)
         self.frame.setGeometry(self.rect())
@@ -457,12 +457,12 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         #print 'AxesEnterEvent'
         if event.inaxes == self.axhi :
             #QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
-            QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeHorCursor))
+            QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeHorCursor))
             #QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeAllCursor))
 
         elif event.inaxes == self.axim :
             #QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeAllCursor))
-            QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+            QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
 
 
 
@@ -470,12 +470,12 @@ class PlotImgSpeWidget (QtGui.QWidget) :
         #print 'AxesLeaveEvent'
         try : self.curstext.remove()
         except : pass
-        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
 
     def processFigureLeaveEvent(self, event) :
         #print 'FigureLeaveEvent'
-        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
 
     def onMouseMotion(self, event) :
@@ -537,7 +537,7 @@ class PlotImgSpeWidget (QtGui.QWidget) :
             self.xpressabs = event.x
             self.ypressabs = event.y
             self.fig.myZoomIsOn = True
-            QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeAllCursor))
+            QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeAllCursor))
 
     def mousePressOnHistogram(self, event) :
         #print 'PressOnHistogram'
@@ -607,7 +607,7 @@ class PlotImgSpeWidget (QtGui.QWidget) :
                 fig.myYmin = int(min(self.ypress, self.yrelease))
                 fig.myYmax = int(max(self.ypress, self.yrelease))
 
-                QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeAllCursor))
+                QtWidgets.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.SizeAllCursor))
                 #QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.BusyCursor))
                 #print ' Xmin, Xmax, Ymin, Ymax =', fig.myXmin, fig.myXmax, fig.myYmin, fig.myYmax
                 #self.on_draw(fig.myXmin, fig.myXmax, fig.myYmin, fig.myYmax, fig.myZmin, fig.myZmax)
@@ -663,7 +663,7 @@ def get_array2d_for_test() :
 
 def main():
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
 
     w = PlotImgSpeWidget(None, get_array2d_for_test())
     #w = PlotImgSpeWidget(None)
